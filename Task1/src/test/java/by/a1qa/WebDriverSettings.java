@@ -1,21 +1,21 @@
 package by.a1qa;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WebDriverSettings {
-    protected WebDriver driver;
+    protected static WebDriver driver;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         System.setProperty("webdriver.chrome.driver", "/Users/Keks/IdeaProjects/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
-    @After
-    public void close() {
+    @AfterClass
+    public static void close() {
         driver.close();
     }
 }
