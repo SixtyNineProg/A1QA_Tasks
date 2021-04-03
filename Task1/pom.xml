@@ -10,7 +10,6 @@
 
 
     <dependencies>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -23,7 +22,6 @@
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
-
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
