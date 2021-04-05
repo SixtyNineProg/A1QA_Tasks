@@ -1,5 +1,6 @@
 package by.a1qa;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ public class WebDriverSettings {
 
     @BeforeClass
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "/Users/Keks/IdeaProjects/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
