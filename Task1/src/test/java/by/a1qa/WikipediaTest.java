@@ -48,7 +48,7 @@ public class WikipediaTest extends WebDriverSettings{
     private final static String XPATH_WIKIPEDIA_IMG_FEATURED_ARTICLE =
             "//div[@id='main-tfa']//div[@class='floatright']//img";
     private final static String XPATH_WIKIPEDIA_EXAMPLE_SIMPLE_TEXT =
-            "//div[@class='mw-parser-output']/table/tbody/tr[4]/td[2]/p/tt";
+            "//*[contains(text(), 'Обычный текст')]//following::td//p//tt";
     private final static String XPATH_WIKIPEDIA_BUTTON_SETTING_LANGUAGE = "//button[@class='uls-settings-trigger']";
     private final static String XPATH_WIKIPEDIA_LABEL_USER_NAME = "//label[@for='wpName1']";
     private final static String XPATH_FIELD_USER_NAME = "//input[@id='wpName1']";
@@ -57,9 +57,9 @@ public class WikipediaTest extends WebDriverSettings{
     private final static String XPATH_FIELD_CHECKBOX_REMEMBER = "//input[@id='wpRemember' and @type='checkbox']";
     private final static String XPATH_FIELD_BUTTON_LOGIN = "//button[@id='wpLoginAttempt']";
     private final static String XPATH_HREF_USER_LOGIN_HELP = "//div[contains(@class, 'mw-userlogin-help')]//a";
-    private final static String XPATH_HREF_PASSWORD_RESET = "//div[@class='mw-htmlform-field-HTMLInfoField " +
-            "mw-form-related-link-container mw-ui-vform-field']//a";
-    private final static String XPATH_HREF_JOIN_THE_PROJECT = "//div[@id='mw-createaccount-cta']//a";
+    private final static String XPATH_HREF_PASSWORD_RESET = "//div[contains(@class, " +
+            "'mw-form-related-link-container mw-ui-vform-field')]//a";
+    private final static String XPATH_HREF_JOIN_THE_PROJECT = "//*[@id='mw-createaccount-join']";
 
 
     @Test

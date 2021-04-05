@@ -17,6 +17,7 @@ public class WebDriverSettings {
 
     @AfterClass
     public static void close() {
-        driver.close();
+        if (driver != null)
+            driver.close();
     }
 }
