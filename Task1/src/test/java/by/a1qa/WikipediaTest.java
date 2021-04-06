@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 
 import java.util.concurrent.TimeUnit;
 
+import static by.a1qa.Constants.TIMEOUTS_IMPLICITLY_WAIT;
+
 public class WikipediaTest extends WebDriverSettings{
     private final static String URL_WIKIPEDIA_RU = "https://ru.wikipedia.org/";
     private final static String URL_WIKIPEDIA_EN = "https://en.wikipedia.org/";
@@ -48,7 +50,7 @@ public class WikipediaTest extends WebDriverSettings{
     private final static String XPATH_WIKIPEDIA_IMG_FEATURED_ARTICLE =
             "//div[@id='main-tfa']//div[@class='floatright']//img";
     private final static String XPATH_WIKIPEDIA_EXAMPLE_SIMPLE_TEXT =
-            "//div[@class='mw-parser-output']/table/tbody/tr[4]/td[2]/p/tt";
+            "//*[contains(text(), 'Обычный текст')]//following::td//p//tt";
     private final static String XPATH_WIKIPEDIA_BUTTON_SETTING_LANGUAGE = "//button[@class='uls-settings-trigger']";
     private final static String XPATH_WIKIPEDIA_LABEL_USER_NAME = "//label[@for='wpName1']";
     private final static String XPATH_FIELD_USER_NAME = "//input[@id='wpName1']";
@@ -57,13 +59,13 @@ public class WikipediaTest extends WebDriverSettings{
     private final static String XPATH_FIELD_CHECKBOX_REMEMBER = "//input[@id='wpRemember' and @type='checkbox']";
     private final static String XPATH_FIELD_BUTTON_LOGIN = "//button[@id='wpLoginAttempt']";
     private final static String XPATH_HREF_USER_LOGIN_HELP = "//div[contains(@class, 'mw-userlogin-help')]//a";
-    private final static String XPATH_HREF_PASSWORD_RESET = "//div[@class='mw-htmlform-field-HTMLInfoField mw-form-related-link-container mw-ui-vform-field']//a";
-    private final static String XPATH_HREF_JOIN_THE_PROJECT = "//div[@id='mw-createaccount-cta']//a";
+    private final static String XPATH_HREF_PASSWORD_RESET = "//div[contains(@class, 'mw-form-related-link-container mw-ui-vform-field')]//a";
+    private final static String XPATH_HREF_JOIN_THE_PROJECT = "//a[@id='mw-createaccount-join']";
 
 
     @Test
     public void getWikipediaTitleRu() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU);
         String actualTitle = driver.findElement(By.xpath(XPATH_WIKIPEDIA_TITLE_RU)).getText();
         Assert.assertEquals(EXPECTED_TITLE_WIKIPEDIA_RU, actualTitle);
@@ -71,7 +73,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaTitleEn() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_EN);
         String actualTitle = driver.findElement(By.xpath(XPATH_WIKIPEDIA_TITLE_EN)).getText();
         Assert.assertEquals(EXPECTED_TITLE_WIKIPEDIA_EN, actualTitle);
@@ -79,7 +81,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaUrlSaveAsPdf() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU);
         String actualUrl = driver.findElement(By.xpath(XPATH_WIKIPEDIA_SAVE_AS_PDF)).getAttribute("href");
         Assert.assertEquals(EXPECTED_URL_SAVE_AS_PDF_WIKIPEDIA, actualUrl);
@@ -87,7 +89,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaImgFeaturedArticle() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU);
         String tagName = driver.findElement(By.xpath(XPATH_WIKIPEDIA_IMG_FEATURED_ARTICLE)).getTagName();
         Assert.assertEquals(EXPECTED_IMG_FEATURED_ARTICLE, tagName);
@@ -95,7 +97,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaExampleSimpleText() {
-        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_CRIB);
         String text = driver.findElement(By.xpath(XPATH_WIKIPEDIA_EXAMPLE_SIMPLE_TEXT)).getText();
         Assert.assertEquals(EXPECTED_EXAMPLE_SIMPLE_TEXT, text);
@@ -103,7 +105,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaButtonSettingLanguage() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_CRIB);
         String attribute = driver.findElement(By.xpath(XPATH_WIKIPEDIA_BUTTON_SETTING_LANGUAGE)).getAttribute("class");
         Assert.assertEquals(EXPECTED_BUTTON_SETTING_LANGUAGE_CLASS, attribute);
@@ -111,7 +113,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginLabelUserName() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String label = driver.findElement(By.xpath(XPATH_WIKIPEDIA_LABEL_USER_NAME)).getText();
         Assert.assertEquals(EXPECTED_LABEL_USER_NAME, label);
@@ -119,7 +121,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginFieldUserName() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_FIELD_USER_NAME)).getAttribute("class");
         Assert.assertEquals(EXPECTED_FIELD_USER_NAME_CLASS, attribute);
@@ -127,7 +129,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginLabelPassword() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String label = driver.findElement(By.xpath(XPATH_WIKIPEDIA_LABEL_PASSWORD)).getText();
         Assert.assertEquals(EXPECTED_LABEL_PASSWORD, label);
@@ -135,7 +137,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginFieldPassword() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_FIELD_PASSWORD)).getAttribute("class");
         Assert.assertEquals(EXPECTED_FIELD_PASSWORD_CLASS, attribute);
@@ -143,7 +145,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginCheckBoxRemember() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_FIELD_CHECKBOX_REMEMBER)).getAttribute("class");
         Assert.assertEquals(EXPECTED_FIELD_CHECKBOX_CLASS, attribute);
@@ -151,7 +153,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginButtonLogin() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_FIELD_BUTTON_LOGIN)).getAttribute("value");
         Assert.assertEquals(EXPECTED_FIELD_BUTTON_LOGIN_VALUE, attribute);
@@ -159,7 +161,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginHrefUserLoginHelp() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_HREF_USER_LOGIN_HELP)).getAttribute("href");
         Assert.assertEquals(EXPECTED_HREF_USER_LOGIN_HELP, attribute);
@@ -167,7 +169,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginHrefPasswordReset() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_HREF_PASSWORD_RESET)).getAttribute("href");
         Assert.assertEquals(EXPECTED_HREF_PASSWORD_RESET, attribute);
@@ -175,7 +177,7 @@ public class WikipediaTest extends WebDriverSettings{
 
     @Test
     public void getWikipediaLoginHrefJoinTheProject() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(TIMEOUTS_IMPLICITLY_WAIT, TimeUnit.SECONDS);
         driver.get(URL_WIKIPEDIA_RU_LOGIN);
         String attribute = driver.findElement(By.xpath(XPATH_HREF_JOIN_THE_PROJECT)).getAttribute("href");
         Assert.assertEquals(EXPECTED_HREF_JOIN_THE_PROJECT, attribute);
