@@ -1,4 +1,4 @@
-package by.a1qa.klimov.utils;
+package by.a1qa.klimov.setting;
 
 import by.a1qa.klimov.utils.Constants;
 import by.a1qa.klimov.utils.WebDriverFactory;
