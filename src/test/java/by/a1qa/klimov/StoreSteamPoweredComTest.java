@@ -5,10 +5,8 @@ import by.a1qa.klimov.utils.WebDriverSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static by.a1qa.klimov.utils.Constants.STEAM_SHOP_URL;
