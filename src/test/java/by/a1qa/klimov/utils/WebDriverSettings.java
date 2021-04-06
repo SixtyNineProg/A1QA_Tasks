@@ -1,4 +1,4 @@
-package by.a1qa.klimov;
+package by.a1qa.klimov.utils;
 
 import by.a1qa.klimov.utils.Constants;
 import by.a1qa.klimov.utils.WebDriverFactory;
@@ -20,12 +20,12 @@ public class WebDriverSettings {
     protected static Properties property = new Properties();
 
     @BeforeSuite
-    public void setUp() {
+    public void setUp() throws IOException {
         try (FileInputStream fis = new FileInputStream("./config.properties")) {
             property.load(fis);
         } catch (IOException e) {
-            log.error(Constants.PROPERTY_FILE_UPLOAD_ERROR);
-            System.exit(0);
+            log.error(Constants.PROPERTY_FILE_UPLOAD_ERROR, e);
+            throw new IOException();
         }
 
         boolean proxyEnable = Boolean.parseBoolean(property.getProperty("useProxy"));
@@ -35,7 +35,7 @@ public class WebDriverSettings {
         String port = property.getProperty("proxyPort");
         String browserName = property.getProperty("browserName");
         browserName = browserName.toUpperCase().trim();
-        if (proxyEnable)
+        if (proxyEnable) {
             switch (browserName) {
                 case "CHROME":
                     WebDriverManager.chromedriver().proxy(login + ":" + password + "@" + host + ":" + port);
@@ -44,9 +44,9 @@ public class WebDriverSettings {
                     WebDriverManager.firefoxdriver().proxy(login + ":" + password + "@" + host + ":" + port);
                     break;
             }
+        }
         WebDriverManager.getInstance(DriverManagerType.valueOf(browserName)).setup();
         driver = WebDriverFactory.getWebDriver(browserName);
-        driver.get("https://ru.wikipedia.org/");
     }
 
     @AfterSuite
