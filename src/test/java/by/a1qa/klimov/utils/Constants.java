@@ -19,9 +19,7 @@ public class Constants {
     public static final String XPATH_SEARCH_BUTTON_SORT_PRICE_ASC = "//*[@id='Price_ASC']";
     public static final String XPATH_SEARCH_PRICE = "//div[contains(@class,'search_price_discount_combined')]";
 
-
     public static final String SEARCH_REQUEST = "The witcher";
-    public static final String WITHOUT_PRICE_FREE = "0";
     public static final Integer LIMIT_CHECKED_GAMES = 10;
 
     public static final String ATTRIBUTE_FOR_PRICE = "data-price-final";
