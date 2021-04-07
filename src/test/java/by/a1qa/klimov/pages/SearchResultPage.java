@@ -19,12 +19,16 @@ public class SearchResultPage {
         return driver.findElements(By.xpath(XPATH_SEARCH_RESULT_ELEMENTS));
     }
 
+    public List<WebElement> getPrices() {
+        return driver.findElements(By.xpath(XPATH_SEARCH_PRICE));
+    }
+
+    public WebElement getUniqueSearchElement() {
+        return driver.findElement(By.xpath(XPATH_SEARCH_RESULT_ELEMENT));
+    }
+
     public void sortGamesPriceAsc() {
         driver.findElement(By.xpath(XPATH_SEARCH_BUTTON_SORT)).click();
         driver.findElement(By.xpath(XPATH_SEARCH_BUTTON_SORT_PRICE_ASC)).click();
-    }
-
-    public List<WebElement> getSearchResultsAsText() {
-        return driver.findElements(By.xpath(XPATH_SEARCH_BUTTON_SORT_PRICE_ASC));
     }
 }
