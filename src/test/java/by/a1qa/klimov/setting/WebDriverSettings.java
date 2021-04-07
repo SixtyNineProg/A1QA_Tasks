@@ -19,12 +19,12 @@ public class WebDriverSettings {
     protected static Properties property = new Properties();
 
     @BeforeSuite
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         try (FileInputStream fis = new FileInputStream("./config.properties")) {
             property.load(fis);
         } catch (IOException e) {
             log.error(Constants.PROPERTY_FILE_UPLOAD_ERROR, e);
-            throw new IOException();
+            throw new Exception();
         }
 
         boolean proxyEnable = Boolean.parseBoolean(property.getProperty("useProxy"));
