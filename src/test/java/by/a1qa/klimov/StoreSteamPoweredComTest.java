@@ -11,7 +11,7 @@ import static by.a1qa.klimov.utils.Constants.SEARCH_REQUEST;
 public class StoreSteamPoweredComTest extends WebDriverSettings {
 
     @Test
-    public void steamTest() {
+    public void StoreSteampoweredComTest() {
         HomePage homePage = new HomePage(driver, property);
         homePage.open();
         boolean atHomePage = homePage.atPage();
