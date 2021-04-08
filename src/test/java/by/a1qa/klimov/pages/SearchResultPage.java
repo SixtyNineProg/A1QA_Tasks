@@ -25,16 +25,12 @@ public class SearchResultPage {
         return driver.findElements(By.xpath(XPATH_SEARCH_RESULT_ELEMENTS));
     }
 
-    public List<WebElement> getSearchResultWithLimit() {
-        return driver.findElements(By.xpath(XPATH_SEARCH_RESULT_ELEMENTS_WITH_LIMIT));
-    }
-
     public int getSizeSearchResult() {
         return getSearchResult().size();
     }
 
-    public List<WebElement> getPrices() {
-        return driver.findElements(By.xpath(XPATH_SEARCH_PRICE));
+    public List<WebElement> getPricesWithLimit(int limit) {
+        return driver.findElements(By.xpath(XPATH_SEARCH_PRICE+ "[position()<=" + limit + "]"));
     }
 
     public void sortGamesPriceAsc() {
@@ -56,17 +52,15 @@ public class SearchResultPage {
     }
 
     public boolean checkSortWebElementsByAsc() {
-        List<WebElement> searchResult = getPrices();
-        for (int i = 1; i < LIMIT_CHECKED_GAMES; i++) {
-            String firstStrPrice = searchResult.get(i - 1).getAttribute(ATTRIBUTE_FOR_PRICE);
-            String secondStrPrice = searchResult.get(i).getAttribute(ATTRIBUTE_FOR_PRICE);
-            int firstPrice;
-            int secondPrice;
+        List<WebElement> searchResult = getPricesWithLimit(LIMIT_CHECKED_GAMES);
+        for (int i = 0; i < searchResult.size() - 1; i++) {
+            String firstStrPrice = searchResult.get(i).getAttribute(ATTRIBUTE_FOR_PRICE);
+            String secondStrPrice = searchResult.get(i + 1).getAttribute(ATTRIBUTE_FOR_PRICE);
             if (firstStrPrice != null && secondStrPrice != null) {
-                firstPrice = firstStrPrice.equals("") ? 0 : Integer.parseInt(firstStrPrice);
-                secondPrice = secondStrPrice.equals("") ? 0 : Integer.parseInt(secondStrPrice);
+                int firstPrice = firstStrPrice.equals("") ? 0 : Integer.parseInt(firstStrPrice);
+                int secondPrice = secondStrPrice.equals("") ? 0 : Integer.parseInt(secondStrPrice);
+                if (!(firstPrice <= secondPrice)) return false;
             } else return false;
-            if (!(firstPrice <= secondPrice)) return false;
         }
         return true;
     }
