@@ -6,20 +6,18 @@ import by.a1qa.klimov.setting.WebDriverSettings;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static by.a1qa.klimov.utils.Constants.SEARCH_REQUEST;
-
 public class StoreSteamPoweredComTest extends WebDriverSettings {
 
     @Test
-    public void StoreSteampoweredComTest() {
-        HomePage homePage = new HomePage(driver, property);
+    public void StoreSteampoweredComTest() throws Exception {
+        HomePage homePage = new HomePage(driver);
         homePage.open();
         boolean atHomePage = homePage.atPage();
         Assert.assertTrue(atHomePage);
 
-        homePage.getSearchFieldAndInsertText(SEARCH_REQUEST);
+        homePage.getSearchFieldAndInsertText(dataProperties.getProperty("searchRequest"));
         homePage.getSearchButtonAndClick();
-        SearchResultPage searchResultPage = new SearchResultPage(driver, property);
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
         boolean atSearchPage = searchResultPage.atPage();
         Assert.assertTrue(atSearchPage);
         int size = searchResultPage.getSizeSearchResult();
@@ -30,6 +28,4 @@ public class StoreSteamPoweredComTest extends WebDriverSettings {
         boolean isSorted = searchResultPage.checkSortWebElementsByAsc();
         Assert.assertTrue(isSorted);
     }
-
-
 }

@@ -1,5 +1,6 @@
 package by.a1qa.klimov.pages;
 
+import by.a1qa.klimov.property.DataProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -9,12 +10,12 @@ import java.util.Properties;
 import static by.a1qa.klimov.utils.Constants.*;
 
 public class HomePage {
-    protected Properties properties;
+    private Properties dataProperties;
     protected WebDriver driver;
 
-    public HomePage(WebDriver driver, Properties properties) {
+    public HomePage(WebDriver driver) throws Exception {
         this.driver = driver;
-        this.properties = properties;
+        dataProperties = DataProperties.getProperties();
     }
 
     public void getSearchFieldAndInsertText(String text) {
@@ -34,6 +35,7 @@ public class HomePage {
     }
 
     public void open() {
-        driver.get(STEAM_SHOP_URL);
+        String url = dataProperties.getProperty("steamShopUrl");
+        driver.get(url);
     }
 }

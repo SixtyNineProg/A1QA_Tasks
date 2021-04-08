@@ -1,5 +1,7 @@
 package by.a1qa.klimov.pages;
 
+import by.a1qa.klimov.property.ConfigurationProperties;
+import by.a1qa.klimov.property.DataProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -13,12 +15,14 @@ import java.util.Properties;
 import static by.a1qa.klimov.utils.Constants.*;
 
 public class SearchResultPage {
-    protected Properties properties;
+    private Properties configProperties;
+    private Properties dataProperties;
     protected WebDriver driver;
 
-    public SearchResultPage(WebDriver driver, Properties properties) {
+    public SearchResultPage(WebDriver driver) throws Exception {
         this.driver = driver;
-        this.properties = properties;
+        configProperties = ConfigurationProperties.getProperties();
+        dataProperties = DataProperties.getProperties();
     }
 
     public List<WebElement> getSearchResult() {
@@ -47,12 +51,12 @@ public class SearchResultPage {
     }
 
     public void waitLoadingPageAfterSort() {
-        WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(properties.getProperty("waitLoadingPageSeconds")));
+        WebDriverWait wait = new WebDriverWait(driver, Long.parseLong(configProperties.getProperty("waitLoadingPageSeconds")));
         wait.until(ExpectedConditions.attributeToBe(By.xpath("//div[@id='search_result_container']"), "style", ""));
     }
 
     public boolean checkSortWebElementsByAsc() {
-        List<WebElement> searchResult = getPricesWithLimit(LIMIT_CHECKED_GAMES);
+        List<WebElement> searchResult = getPricesWithLimit(Integer.parseInt(dataProperties.getProperty("limitCheckedGames")));
         for (int i = 0; i < searchResult.size() - 1; i++) {
             String firstStrPrice = searchResult.get(i).getAttribute(ATTRIBUTE_FOR_PRICE);
             String secondStrPrice = searchResult.get(i + 1).getAttribute(ATTRIBUTE_FOR_PRICE);

@@ -1,6 +1,7 @@
 package by.a1qa.klimov.setting;
 
-import by.a1qa.klimov.utils.Constants;
+import by.a1qa.klimov.property.ConfigurationProperties;
+import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.utils.WebDriverFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
@@ -9,30 +10,25 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 @Slf4j
 public class WebDriverSettings {
     protected static WebDriver driver;
-    protected static Properties property = new Properties();
+    protected static Properties configProperties;
+    protected static Properties dataProperties;
 
     @BeforeSuite
     public void setUp() throws Exception {
-        try (FileInputStream fis = new FileInputStream("./config.properties")) {
-            property.load(fis);
-        } catch (IOException e) {
-            log.error(Constants.PROPERTY_FILE_UPLOAD_ERROR, e);
-            throw new Exception();
-        }
+        configProperties = ConfigurationProperties.getProperties();
+        dataProperties = DataProperties.getProperties();
 
-        boolean proxyEnable = Boolean.parseBoolean(property.getProperty("useProxy"));
-        String host = property.getProperty("proxyHost");
-        String login = property.getProperty("proxyLogin");
-        String password = property.getProperty("proxyPassword");
-        String port = property.getProperty("proxyPort");
-        String browserName = property.getProperty("browserName");
+        boolean proxyEnable = Boolean.parseBoolean(configProperties.getProperty("useProxy"));
+        String host = configProperties.getProperty("proxyHost");
+        String login = configProperties.getProperty("proxyLogin");
+        String password = configProperties.getProperty("proxyPassword");
+        String port = configProperties.getProperty("proxyPort");
+        String browserName = configProperties.getProperty("browserName");
         browserName = browserName.toUpperCase().trim();
         if (proxyEnable) {
             switch (browserName) {
