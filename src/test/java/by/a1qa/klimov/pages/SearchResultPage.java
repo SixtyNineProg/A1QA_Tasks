@@ -25,6 +25,10 @@ public class SearchResultPage {
         return driver.findElements(By.xpath(XPATH_SEARCH_RESULT_ELEMENTS));
     }
 
+    public List<WebElement> getSearchResultWithLimit() {
+        return driver.findElements(By.xpath(XPATH_SEARCH_RESULT_ELEMENTS_WITH_LIMIT));
+    }
+
     public int getSizeSearchResult() {
         return getSearchResult().size();
     }
@@ -40,12 +44,10 @@ public class SearchResultPage {
 
     public boolean atPage() {
         try {
-            driver.findElement(By.xpath(XPATH_LOGO_HOLDER_WITH_URL));
-            driver.findElement(By.xpath(XPATH_SEARCH_RESULT_ELEMENT));
+            return driver.findElement(By.xpath(XPATH_SEARCH_RESULT_ELEMENT)).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
-        return true;
     }
 
     public void waitLoadingPageAfterSort() {

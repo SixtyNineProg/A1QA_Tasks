@@ -27,12 +27,10 @@ public class HomePage {
 
     public boolean atPage() {
         try {
-            driver.findElement(By.xpath(XPATH_LOGO_HOLDER_WITH_URL));
-            driver.findElement(By.xpath(XPATH_HOME_CLUSTER));
+            return driver.findElement(By.xpath(XPATH_HOME_CLUSTER)).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
-        return true;
     }
 
     public void open() {
