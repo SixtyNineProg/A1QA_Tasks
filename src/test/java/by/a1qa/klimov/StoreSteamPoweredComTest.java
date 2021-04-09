@@ -6,10 +6,13 @@ import by.a1qa.klimov.setting.WebDriverSettings;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class StoreSteamPoweredComTest extends WebDriverSettings {
 
     @Test
     public void StoreSteampoweredComTest() throws Exception {
+        driver.manage().timeouts().implicitlyWait(Long.parseLong(configProperties.getProperty("implicitlyWait")), TimeUnit.SECONDS);
         HomePage homePage = new HomePage(driver);
         homePage.open();
         boolean atHomePage = homePage.atPage();
