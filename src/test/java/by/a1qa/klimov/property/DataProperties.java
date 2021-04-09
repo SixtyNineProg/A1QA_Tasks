@@ -13,7 +13,7 @@ public class DataProperties {
 
     public static Properties getProperties() throws Exception {
         if (properties == null) {
-            try (FileInputStream fis = new FileInputStream("./data.properties")) {
+            try (FileInputStream fis = new FileInputStream("./src/test/resources/data.properties")) {
                 properties = new Properties();
                 properties.load(fis);
             } catch (IOException e) {

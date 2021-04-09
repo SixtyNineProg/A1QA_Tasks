@@ -1,7 +1,7 @@
-package by.a1qa.klimov;
+package by.a1qa.klimov.tests;
 
-import by.a1qa.klimov.pages.HomePage;
-import by.a1qa.klimov.pages.SearchResultPage;
+import by.a1qa.klimov.pageobjects.HomePage;
+import by.a1qa.klimov.pageobjects.SearchResultPage;
 import by.a1qa.klimov.setting.WebDriverSettings;
 import org.testng.Assert;
 import org.testng.annotations.Test;

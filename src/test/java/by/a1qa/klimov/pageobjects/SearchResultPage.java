@@ -1,4 +1,4 @@
-package by.a1qa.klimov.pages;
+package by.a1qa.klimov.pageobjects;
 
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.property.DataProperties;

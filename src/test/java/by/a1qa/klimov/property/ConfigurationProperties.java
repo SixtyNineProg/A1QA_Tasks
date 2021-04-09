@@ -13,7 +13,7 @@ public class ConfigurationProperties {
 
     public static Properties getProperties() throws Exception {
         if (properties == null) {
-            try (FileInputStream fis = new FileInputStream("./config.properties")) {
+            try (FileInputStream fis = new FileInputStream("./src/test/resources/config.properties")) {
                 properties = new Properties();
                 properties.load(fis);
             } catch (IOException e) {
