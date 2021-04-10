@@ -10,12 +10,11 @@ import java.util.Properties;
 import static by.a1qa.klimov.utils.Constants.*;
 
 public class HomePage {
-    private Properties dataProperties;
+    private Properties dataProperties = DataProperties.getDataProperties();
     protected WebDriver driver;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        dataProperties = DataProperties.getDataProperties();
     }
 
     public void getSearchFieldAndInsertText(String text) {

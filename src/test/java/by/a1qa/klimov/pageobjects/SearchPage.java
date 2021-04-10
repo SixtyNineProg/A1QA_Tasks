@@ -14,12 +14,12 @@ import java.util.Properties;
 
 import static by.a1qa.klimov.utils.Constants.*;
 
-public class SearchResultPage {
+public class SearchPage {
     private Properties configProperties;
     private Properties dataProperties;
     protected WebDriver driver;
 
-    public SearchResultPage(WebDriver driver) {
+    public SearchPage(WebDriver driver) {
         this.driver = driver;
         configProperties = ConfigurationProperties.getConfigurationProperties();
         dataProperties = DataProperties.getDataProperties();

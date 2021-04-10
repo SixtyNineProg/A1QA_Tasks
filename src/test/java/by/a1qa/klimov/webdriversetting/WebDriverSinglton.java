@@ -5,17 +5,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.openqa.selenium.WebDriver;
 
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
 public class WebDriverSinglton {
 
     private static WebDriver driver = null;
-    private static Properties configurationProperties;
-
-    public WebDriverSinglton() {
-        configurationProperties = ConfigurationProperties.getConfigurationProperties();
-    }
+    private static Properties configurationProperties = ConfigurationProperties.getConfigurationProperties();
 
     public static WebDriver getWebDriver() {
         if (driver == null) {

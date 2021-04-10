@@ -1,14 +1,13 @@
 package by.a1qa.klimov.tests;
 
 import by.a1qa.klimov.pageobjects.HomePage;
-import by.a1qa.klimov.pageobjects.SearchResultPage;
-import by.a1qa.klimov.webdriversetting.WebDriverSettings;
+import by.a1qa.klimov.pageobjects.SearchPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class StoreSteamPoweredComTest extends WebDriverSettings {
+public class StoreSteamPoweredComTest extends TestSettings {
 
     @Test
     public void StoreSteampoweredComTest() {
@@ -20,15 +19,15 @@ public class StoreSteamPoweredComTest extends WebDriverSettings {
 
         homePage.getSearchFieldAndInsertText(dataProperties.getProperty("searchRequest"));
         homePage.getSearchButtonAndClick();
-        SearchResultPage searchResultPage = new SearchResultPage(driver);
-        boolean atSearchPage = searchResultPage.atPage();
+        SearchPage searchPage = new SearchPage(driver);
+        boolean atSearchPage = searchPage.atPage();
         Assert.assertTrue(atSearchPage);
-        int size = searchResultPage.getSizeSearchResult();
+        int size = searchPage.getSizeSearchResult();
         Assert.assertNotEquals(size, 0);
 
-        searchResultPage.sortGamesPriceAsc();
-        searchResultPage.waitLoadingPageAfterSort();
-        boolean isSorted = searchResultPage.checkSortWebElementsByAsc();
+        searchPage.sortGamesPriceAsc();
+        searchPage.waitLoadingPageAfterSort();
+        boolean isSorted = searchPage.checkSortWebElementsByAsc();
         Assert.assertTrue(isSorted);
     }
 }

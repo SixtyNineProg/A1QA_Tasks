@@ -16,7 +16,7 @@ public class DataProperties {
 
     public static Properties getDataProperties() {
         if (dataProperties == null) {
-            try (FileInputStream fis = new FileInputStream(PATH_CONFIGURATION_PROPERTIES)) {
+            try (FileInputStream fis = new FileInputStream(PATH_DATA_PROPERTIES)) {
                 dataProperties = new Properties();
                 dataProperties.load(fis);
             } catch (IOException e) {
