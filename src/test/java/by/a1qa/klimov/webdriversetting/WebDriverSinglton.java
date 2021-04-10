@@ -1,28 +1,34 @@
-package by.a1qa.klimov.setting;
+package by.a1qa.klimov.webdriversetting;
 
 import by.a1qa.klimov.property.ConfigurationProperties;
-import by.a1qa.klimov.property.DataProperties;
-import by.a1qa.klimov.utils.WebDriverFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
-import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
 
+import java.io.FileNotFoundException;
 import java.util.Properties;
 
-@Slf4j
-public class WebDriverSettings {
-    protected static WebDriver driver;
-    protected static Properties configProperties;
-    protected static Properties dataProperties;
+public class WebDriverSinglton {
 
-    @BeforeSuite
-    public void setUp() throws Exception {
-        configProperties = ConfigurationProperties.getProperties();
-        dataProperties = DataProperties.getProperties();
+    private static WebDriver driver = null;
+    private static Properties configurationProperties;
 
+    public WebDriverSinglton() {
+        configurationProperties = ConfigurationProperties.getConfigurationProperties();
+    }
+
+    public static WebDriver getWebDriver() {
+        if (driver == null) {
+            initializeProxy(configurationProperties);
+            String browserName = configurationProperties.getProperty("browserName");
+            browserName = browserName.toUpperCase().trim();
+            io.github.bonigarcia.wdm.WebDriverManager.getInstance(DriverManagerType.valueOf(browserName)).setup();
+            driver = WebDriverFactory.getWebDriver(browserName);
+        }
+        return driver;
+    }
+
+    private static void initializeProxy(Properties configProperties) {
         boolean proxyEnable = Boolean.parseBoolean(configProperties.getProperty("useProxy"));
         String host = configProperties.getProperty("proxyHost");
         String login = configProperties.getProperty("proxyLogin");
@@ -40,13 +46,5 @@ public class WebDriverSettings {
                     break;
             }
         }
-        WebDriverManager.getInstance(DriverManagerType.valueOf(browserName)).setup();
-        driver = WebDriverFactory.getWebDriver(browserName);
-    }
-
-    @AfterSuite
-    public void close() {
-        if (driver != null)
-            driver.close();
     }
 }

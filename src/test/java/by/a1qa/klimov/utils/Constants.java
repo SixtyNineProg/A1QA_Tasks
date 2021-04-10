@@ -1,7 +1,10 @@
 package by.a1qa.klimov.utils;
 
 public class Constants {
-    public static final String PROPERTY_FILE_UPLOAD_ERROR = "Property file upload error";
+    public static final String PATH_DATA_PROPERTIES = "./src/test/resources/data.properties";
+    public static final String PATH_CONFIGURATION_PROPERTIES = "./src/test/resources/config.properties";
+
+    public static final String PROPERTY_FILE_UPLOAD_ERROR = "Property file upload error. File not found on path: ";
 
     public static final String XPATH_HOME_CLUSTER =
             "//div[contains(@class, 'home_page_body')]//div[contains(@class, 'home_cluster')]";

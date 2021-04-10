@@ -13,9 +13,9 @@ public class HomePage {
     private Properties dataProperties;
     protected WebDriver driver;
 
-    public HomePage(WebDriver driver) throws Exception {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
-        dataProperties = DataProperties.getProperties();
+        dataProperties = DataProperties.getDataProperties();
     }
 
     public void getSearchFieldAndInsertText(String text) {

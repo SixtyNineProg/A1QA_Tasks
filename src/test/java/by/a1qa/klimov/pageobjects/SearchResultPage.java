@@ -19,10 +19,10 @@ public class SearchResultPage {
     private Properties dataProperties;
     protected WebDriver driver;
 
-    public SearchResultPage(WebDriver driver) throws Exception {
+    public SearchResultPage(WebDriver driver) {
         this.driver = driver;
-        configProperties = ConfigurationProperties.getProperties();
-        dataProperties = DataProperties.getProperties();
+        configProperties = ConfigurationProperties.getConfigurationProperties();
+        dataProperties = DataProperties.getDataProperties();
     }
 
     public List<WebElement> getSearchResult() {

@@ -2,7 +2,7 @@ package by.a1qa.klimov.tests;
 
 import by.a1qa.klimov.pageobjects.HomePage;
 import by.a1qa.klimov.pageobjects.SearchResultPage;
-import by.a1qa.klimov.setting.WebDriverSettings;
+import by.a1qa.klimov.webdriversetting.WebDriverSettings;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class StoreSteamPoweredComTest extends WebDriverSettings {
 
     @Test
-    public void StoreSteampoweredComTest() throws Exception {
+    public void StoreSteampoweredComTest() {
         driver.manage().timeouts().implicitlyWait(Long.parseLong(configProperties.getProperty("implicitlyWait")), TimeUnit.SECONDS);
         HomePage homePage = new HomePage(driver);
         homePage.open();
