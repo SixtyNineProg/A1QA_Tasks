@@ -3,7 +3,6 @@ package by.a1qa.klimov.model;
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,6 +28,14 @@ public abstract class BaseElement {
 
     public boolean isDisplayed() {
         return findElement().isDisplayed();
+    }
+
+    public void click() {
+        findElement().click();
+    }
+
+    public String getAttribute(String name) {
+        return findElement().getAttribute(name);
     }
 
     public void waitForOpen() {

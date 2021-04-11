@@ -1,17 +1,24 @@
 package by.a1qa.klimov.model;
 
-import lombok.AllArgsConstructor;
+import org.openqa.selenium.NoSuchElementException;
 
-@AllArgsConstructor
 public abstract class BaseForm {
-    BaseElement baseElement;
-    String name;
+    private BaseElement baseElement;
 
-    boolean isDisplayed() {
-        return baseElement.isDisplayed();
+    public BaseForm(BaseElement baseElement) {
+        this.baseElement = baseElement;
     }
 
-    void waitForOpen() {
+    public boolean baseElementIsDisplayed() {
+        waitForOpen();
+        try {
+            return baseElement.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public void waitForOpen() {
         baseElement.waitForOpen();
     }
 }

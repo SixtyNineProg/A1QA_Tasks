@@ -10,16 +10,19 @@ public class Constants {
 
     public static final String XPATH_HOME_CLUSTER =
             "//div[contains(@class, 'home_page_body')]//div[contains(@class, 'home_cluster')]";
-    public static final String XPATH_SEARCH_RESULT_ELEMENT =
-            "//form[contains(@action, 'store.steam')]//div[@id='search_results']";
-    public static final String XPATH_HOME_SEARCH_FORM = "//div[@class='searchbox']//input";
-    public static final String XPATH_HOME_BUTTON_SEARCH_FORM = "//*[@id='store_search_link']//img";
-    public static final String XPATH_SEARCH_RESULT_ELEMENTS =
-            "//div[@id='search_resultsRows']/a";
+    public static final String XPATH_SEARCH_FIELD = "//div[@class='searchbox']//input";
+    public static final String XPATH_BUTTON_SEARCH_FORM = "//*[@id='store_search_link']//img";
+    public static final String XPATH_STORE_NAVIGATION_BAR = "//div[@class='store_nav']";
+    public static final String XPATH_SEARCH_RESULT_CONTAINER =
+            "//div[@id='search_result_container']//div[@id='search_resultsRows']";
+    public static final String XPATH_WAIT_RESULT_SORT_CONTAINER = "//div[@id='search_result_container']";
     public static final String XPATH_SEARCH_BUTTON_SORT = "//*[@id='sort_by_trigger']";
     public static final String XPATH_SEARCH_BUTTON_SORT_PRICE_ASC = "//*[@id='Price_ASC']";
     public static final String XPATH_SEARCH_PRICE = "//div[contains(@class,'search_price_discount_combined')]";
 
     public static final String ATTRIBUTE_FOR_PRICE = "data-price-final";
+    public static final String ATTRIBUTE_FOR_WAIT_SEARCH_RESULT = "style";
+    public static final String EXPECTED_ATTRIBUTE_VALUE = "";
+    public static final String XPATH_CONTAINER_TAG_SEARCH = ".//a";
 
 }
