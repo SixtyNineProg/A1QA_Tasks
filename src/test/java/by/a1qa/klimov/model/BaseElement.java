@@ -2,6 +2,7 @@ package by.a1qa.klimov.model;
 
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
+import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Properties;
 
-@Slf4j
+import static by.a1qa.klimov.utils.Constants.ELEMENT_CREATED;
+
+@Log4j
 public abstract class BaseElement {
     private Properties configProperties = ConfigurationProperties.getConfigurationProperties();
     private WebDriver driver = WebDriverSinglton.getWebDriver();
@@ -19,6 +22,7 @@ public abstract class BaseElement {
     private String name;
 
     public BaseElement(By locator, String name) {
+        log.info(ELEMENT_CREATED + name);
         this.locator = locator;
         this.name = name;
     }
