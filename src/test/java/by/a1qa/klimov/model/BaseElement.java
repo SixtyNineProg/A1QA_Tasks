@@ -1,13 +1,19 @@
 package by.a1qa.klimov.model;
 
+import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-@AllArgsConstructor
+import java.util.Properties;
+
+@Slf4j
 public abstract class BaseElement {
+    private Properties configProperties = ConfigurationProperties.getConfigurationProperties();
     private WebDriver driver = WebDriverSinglton.getWebDriver();
     private By locator;
     private String name;
@@ -18,10 +24,13 @@ public abstract class BaseElement {
     }
 
     public boolean isDisplayed() {
-        return true;
+        return findElement().isDisplayed();
     }
 
     public void waitForOpen() {
+        new WebDriverWait(
+                driver, Long.parseLong(configProperties.getProperty("waitLoadingPageSeconds")))
+                .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public WebElement findElement() {
