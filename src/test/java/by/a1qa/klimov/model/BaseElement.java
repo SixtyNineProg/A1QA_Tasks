@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Properties;
 
-import static by.a1qa.klimov.utils.Constants.ELEMENT_CREATED;
+import static by.a1qa.klimov.utils.Constants.*;
 
 @Log4j
 public abstract class BaseElement {
@@ -27,14 +27,17 @@ public abstract class BaseElement {
     }
 
     public boolean isDisplayed() {
+        log.info(name + ELEMENT_DISPLAYED);
         return findElement().isDisplayed();
     }
 
     public void click() {
+        log.info(name + ELEMENT_CLICKED);
         findElement().click();
     }
 
     public String getAttribute(String name) {
+        log.info(ELEMENT_GET_ATTRIBUTE + name);
         return findElement().getAttribute(name);
     }
 

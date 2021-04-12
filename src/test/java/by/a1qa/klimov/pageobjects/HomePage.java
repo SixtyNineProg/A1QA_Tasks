@@ -1,6 +1,7 @@
 package by.a1qa.klimov.pageobjects;
 
 import by.a1qa.klimov.elements.Cluster;
+import by.a1qa.klimov.model.BaseSteamPage;
 import by.a1qa.klimov.property.DataProperties;
 import org.openqa.selenium.By;
 

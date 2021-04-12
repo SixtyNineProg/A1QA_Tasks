@@ -1,7 +1,8 @@
-package by.a1qa.klimov.model;
+package by.a1qa.klimov.elements;
 
 import by.a1qa.klimov.elements.Button;
 import by.a1qa.klimov.elements.TextField;
+import by.a1qa.klimov.model.BaseElement;
 import org.openqa.selenium.By;
 
 import static by.a1qa.klimov.utils.Constants.XPATH_BUTTON_SEARCH_FORM;

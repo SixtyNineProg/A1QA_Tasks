@@ -1,8 +1,6 @@
-package by.a1qa.klimov.pageobjects;
+package by.a1qa.klimov.model;
 
-import by.a1qa.klimov.model.BaseElement;
-import by.a1qa.klimov.model.BaseForm;
-import by.a1qa.klimov.model.StoreNavigationBar;
+import by.a1qa.klimov.elements.StoreNavigationBar;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -5,7 +5,10 @@ public class Constants {
     public static final String PATH_CONFIGURATION_PROPERTIES = "./src/test/resources/config.properties";
 
     public static final String PROPERTY_FILE_UPLOAD_ERROR = "Property file upload error. File not found on path: ";
-    public static final String ELEMENT_CREATED = "Element created with name: : ";
+    public static final String ELEMENT_CREATED = "Element created with a name: ";
+    public static final String ELEMENT_DISPLAYED = "Element displayed with a name:";
+    public static final String ELEMENT_CLICKED = "Element clicked with a name:";
+    public static final String ELEMENT_GET_ATTRIBUTE = "Get an attribute from an element with a name: ";
 
     public static final String XPATH_HOME_CLUSTER =
             "//div[contains(@class, 'home_page_body')]//div[contains(@class, 'home_cluster')]";
@@ -17,16 +20,15 @@ public class Constants {
     public static final String XPATH_WAIT_RESULT_SORT_CONTAINER = "//div[@id='search_result_container']";
     public static final String XPATH_SEARCH_BUTTON_SORT = "//*[@id='sort_by_trigger']";
     public static final String XPATH_SEARCH_BUTTON_SORT_PRICE_ASC = "//*[@id='Price_ASC']";
-    public static final String XPATH_SEARCH_PRICE = "//div[contains(@class,'search_price_discount_combined')]";
+    public static final String XPATH_CONTAINER_SEARCH_PRICES = ".//div[@data-price-final]";
+    public static final String XPATH_CONTAINER_TAG_SEARCH = ".//a";
 
     public static final String ATTRIBUTE_FOR_PRICE = "data-price-final";
     public static final String ATTRIBUTE_FOR_WAIT_SEARCH_RESULT = "style";
     public static final String EXPECTED_ATTRIBUTE_VALUE = "";
-    public static final String XPATH_CONTAINER_TAG_SEARCH = ".//a";
-    public static final String XPATH_CONTAINER_SEARCH_PRICES = ".//div[@data-price-final]";
 
-    public static final String ASSERT_AT_HOME_PAGE = "Home page is open.";
-    public static final String ASSERT_AT_SEARCH_PAGE = "Search page is open.";
-    public static final String ASSERT_SEARCH_RESULTS_PRESENT = "Search results are present.";
-    public static final String ASSERT_SEARCH_RESULT_SORTED = "Search results sorted in ascending order.";
+    public static final String ASSERT_AT_HOME_PAGE = "Home page is't open.";
+    public static final String ASSERT_AT_SEARCH_PAGE = "Search page is't open.";
+    public static final String ASSERT_SEARCH_RESULTS_PRESENT = "Search results are't present.";
+    public static final String ASSERT_SEARCH_RESULT_SORTED = "Search results are't sorted in ascending order";
 }
