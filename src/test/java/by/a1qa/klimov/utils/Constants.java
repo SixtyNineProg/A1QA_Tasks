@@ -7,7 +7,6 @@ public class Constants {
     public static final String PROPERTY_FILE_UPLOAD_ERROR = "Property file upload error. File not found on path: ";
     public static final String ELEMENT_CREATED = "Element created with name: : ";
 
-
     public static final String XPATH_HOME_CLUSTER =
             "//div[contains(@class, 'home_page_body')]//div[contains(@class, 'home_cluster')]";
     public static final String XPATH_SEARCH_FIELD = "//div[@class='searchbox']//input";
@@ -24,5 +23,10 @@ public class Constants {
     public static final String ATTRIBUTE_FOR_WAIT_SEARCH_RESULT = "style";
     public static final String EXPECTED_ATTRIBUTE_VALUE = "";
     public static final String XPATH_CONTAINER_TAG_SEARCH = ".//a";
+    public static final String XPATH_CONTAINER_SEARCH_PRICES = ".//div[@data-price-final]";
 
+    public static final String ASSERT_AT_HOME_PAGE = "Home page is open.";
+    public static final String ASSERT_AT_SEARCH_PAGE = "Search page is open.";
+    public static final String ASSERT_SEARCH_RESULTS_PRESENT = "Search results are present.";
+    public static final String ASSERT_SEARCH_RESULT_SORTED = "Search results sorted in ascending order.";
 }

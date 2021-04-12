@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,10 +26,6 @@ public class SearchPage extends BaseSteamPage {
 
     public SearchPage(By locator, String name) {
         super(new Cluster(locator, name));
-    }
-
-    public List<WebElement> getSearchResult() {
-        return getSearchResultContainer().getElementsAsList(XPATH_CONTAINER_TAG_SEARCH);
     }
 
     public int getSizeSearchResult() {
@@ -57,23 +54,26 @@ public class SearchPage extends BaseSteamPage {
                 EXPECTED_ATTRIBUTE_VALUE));
     }
 
-    public List<WebElement> getPricesWithLimit(int limit) {
-        return getSearchResultContainer().getElementsAsListWithLimit(XPATH_SEARCH_PRICE, limit);
+    public List<WebElement> getSearchResult() {
+        return getSearchResultContainer().getElementsAsList(XPATH_CONTAINER_TAG_SEARCH);
     }
 
-    public boolean checkSortWebElementsByAsc() {
-        List<WebElement> searchResult = getPricesWithLimit(
-                Integer.parseInt(dataProperties.getProperty("limitCheckedGames")));
-        for (int i = 0; i < searchResult.size() - 1; i++) {
-            String firstStrPrice = searchResult.get(i).getAttribute(ATTRIBUTE_FOR_PRICE);
-            String secondStrPrice = searchResult.get(i + 1).getAttribute(ATTRIBUTE_FOR_PRICE);
-            if (firstStrPrice != null && secondStrPrice != null) {
-                int firstPrice = firstStrPrice.equals("") ? 0 : Integer.parseInt(firstStrPrice);
-                int secondPrice = secondStrPrice.equals("") ? 0 : Integer.parseInt(secondStrPrice);
-                if (!(firstPrice <= secondPrice)) return false;
-            } else return false;
+    public List<WebElement> getSearchResultLimit(int limit) {
+        return getSearchResultContainer().getElementsAsListWithLimit(XPATH_CONTAINER_TAG_SEARCH, limit);
+    }
+
+    public List<Integer> getSearchGamesPrices() {
+        List<Integer> integerPrices = new ArrayList<>();
+        List<WebElement> searchResult = getSearchResultLimit(
+                Integer.parseInt(dataProperties.getProperty("limitCheckedGames"))
+        );
+        for (WebElement webElement : searchResult) {
+            integerPrices.add(
+                    Integer.parseInt(
+                            webElement.findElement(By.xpath(XPATH_CONTAINER_SEARCH_PRICES))
+                                    .getAttribute(ATTRIBUTE_FOR_PRICE)));
         }
-        return true;
+        return integerPrices;
     }
 
     private Container getSearchResultContainer() {
