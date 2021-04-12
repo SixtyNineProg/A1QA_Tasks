@@ -5,10 +5,13 @@ public class Constants {
     public static final String PATH_CONFIGURATION_PROPERTIES = "./src/test/resources/config.properties";
 
     public static final String PROPERTY_FILE_UPLOAD_ERROR = "Property file upload error. File not found on path: ";
-    public static final String ELEMENT_CREATED = "Element created with a name: ";
-    public static final String ELEMENT_DISPLAYED = "Element displayed with a name:";
-    public static final String ELEMENT_CLICKED = "Element clicked with a name:";
-    public static final String ELEMENT_GET_ATTRIBUTE = "Get an attribute from an element with a name: ";
+    public static final String ELEMENT_CREATED = "Element created with name: ";
+    public static final String ELEMENT_DISPLAYED = "Element displayed with name: ";
+    public static final String ELEMENT_CLICKED = "Element clicked with name: ";
+    public static final String ELEMENT_GET_ATTRIBUTE = "Get an attribute from an element with name: ";
+    public static final String GET_PAGE_WITH_URL = "Get page with URL: ";
+    public static final String WAIT_PRESENCE_OF_ELEMENT = "Wait presence of element with name: ";
+    public static final String FIND_ELEMENT = "Find element with name: ";
 
     public static final String XPATH_HOME_CLUSTER =
             "//div[contains(@class, 'home_page_body')]//div[contains(@class, 'home_cluster')]";

@@ -2,11 +2,14 @@ package by.a1qa.klimov.model;
 
 import by.a1qa.klimov.elements.StoreNavigationBar;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static by.a1qa.klimov.utils.Constants.GET_PAGE_WITH_URL;
 import static by.a1qa.klimov.utils.Constants.XPATH_STORE_NAVIGATION_BAR;
 
+@Log4j
 public abstract class BaseSteamPage extends BaseForm {
     private WebDriver driver = WebDriverSinglton.getWebDriver();
 
@@ -19,14 +22,7 @@ public abstract class BaseSteamPage extends BaseForm {
     }
 
     public void getPage(String url) {
+        log.info(GET_PAGE_WITH_URL + url);
         driver.get(url);
-    }
-
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
-
-    public void refresh() {
-        driver.navigate().refresh();
     }
 }

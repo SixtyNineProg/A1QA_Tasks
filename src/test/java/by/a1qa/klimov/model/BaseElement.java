@@ -27,27 +27,29 @@ public abstract class BaseElement {
     }
 
     public boolean isDisplayed() {
-        log.info(name + ELEMENT_DISPLAYED);
+        log.info(ELEMENT_DISPLAYED + name);
         return findElement().isDisplayed();
     }
 
     public void click() {
-        log.info(name + ELEMENT_CLICKED);
+        log.info(ELEMENT_CLICKED + name);
         findElement().click();
     }
 
     public String getAttribute(String name) {
-        log.info(ELEMENT_GET_ATTRIBUTE + name);
+        log.info(ELEMENT_GET_ATTRIBUTE + this.name);
         return findElement().getAttribute(name);
     }
 
     public void waitForOpen() {
+        log.info(WAIT_PRESENCE_OF_ELEMENT + name);
         new WebDriverWait(
                 driver, Long.parseLong(configProperties.getProperty("waitLoadingPageSeconds")))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public WebElement findElement() {
+        log.info(FIND_ELEMENT + name);
         return driver.findElement(locator);
     }
 }
