@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.Properties;
 
 import static by.a1qa.klimov.utils.Constants.*;
@@ -51,5 +52,17 @@ public abstract class BaseElement {
     public WebElement findElement() {
         log.info(FIND_ELEMENT + name);
         return driver.findElement(locator);
+    }
+
+    public List<WebElement> getElementsAsList(By locator) {
+        return driver.findElements(locator);
+    }
+
+    public List<WebElement> getElementsAsList(String xpathTag) {
+        return driver.findElements(By.xpath(xpathTag));
+    }
+
+    public List<WebElement> getElementsAsListWithLimit(String xpath, int limit) {
+        return driver.findElements(By.xpath(xpath + "[position()<=" + limit + "]"));
     }
 }

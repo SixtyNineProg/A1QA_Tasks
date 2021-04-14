@@ -20,8 +20,14 @@ public class ConfigurationProperties {
                 configurationProperties.load(fis);
             } catch (IOException e) {
                 log.error(Constants.PROPERTY_FILE_UPLOAD_ERROR + PATH_CONFIGURATION_PROPERTIES, e);
+                throw new NullPointerException();
             }
         }
         return configurationProperties;
+    }
+
+    public static String getConfigurationPropertyByKey(String key) {
+        if (configurationProperties == null) getConfigurationProperties();
+        return configurationProperties.getProperty(key);
     }
 }

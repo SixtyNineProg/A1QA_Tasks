@@ -21,8 +21,14 @@ public class DataProperties {
                 dataProperties.load(fis);
             } catch (IOException e) {
                 log.error(Constants.PROPERTY_FILE_UPLOAD_ERROR + PATH_DATA_PROPERTIES, e);
+                throw new NullPointerException();
             }
         }
         return dataProperties;
+    }
+
+    public static String getDataPropertyByKey(String key) {
+        if (dataProperties == null) getDataProperties();
+        return dataProperties.getProperty(key);
     }
 }

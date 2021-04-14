@@ -1,9 +1,9 @@
 package by.a1qa.klimov.pageobjects;
 
+import by.a1qa.klimov.elements.AnotherElement;
 import by.a1qa.klimov.elements.Button;
 import by.a1qa.klimov.elements.Cluster;
-import by.a1qa.klimov.elements.Container;
-import by.a1qa.klimov.model.BaseSteamPage;
+import by.a1qa.klimov.model.BaseForm;
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
@@ -18,9 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static by.a1qa.klimov.tests.StoreSteamPoweredComTest.XPATH_SEARCH_RESULT_CONTAINER;
 import static by.a1qa.klimov.utils.Constants.*;
 
-public class SearchPage extends BaseSteamPage {
+public class SearchPage extends BaseForm {
+    public static final String XPATH_SEARCH_RESULT_CONTAINER =
+            "//div[@id='search_result_container']//div[@id='search_resultsRows']";
+
     private Properties configProperties = ConfigurationProperties.getConfigurationProperties();
     private Properties dataProperties = DataProperties.getDataProperties();
     protected WebDriver driver = WebDriverSinglton.getWebDriver();
@@ -54,7 +58,7 @@ public class SearchPage extends BaseSteamPage {
                 ATTRIBUTE_FOR_WAIT_SEARCH_RESULT,
                 EXPECTED_ATTRIBUTE_VALUE));
     }
-
+    //TODO исправить Xpath
     public List<WebElement> getSearchResult() {
         return getSearchResultContainer().getElementsAsList(XPATH_CONTAINER_TAG_SEARCH);
     }
@@ -77,7 +81,7 @@ public class SearchPage extends BaseSteamPage {
         return integerPrices;
     }
 
-    private Container getSearchResultContainer() {
-        return new Container(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Search result container");
+    private AnotherElement getSearchResultContainer() {
+        return new AnotherElement(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Search result container");
     }
 }

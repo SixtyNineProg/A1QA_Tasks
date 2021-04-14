@@ -1,7 +1,10 @@
 package by.a1qa.klimov.tests;
 
+import by.a1qa.klimov.pageobjects.BrowserActions;
 import by.a1qa.klimov.pageobjects.HomePage;
 import by.a1qa.klimov.pageobjects.SearchPage;
+import by.a1qa.klimov.property.ConfigurationProperties;
+import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.utils.Checker;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
@@ -15,27 +18,26 @@ import static by.a1qa.klimov.utils.Constants.*;
 
 @Log4j
 public class StoreSteamPoweredComTest extends TestSettings {
+    public static final String XPATH_HOME_CLUSTER =
+            "//div[contains(@class, 'home_page_body')]//div[contains(@class, 'home_cluster')]";
+    public static final String XPATH_SEARCH_RESULT_CONTAINER =
+            "//div[@id='search_result_container']//div[@id='search_resultsRows']";
 
     @Test
     public void steamTest() {
-        driver.manage().timeouts().implicitlyWait(Long.parseLong(configProperties.getProperty("implicitlyWait")), TimeUnit.SECONDS);
-        HomePage homePage = new HomePage(By.xpath(XPATH_HOME_CLUSTER), "Steam home cluster");
-        homePage.open();
-        boolean atHomePage = homePage.atPage();
-        Assert.assertTrue(atHomePage, ASSERT_AT_HOME_PAGE);
+        HomePage homePage = new HomePage(By.xpath(XPATH_HOME_CLUSTER), "Home cluster");
+        BrowserActions.openUrl(DataProperties.getDataPropertyByKey("steamShopUrl"));
+        Assert.assertTrue(homePage.atPage(), "Home page is't open.");
 
         homePage.getSearchFieldAndInsertText(dataProperties.getProperty("searchRequest"));
         homePage.getSearchButtonAndClick();
         SearchPage searchPage = new SearchPage(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Steam search element");
-        boolean atSearchPage = searchPage.atPage();
-        Assert.assertTrue(atSearchPage, ASSERT_AT_SEARCH_PAGE);
-        int size = searchPage.getSizeSearchResult();
-        Assert.assertTrue(size > 0, ASSERT_SEARCH_RESULTS_PRESENT);
+        Assert.assertTrue(searchPage.atPage(), "Search page is't open.");
+        Assert.assertTrue(searchPage.getSizeSearchResult() > 0, "Search results are't present.");
 
         searchPage.sortGamesPriceAsc();
         searchPage.waitLoadingPageAfterSort();
         List<Integer> gamesPrices = searchPage.getSearchGamesPrices();
-        boolean isSorted = Checker.listIsSortedByASC(gamesPrices);
-        Assert.assertTrue(isSorted, ASSERT_SEARCH_RESULT_SORTED);
+        Assert.assertTrue(Checker.listIsSortedByASC(gamesPrices), "Search results are't sorted in ascending order");
     }
 }
