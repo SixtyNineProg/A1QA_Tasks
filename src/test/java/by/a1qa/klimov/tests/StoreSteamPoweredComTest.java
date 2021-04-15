@@ -3,6 +3,7 @@ package by.a1qa.klimov.tests;
 import by.a1qa.klimov.pageobjects.BrowserActions;
 import by.a1qa.klimov.pageobjects.HomePage;
 import by.a1qa.klimov.pageobjects.SearchPage;
+import by.a1qa.klimov.pageobjects.StoreNavigationBar;
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.utils.Checker;
@@ -29,8 +30,9 @@ public class StoreSteamPoweredComTest extends TestSettings {
         BrowserActions.openUrl(DataProperties.getDataPropertyByKey("steamShopUrl"));
         Assert.assertTrue(homePage.atPage(), "Home page is't open.");
 
-        homePage.getSearchFieldAndInsertText(dataProperties.getProperty("searchRequest"));
-        homePage.getSearchButtonAndClick();
+        StoreNavigationBar storeNavigationBar = homePage.getStoreNavigationBar();
+        storeNavigationBar.getSearchFieldAndInsertText(DataProperties.getDataPropertyByKey("searchRequest"));
+        storeNavigationBar.getSearchButtonAndClick();
         SearchPage searchPage = new SearchPage(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Steam search element");
         Assert.assertTrue(searchPage.atPage(), "Search page is't open.");
         Assert.assertTrue(searchPage.getSizeSearchResult() > 0, "Search results are't present.");
