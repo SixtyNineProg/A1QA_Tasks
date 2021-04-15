@@ -1,14 +1,11 @@
 package by.a1qa.klimov.pageobjects;
 
-import by.a1qa.klimov.elements.AnotherElement;
-import by.a1qa.klimov.elements.Button;
-import by.a1qa.klimov.elements.Cluster;
+import by.a1qa.klimov.elements.*;
 import by.a1qa.klimov.model.BaseForm;
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,12 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import static by.a1qa.klimov.tests.StoreSteamPoweredComTest.XPATH_SEARCH_RESULT_CONTAINER;
 import static by.a1qa.klimov.utils.Constants.*;
 
 public class SearchPage extends BaseForm {
     public static final String XPATH_SEARCH_RESULT_CONTAINER =
             "//div[@id='search_result_container']//div[@id='search_resultsRows']";
+    public static final String XPATH_SEARCH_BUTTON_SORT = "//*[@id='sort_by_trigger']";
+    public static final String XPATH_SEARCH_BUTTON_SORT_PRICE_ASC = "//*[@id='Price_ASC']";
+    public static final String XPATH_SEARCH_PRICES = "//div[@data-price-final]";
+    public static final String XPATH_SEARCH_RESULTS = "//div[@id='search_resultsRows']/a";
+    public static final String XPATH_WAIT_RESULT_SORT_CONTAINER = "//div[@id='search_result_container']";
+
+    private Button sortButton;
+    private Button sortButtonByASC;
+    private Label searchResultContainer;
 
     private Properties configProperties = ConfigurationProperties.getConfigurationProperties();
     private Properties dataProperties = DataProperties.getDataProperties();
@@ -38,16 +43,12 @@ public class SearchPage extends BaseForm {
     }
 
     public void sortGamesPriceAsc() {
-        new Button(By.xpath(XPATH_SEARCH_BUTTON_SORT), "Button sort").click();
-        new Button(By.xpath(XPATH_SEARCH_BUTTON_SORT_PRICE_ASC), "Button sort price ASC").click();
+        getSortButton().click();
+        getSortButtonByASC().click();
     }
 
-    public boolean atPage() {
-        try {
-            return baseElementIsDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+    public boolean atSearchPage() {
+        return isOpened();
     }
 
     public void waitLoadingPageAfterSort() {
@@ -58,13 +59,13 @@ public class SearchPage extends BaseForm {
                 ATTRIBUTE_FOR_WAIT_SEARCH_RESULT,
                 EXPECTED_ATTRIBUTE_VALUE));
     }
-    //TODO исправить Xpath
+
     public List<WebElement> getSearchResult() {
-        return getSearchResultContainer().getElementsAsList(XPATH_CONTAINER_TAG_SEARCH);
+        return getSearchResultContainer().getElementsAsList(By.xpath(XPATH_SEARCH_RESULTS));
     }
 
     public List<WebElement> getSearchResultLimit(int limit) {
-        return getSearchResultContainer().getElementsAsListWithLimit(XPATH_CONTAINER_TAG_SEARCH, limit);
+        return getSearchResultContainer().getElementsAsListWithLimit(XPATH_SEARCH_PRICES, limit);
     }
 
     public List<Integer> getSearchGamesPrices() {
@@ -75,13 +76,28 @@ public class SearchPage extends BaseForm {
         for (WebElement webElement : searchResult) {
             integerPrices.add(
                     Integer.parseInt(
-                            webElement.findElement(By.xpath(XPATH_CONTAINER_SEARCH_PRICES))
+                            webElement
                                     .getAttribute(ATTRIBUTE_FOR_PRICE)));
         }
         return integerPrices;
     }
 
-    private AnotherElement getSearchResultContainer() {
-        return new AnotherElement(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Search result container");
+    public Button getSortButton() {
+        return sortButton == null ?
+                sortButton = new Button(By.xpath(XPATH_SEARCH_BUTTON_SORT), "Button sort") :
+                sortButton;
+    }
+
+    public Button getSortButtonByASC() {
+        return sortButtonByASC == null ?
+                sortButtonByASC = new Button(By.xpath(XPATH_SEARCH_BUTTON_SORT_PRICE_ASC), "Button sort price ASC") :
+                sortButtonByASC;
+    }
+
+    public Label getSearchResultContainer() {
+        return searchResultContainer == null ?
+                searchResultContainer =
+                        new Label(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Search result container") :
+                searchResultContainer;
     }
 }

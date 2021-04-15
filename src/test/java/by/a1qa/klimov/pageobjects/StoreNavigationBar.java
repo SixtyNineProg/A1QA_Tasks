@@ -7,11 +7,11 @@ import by.a1qa.klimov.model.BaseForm;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 
-import static by.a1qa.klimov.utils.Constants.XPATH_BUTTON_SEARCH_FORM;
-import static by.a1qa.klimov.utils.Constants.XPATH_SEARCH_FIELD;
-
 @Log4j
 public class StoreNavigationBar extends BaseForm {
+    public static final String XPATH_SEARCH_FIELD = "//div[@class='searchbox']//input";
+    public static final String XPATH_BUTTON_SEARCH_FORM = "//*[@id='store_search_link']//img";
+
     private TextField searchField;
     private Button searchButton;
 
@@ -24,16 +24,16 @@ public class StoreNavigationBar extends BaseForm {
     }
 
     public void getSearchButtonAndClick() {
-        getSearchField().click();
+        getSearchButton().click();
     }
 
     private TextField getSearchField() {
         return searchField == null ?
-                new TextField(By.xpath(XPATH_SEARCH_FIELD), "Search field") : searchField;
+                searchField = new TextField(By.xpath(XPATH_SEARCH_FIELD), "Search field") : searchField;
     }
 
     private Button getSearchButton() {
         return searchButton == null ?
-                new Button(By.xpath(XPATH_BUTTON_SEARCH_FORM), "Search button") : searchButton;
+                searchButton = new Button(By.xpath(XPATH_BUTTON_SEARCH_FORM), "Search button") : searchButton;
     }
 }

@@ -4,7 +4,6 @@ import by.a1qa.klimov.pageobjects.BrowserActions;
 import by.a1qa.klimov.pageobjects.HomePage;
 import by.a1qa.klimov.pageobjects.SearchPage;
 import by.a1qa.klimov.pageobjects.StoreNavigationBar;
-import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.utils.Checker;
 import lombok.extern.log4j.Log4j;
@@ -13,9 +12,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static by.a1qa.klimov.utils.Constants.*;
 
 @Log4j
 public class StoreSteamPoweredComTest extends TestSettings {
@@ -34,7 +30,7 @@ public class StoreSteamPoweredComTest extends TestSettings {
         storeNavigationBar.getSearchFieldAndInsertText(DataProperties.getDataPropertyByKey("searchRequest"));
         storeNavigationBar.getSearchButtonAndClick();
         SearchPage searchPage = new SearchPage(By.xpath(XPATH_SEARCH_RESULT_CONTAINER), "Steam search element");
-        Assert.assertTrue(searchPage.atPage(), "Search page is't open.");
+        Assert.assertTrue(searchPage.atSearchPage(), "Search page is't open.");
         Assert.assertTrue(searchPage.getSizeSearchResult() > 0, "Search results are't present.");
 
         searchPage.sortGamesPriceAsc();

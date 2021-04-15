@@ -4,6 +4,7 @@ import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -42,11 +43,15 @@ public abstract class BaseElement {
         return findElement().getAttribute(name);
     }
 
-    public void waitForOpen() {
+    public boolean waitForDisplayed() {
         log.info(WAIT_PRESENCE_OF_ELEMENT + name);
-        new WebDriverWait(
-                driver, Long.parseLong(configProperties.getProperty("waitLoadingPageSeconds")))
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
+        try {
+            WebDriverWait webDriverWait = new WebDriverWait(driver, Long.parseLong(configProperties.getProperty("waitLoadingPageSeconds")));
+            return webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+
     }
 
     public WebElement findElement() {
@@ -56,10 +61,6 @@ public abstract class BaseElement {
 
     public List<WebElement> getElementsAsList(By locator) {
         return driver.findElements(locator);
-    }
-
-    public List<WebElement> getElementsAsList(String xpathTag) {
-        return driver.findElements(By.xpath(xpathTag));
     }
 
     public List<WebElement> getElementsAsListWithLimit(String xpath, int limit) {
