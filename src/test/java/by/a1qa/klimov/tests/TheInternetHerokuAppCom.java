@@ -1,14 +1,12 @@
 package by.a1qa.klimov.tests;
 
-import by.a1qa.klimov.pageobjects.Alerts;
-import by.a1qa.klimov.pageobjects.AlertsMainPage;
-import by.a1qa.klimov.pageobjects.BrowserActions;
-import by.a1qa.klimov.pageobjects.ResultAuthPage;
+import by.a1qa.klimov.pageobjects.*;
 import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.tests.testsettings.TestSettings;
 import by.a1qa.klimov.utils.Randomizer;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,6 +17,7 @@ public class TheInternetHerokuAppCom extends TestSettings {
     private static final String PART_URL = "://";
 
     private static final String XPATH_ALERT_PAGE_ELEMENT = "//button[contains(@onclick,'jsAlert')]";
+    private static final String XPATH_SLIDER_PAGE_ELEMENT = "//div[@class='sliderContainer']//span[@id='range']";
 
     @Test
     public void basicAuth() {
@@ -68,6 +67,12 @@ public class TheInternetHerokuAppCom extends TestSettings {
 
     @Test
     public void horizontalSlider() {
-
+        BrowserActions.openUrl(DataProperties.getDataPropertyByKey("internetHerokuAppUrlSlider"));
+        HorizontalSliderPage horizontalSliderPage = new HorizontalSliderPage(
+                By.xpath(XPATH_SLIDER_PAGE_ELEMENT), "Slider range label");
+        Assert.assertTrue(horizontalSliderPage.atPage());
+        horizontalSliderPage.moveToSlider();
+        horizontalSliderPage.sliderClick();
+        Assert.assertEquals(horizontalSliderPage.getSliderValue(), "2.5", "Incorrect slider value");
     }
 }

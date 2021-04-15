@@ -3,10 +3,9 @@ package by.a1qa.klimov.model;
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
 import lombok.extern.log4j.Log4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.html5.Location;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,6 +16,7 @@ import static by.a1qa.klimov.utils.Constants.*;
 @Log4j
 public abstract class BaseElement {
     private WebDriver driver = WebDriverSinglton.getWebDriver();
+    private Actions actions = new Actions(driver);
     private By locator;
     private String name;
 
@@ -69,5 +69,15 @@ public abstract class BaseElement {
 
     public List<WebElement> getElementsAsListWithLimit(String xpath, int limit) {
         return driver.findElements(By.xpath(xpath + "[position()<=" + limit + "]"));
+    }
+
+    public void moveToElement() {
+        log.info(MOVE_TO_ELEMENT + name);
+        actions.moveToElement(findElement());
+    }
+
+    public Point getLocation() {
+        log.info(MOVE_TO_ELEMENT + name);
+        return findElement().getLocation();
     }
 }

@@ -15,6 +15,8 @@ public class Constants {
     public static final String GET_REFRESH_PAGE = "REFRESH PAGE: ";
     public static final String WAIT_PRESENCE_OF_ELEMENT = "Wait presence of element with name: ";
     public static final String FIND_ELEMENT = "Find element with name: ";
+    public static final String MOVE_TO_ELEMENT = "Move to element with name: ";
+    public static final String GET_LOCATION_ELEMENT = "Get element location with name: ";
 
     public static final String ATTRIBUTE_FOR_PRICE = "data-price-final";
     public static final String ATTRIBUTE_FOR_WAIT_SEARCH_RESULT = "style";
