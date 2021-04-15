@@ -11,13 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.Properties;
 
 import static by.a1qa.klimov.utils.Constants.*;
 
 @Log4j
 public abstract class BaseElement {
-    private Properties configProperties = ConfigurationProperties.getConfigurationProperties();
     private WebDriver driver = WebDriverSinglton.getWebDriver();
     private By locator;
     private String name;
@@ -51,8 +49,9 @@ public abstract class BaseElement {
     public boolean waitForDisplayed() {
         log.info(WAIT_PRESENCE_OF_ELEMENT + name);
         try {
-            WebDriverWait webDriverWait = new WebDriverWait(driver, Long.parseLong(configProperties.getProperty("waitLoadingPageSeconds")));
-            return webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
+            return new WebDriverWait(driver, Long.parseLong(
+                    ConfigurationProperties.getConfigurationPropertyByKey("waitLoadingPageSeconds")))
+                    .until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
