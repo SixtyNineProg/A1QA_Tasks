@@ -1,4 +1,4 @@
-package by.a1qa.klimov.tests;
+package by.a1qa.klimov.tests.testsettings;
 
 import by.a1qa.klimov.property.ConfigurationProperties;
 import by.a1qa.klimov.property.DataProperties;

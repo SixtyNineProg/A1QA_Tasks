@@ -43,6 +43,11 @@ public abstract class BaseElement {
         return findElement().getAttribute(name);
     }
 
+    public String getText() {
+        log.info(ELEMENT_GET_TEXT + this.name);
+        return findElement().getText();
+    }
+
     public boolean waitForDisplayed() {
         log.info(WAIT_PRESENCE_OF_ELEMENT + name);
         try {
