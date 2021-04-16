@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 @Log4j
-public class TheInternetHerokuAppCom extends TestSettings {
+public class TheInternetHerokuAppComTest extends TestSettings {
 
     private static final String XPATH_AUTH_PAGE_ELEMENT = "//*[contains(text(),'Basic Auth')]//parent::div";
     private static final String PART_URL = "://";
