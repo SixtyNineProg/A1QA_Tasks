@@ -7,7 +7,7 @@ import by.a1qa.klimov.framework.property.DataProperties;
 import by.a1qa.klimov.framework.utils.Comparator;
 import by.a1qa.klimov.framework.utils.Randomizer;
 import by.a1qa.klimov.pageobjects.*;
-import by.a1qa.klimov.tests.testsettings.TestSettings;
+import by.a1qa.klimov.framework.testsettings.TestSettings;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.testng.Assert;
