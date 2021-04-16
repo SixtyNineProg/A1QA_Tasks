@@ -1,14 +1,12 @@
-package by.a1qa.klimov.webdriversetting;
+package by.a1qa.klimov.framework.webdriversetting;
 
-import by.a1qa.klimov.property.ConfigurationProperties;
+import by.a1qa.klimov.framework.property.ConfigurationProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.util.Properties;
 
 @Log4j
 public class WebDriverFactory {

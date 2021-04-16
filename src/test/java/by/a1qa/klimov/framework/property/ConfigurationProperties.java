@@ -1,13 +1,13 @@
-package by.a1qa.klimov.property;
+package by.a1qa.klimov.framework.property;
 
-import by.a1qa.klimov.utils.Constants;
+import by.a1qa.klimov.framework.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static by.a1qa.klimov.utils.Constants.PATH_CONFIGURATION_PROPERTIES;
+import static by.a1qa.klimov.framework.utils.Constants.PATH_CONFIGURATION_PROPERTIES;
 
 @Slf4j
 public class ConfigurationProperties {

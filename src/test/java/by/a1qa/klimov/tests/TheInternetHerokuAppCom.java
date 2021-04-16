@@ -1,13 +1,19 @@
 package by.a1qa.klimov.tests;
 
+import by.a1qa.klimov.framework.browser.Alerts;
+import by.a1qa.klimov.framework.browser.BrowserActions;
+import by.a1qa.klimov.framework.property.ConfigurationProperties;
+import by.a1qa.klimov.framework.property.DataProperties;
+import by.a1qa.klimov.framework.utils.Comparator;
+import by.a1qa.klimov.framework.utils.Randomizer;
 import by.a1qa.klimov.pageobjects.*;
-import by.a1qa.klimov.property.DataProperties;
 import by.a1qa.klimov.tests.testsettings.TestSettings;
-import by.a1qa.klimov.utils.Randomizer;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 @Log4j
 public class TheInternetHerokuAppCom extends TestSettings {
@@ -25,7 +31,7 @@ public class TheInternetHerokuAppCom extends TestSettings {
     public void basicAuth() {
         String user = DataProperties.getDataPropertyByKey("basicAuthUser");
         String password = DataProperties.getDataPropertyByKey("basicAuthPassword");
-        String url = DataProperties.getDataPropertyByKey("internetHerokuAppAuthUrl");
+        String url = ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAuthUrl");
         int insertIndex = url.indexOf(PART_URL) + PART_URL.length();
         String urlWithCred = url.substring(0, insertIndex)
                 + user + ":" + password + "@"
@@ -40,7 +46,7 @@ public class TheInternetHerokuAppCom extends TestSettings {
 
     @Test
     public void javascriptAlerts() {
-        BrowserActions.openUrl(DataProperties.getDataPropertyByKey("internetHerokuAppAlertUrl"));
+        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAlertUrl"));
         AlertsMainPage alertsMainPage = new AlertsMainPage(By.xpath(XPATH_ALERT_PAGE_ELEMENT),
                 "Auth page element.");
         alertsMainPage.buttonAlertClick();
@@ -69,7 +75,7 @@ public class TheInternetHerokuAppCom extends TestSettings {
 
     @Test
     public void horizontalSlider() {
-        BrowserActions.openUrl(DataProperties.getDataPropertyByKey("internetHerokuAppSliderUrl"));
+        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppSliderUrl"));
         HorizontalSliderPage horizontalSliderPage = new HorizontalSliderPage(
                 By.xpath(XPATH_SLIDER_PAGE_ELEMENT), "Slider range label");
         Assert.assertTrue(horizontalSliderPage.atPage());
@@ -80,45 +86,66 @@ public class TheInternetHerokuAppCom extends TestSettings {
 
     @Test
     public void hovers() {
-        BrowserActions.openUrl(DataProperties.getDataPropertyByKey("internetHerokuAppHoverUrl"));
+        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl"));
         HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");
         Assert.assertTrue(hoverMainPage.atPage());
     }
 
     @Test
     public void windows() {
-        BrowserActions.openUrl(DataProperties.getDataPropertyByKey("internetHerokuAppWindowsUrl"));
+        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppWindowsUrl"));
         WindowsMainPage windowsMainPage = new WindowsMainPage(
                 By.xpath(XPATH_WINDOWS_PAGE_ELEMENT), "Window href");
         Assert.assertTrue(windowsMainPage.atPage());
-        int numTabsBeforeOpenNew = BrowserActions.getBrowserTabs().size();
+        String homeWindowHandle = BrowserActions.getCurrentWindowHandle();
+
+        List<String> tabsBeforeOpenNew = BrowserActions.getBrowserWindowHandles();
         windowsMainPage.hrefNewWindowClick();
-        int numTabsAfterOpenNew = BrowserActions.getBrowserTabs().size();
-        Assert.assertTrue(numTabsAfterOpenNew > numTabsBeforeOpenNew, "Tab is not open");
-        NewTabPage newTabPage = new NewTabPage(By.xpath(XPATH_TEXT_NEW_WINDOW), "Label new window");
-        BrowserActions.switchTab(BrowserActions.getBrowserTabs().get(1));
-        Assert.assertEquals(newTabPage.getTextNewWindow(), "New Window",
+        List<String> tabsAfterOpenNew = BrowserActions.getBrowserWindowHandles();
+        String stepOneWindowHandle = Comparator.compareListsAndReturnDifferenceElement(
+                tabsBeforeOpenNew,
+                tabsAfterOpenNew);
+        Assert.assertNotNull(stepOneWindowHandle, "Step one. Window handle is not found.");
+        BrowserActions.switchWindow(stepOneWindowHandle);
+
+        NewTabPage stepOneTabPage = new NewTabPage(By.xpath(XPATH_TEXT_NEW_WINDOW), "Label new window");
+        Assert.assertTrue(stepOneTabPage.isOpened(), "Tab is not open");
+        Assert.assertEquals(stepOneTabPage.getTextNewWindow(), "New Window",
                 "The text on the new tab is incorrect");
-        Assert.assertEquals(BrowserActions.getCurrentTabName(), "New Window",
+        Assert.assertEquals(BrowserActions.getCurrentWindowTitle(), "New Window",
                 "The name of the new tab is incorrect");
 
-        BrowserActions.switchTab(BrowserActions.getBrowserTabs().get(0));
+        BrowserActions.switchWindow(homeWindowHandle);
+        windowsMainPage = new WindowsMainPage(
+                By.xpath(XPATH_WINDOWS_PAGE_ELEMENT), "Window href");
         Assert.assertTrue(windowsMainPage.atPage());
-        numTabsBeforeOpenNew = BrowserActions.getBrowserTabs().size();
+
+        tabsBeforeOpenNew = BrowserActions.getBrowserWindowHandles();
         windowsMainPage.hrefNewWindowClick();
-        numTabsAfterOpenNew = BrowserActions.getBrowserTabs().size();
-        Assert.assertTrue(numTabsAfterOpenNew > numTabsBeforeOpenNew, "Tab is not open");
-        newTabPage = new NewTabPage(By.xpath(XPATH_TEXT_NEW_WINDOW), "Label new window");
-        BrowserActions.switchTab(BrowserActions.getBrowserTabs().get(1));
-        Assert.assertEquals(newTabPage.getTextNewWindow(), "New Window",
+        tabsAfterOpenNew = BrowserActions.getBrowserWindowHandles();
+        String stepTwoWindowHandle = Comparator.compareListsAndReturnDifferenceElement(
+                tabsBeforeOpenNew,
+                tabsAfterOpenNew);
+        Assert.assertNotNull(stepTwoWindowHandle, "Step two. Window handle is not found.");
+        BrowserActions.switchWindow(stepTwoWindowHandle);
+
+        NewTabPage stepTwoTabPage = new NewTabPage(By.xpath(XPATH_TEXT_NEW_WINDOW), "Label new window");
+        Assert.assertTrue(stepTwoTabPage.isOpened(), "Tab is not open");
+        Assert.assertEquals(stepTwoTabPage.getTextNewWindow(), "New Window",
                 "The text on the new tab is incorrect");
-        Assert.assertEquals(BrowserActions.getCurrentTabName(), "New Window",
+        Assert.assertEquals(BrowserActions.getCurrentWindowTitle(), "New Window",
                 "The name of the new tab is incorrect");
 
-        int numTabsBeforeClose = BrowserActions.getBrowserTabs().size();
-        BrowserActions.closeCurrentTab();
-        int numTabsAfterClose = BrowserActions.getBrowserTabs().size();
-        Assert.assertTrue(numTabsBeforeClose > numTabsAfterClose, "Tab is not close");
+        BrowserActions.switchWindow(stepOneWindowHandle);
+        BrowserActions.closeCurrentWindow();
+        Assert.assertFalse(BrowserActions.windowIsPresent(stepOneWindowHandle));
 
+        BrowserActions.switchWindow(homeWindowHandle);
+        BrowserActions.closeCurrentWindow();
+        Assert.assertFalse(BrowserActions.windowIsPresent(homeWindowHandle));
+
+        BrowserActions.switchWindow(stepTwoWindowHandle);
+        BrowserActions.closeCurrentWindow();
+        Assert.assertFalse(BrowserActions.windowIsPresent(stepTwoWindowHandle));
     }
 }

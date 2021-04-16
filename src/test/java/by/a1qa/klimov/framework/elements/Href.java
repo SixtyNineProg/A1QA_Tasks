@@ -1,6 +1,6 @@
-package by.a1qa.klimov.elements;
+package by.a1qa.klimov.framework.elements;
 
-import by.a1qa.klimov.model.BaseElement;
+import by.a1qa.klimov.framework.model.BaseElement;
 import org.openqa.selenium.By;
 
 public class Href extends BaseElement {

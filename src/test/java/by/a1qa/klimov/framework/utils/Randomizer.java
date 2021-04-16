@@ -1,4 +1,4 @@
-package by.a1qa.klimov.utils;
+package by.a1qa.klimov.framework.utils;
 
 import java.util.Random;
 

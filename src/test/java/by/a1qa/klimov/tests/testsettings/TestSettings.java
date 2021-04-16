@@ -1,13 +1,11 @@
 package by.a1qa.klimov.tests.testsettings;
 
-import by.a1qa.klimov.property.ConfigurationProperties;
-import by.a1qa.klimov.property.DataProperties;
-import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
+import by.a1qa.klimov.framework.property.ConfigurationProperties;
+import by.a1qa.klimov.framework.property.DataProperties;
+import by.a1qa.klimov.framework.webdriversetting.WebDriverSinglton;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import java.util.Properties;
@@ -34,6 +32,6 @@ public class TestSettings {
     @AfterTest
     public void close() {
         if (driver != null)
-            driver.close();
+            driver.quit();
     }
 }

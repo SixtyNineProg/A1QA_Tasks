@@ -1,9 +1,7 @@
 package by.a1qa.klimov.pageobjects;
 
-import by.a1qa.klimov.elements.Button;
-import by.a1qa.klimov.elements.Href;
-import by.a1qa.klimov.elements.Label;
-import by.a1qa.klimov.model.BaseForm;
+import by.a1qa.klimov.framework.elements.Href;
+import by.a1qa.klimov.framework.model.BaseForm;
 import org.openqa.selenium.By;
 
 public class WindowsMainPage extends BaseForm {

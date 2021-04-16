@@ -1,4 +1,4 @@
-package by.a1qa.klimov.model;
+package by.a1qa.klimov.framework.model;
 
 public abstract class BaseForm {
     private BaseElement baseElement;

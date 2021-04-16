@@ -1,9 +1,9 @@
-package by.a1qa.klimov.webdriversetting;
+package by.a1qa.klimov.framework.webdriversetting;
 
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
 
-import static by.a1qa.klimov.utils.Constants.GET_WEBDRIVER;
+import static by.a1qa.klimov.framework.utils.Constants.GET_WEBDRIVER;
 
 @Log4j
 public class WebDriverSinglton {

@@ -1,7 +1,7 @@
-package by.a1qa.klimov.pageobjects;
+package by.a1qa.klimov.framework.browser;
 
-import by.a1qa.klimov.property.ConfigurationProperties;
-import by.a1qa.klimov.webdriversetting.WebDriverSinglton;
+import by.a1qa.klimov.framework.property.ConfigurationProperties;
+import by.a1qa.klimov.framework.webdriversetting.WebDriverSinglton;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
