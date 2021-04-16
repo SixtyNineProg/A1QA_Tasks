@@ -114,5 +114,11 @@ public class TheInternetHerokuAppCom extends TestSettings {
                 "The text on the new tab is incorrect");
         Assert.assertEquals(BrowserActions.getCurrentTabName(), "New Window",
                 "The name of the new tab is incorrect");
+
+        int numTabsBeforeClose = BrowserActions.getBrowserTabs().size();
+        BrowserActions.closeCurrentTab();
+        int numTabsAfterClose = BrowserActions.getBrowserTabs().size();
+        Assert.assertTrue(numTabsBeforeClose > numTabsAfterClose, "Tab is not close");
+
     }
 }

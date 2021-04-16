@@ -35,4 +35,14 @@ public class BrowserActions {
     public static String getCurrentTabName() {
         return driver.getTitle();
     }
+
+    public static void closeCurrentTab() {
+        driver.close();
+    }
+
+    public static String getCurrentTabHandle() {
+        return driver.getWindowHandle();
+    }
+
+
 }
