@@ -8,6 +8,6 @@ public abstract class BaseForm {
     }
 
     public boolean isOpened() {
-        return baseElement.waitForDisplayed();
+        return baseElement.isDisplayed();
     }
 }

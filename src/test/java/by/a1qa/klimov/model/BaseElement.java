@@ -28,12 +28,22 @@ public abstract class BaseElement {
 
     public boolean isDisplayed() {
         log.info(ELEMENT_DISPLAYED + name);
-        return findElement().isDisplayed();
+        try {
+            waitForDisplayed();
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void click() {
         log.info(ELEMENT_CLICKED + name);
         findElement().click();
+    }
+
+    public void actionsClick() {
+        log.info(ELEMENT_CLICKED + name);
+        actions.click(findElement());
     }
 
     public String getAttribute(String name) {
@@ -46,21 +56,21 @@ public abstract class BaseElement {
         return findElement().getText();
     }
 
-    public boolean waitForDisplayed() {
+    public void waitForDisplayed() {
         log.info(WAIT_PRESENCE_OF_ELEMENT + name);
-        try {
-            return new WebDriverWait(driver, Long.parseLong(
-                    ConfigurationProperties.getConfigurationPropertyByKey("waitLoadingPageSeconds")))
-                    .until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
-        } catch (TimeoutException e) {
-            return false;
-        }
-
+        new WebDriverWait(driver, Long.parseLong(
+                ConfigurationProperties.getConfigurationPropertyByKey("waitLoadingPageSeconds")))
+                .until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
     }
 
     public WebElement findElement() {
         log.info(FIND_ELEMENT + name);
         return driver.findElement(locator);
+    }
+
+    public List<WebElement> findElements() {
+        log.info(FIND_ELEMENT + name);
+        return driver.findElements(locator);
     }
 
     public List<WebElement> getElementsAsList(By locator) {
