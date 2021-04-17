@@ -40,11 +40,6 @@ public abstract class BaseElement {
         findElement().click();
     }
 
-    public void actionsClick() {
-        log.info(ELEMENT_CLICKED + name);
-        actions.click(findElement());
-    }
-
     public String getAttribute(String name) {
         log.info(ELEMENT_GET_ATTRIBUTE + this.name);
         return findElement().getAttribute(name);
@@ -82,7 +77,7 @@ public abstract class BaseElement {
 
     public void moveToElement() {
         log.info(MOVE_TO_ELEMENT + name);
-        actions.moveToElement(findElement());
+        actions.moveToElement(findElement()).perform();
     }
 
     public Point getLocation() {

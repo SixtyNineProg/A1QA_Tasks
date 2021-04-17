@@ -52,4 +52,8 @@ public class BrowserActions {
     public static boolean windowIsPresent(String windowHandle) {
         return getBrowserWindowHandles().stream().anyMatch(windowHandle::equals);
     }
+
+    public static void navigateBack() {
+        driver.navigate().back();
+    }
 }

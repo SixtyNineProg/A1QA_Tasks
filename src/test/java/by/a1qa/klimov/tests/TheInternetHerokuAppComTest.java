@@ -4,10 +4,10 @@ import by.a1qa.klimov.framework.browser.Alerts;
 import by.a1qa.klimov.framework.browser.BrowserActions;
 import by.a1qa.klimov.framework.property.ConfigurationProperties;
 import by.a1qa.klimov.framework.property.DataProperties;
+import by.a1qa.klimov.framework.testsettings.TestSettings;
 import by.a1qa.klimov.framework.utils.Comparator;
 import by.a1qa.klimov.framework.utils.Randomizer;
 import by.a1qa.klimov.pageobjects.*;
-import by.a1qa.klimov.framework.testsettings.TestSettings;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -23,9 +23,10 @@ public class TheInternetHerokuAppComTest extends TestSettings {
 
     private static final String XPATH_ALERT_PAGE_ELEMENT = "//button[contains(@onclick,'jsAlert')]";
     private static final String XPATH_SLIDER_PAGE_ELEMENT = "//div[@class='sliderContainer']//span[@id='range']";
-    private static final String XPATH_HOVER_PAGE_ELEMENT = "//div[@class='figure']//div[@class='figcaption']";
+    private static final String XPATH_HOVER_PAGE_ELEMENT = "//div[@class='figure']//img[@alt='User Avatar']";
     private static final String XPATH_WINDOWS_PAGE_ELEMENT = "//a[contains(@href,'windows')]";
     private static final String XPATH_TEXT_NEW_WINDOW = "//div[@class='example']//*[contains(text(),'New Window')]";
+    private static final String XPATH_USER_PAGE = "//*[contains(text(),'user1')]";
 
     @Test
     public void basicAuth() {
@@ -89,6 +90,25 @@ public class TheInternetHerokuAppComTest extends TestSettings {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl"));
         HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");
         Assert.assertTrue(hoverMainPage.atPage());
+
+        String userName = DataProperties.getDataPropertyByKey("userName1");
+        testUserInHoverPage(userName, hoverMainPage);
+        userName = DataProperties.getDataPropertyByKey("userName2");
+        testUserInHoverPage(userName, hoverMainPage);
+        userName = DataProperties.getDataPropertyByKey("userName3");
+        testUserInHoverPage(userName, hoverMainPage);
+    }
+
+    private void testUserInHoverPage(String userName, HoverMainPage hoverMainPage) {
+        hoverMainPage.moveToUserImage(userName);
+        String labelName = hoverMainPage.getTextLabelUserName(userName);
+        Assert.assertTrue(Comparator.isExistPartsInText(labelName, userName));
+        Assert.assertTrue(hoverMainPage.userHrefIsExist(userName));
+        String userHref = hoverMainPage.getUserHref(userName);
+        BrowserActions.openUrl(userHref);
+        UserPage userPage = new UserPage(By.xpath(XPATH_USER_PAGE), "Label with user name");
+        Assert.assertTrue(userPage.isOpened());
+        BrowserActions.navigateBack();
     }
 
     @Test

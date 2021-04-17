@@ -2,6 +2,7 @@ package by.a1qa.klimov.framework.utils;
 
 import lombok.extern.log4j.Log4j;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static by.a1qa.klimov.framework.utils.Constants.ELEMENT_SIZES_INCORRECT;
@@ -17,5 +18,9 @@ public class Comparator {
             }
         } else log.error(ELEMENT_SIZES_INCORRECT);
         return null;
+    }
+
+    public static boolean isExistPartsInText(String text, String... parts) {
+        return Arrays.stream(parts).allMatch((text::contains));
     }
 }

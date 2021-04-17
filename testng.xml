@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" name="C:/Users/Keks/IdeaProjects/A1QA_Tasks">
+        <classes>
+            <class name="by.a1qa.klimov.tests.TheInternetHerokuAppComTest">
+                <methods>
+                    <include name="basicAuth"/>
+                    <include name="javascriptAlerts"/>
+                    <include name="horizontalSlider"/>
+                    <include name="windows"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

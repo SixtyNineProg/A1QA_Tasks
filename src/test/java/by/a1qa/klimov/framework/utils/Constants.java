@@ -19,8 +19,4 @@ public class Constants {
     public static final String MOVE_TO_ELEMENT = "Move to element with name: ";
     public static final String GET_LOCATION_ELEMENT = "Get element location with name: ";
     public static final String ELEMENT_SIZES_INCORRECT = "Wrong sizes of compared elements";
-
-    public static final String ATTRIBUTE_FOR_PRICE = "data-price-final";
-    public static final String ATTRIBUTE_FOR_WAIT_SEARCH_RESULT = "style";
-    public static final String EXPECTED_ATTRIBUTE_VALUE = "";
 }
