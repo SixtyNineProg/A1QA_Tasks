@@ -95,7 +95,6 @@ public class TheInternetHerokuAppComTest extends TestSettings {
 
 
         String userName = DataProperties.getDataPropertyByKey("userName1");
-        boolean test = hoverMainPage.isDisplayedUserHref(userName);
         testUserInHoverPage(userName, hoverMainPage);
         userName = DataProperties.getDataPropertyByKey("userName2");
         testUserInHoverPage(userName, hoverMainPage);
