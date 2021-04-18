@@ -40,7 +40,7 @@ public abstract class BaseElement {
         log.info(ELEMENT_DISPLAYED + name);
         try {
             waitForDisplayed();
-            return true;
+            return findElement().isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
