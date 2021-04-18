@@ -27,6 +27,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
     private static final String XPATH_WINDOWS_PAGE_ELEMENT = "//a[contains(@href,'windows')]";
     private static final String XPATH_TEXT_NEW_WINDOW = "//div[@class='example']//*[contains(text(),'New Window')]";
     private static final String XPATH_USER_PAGE = "//*[contains(text(),'user1')]";
+    private final static String XPATH_IFRAME_ELEMENT = "//div[@class='tox-editor-container']//iframe";
 
     @Test
     public void basicAuth() {
@@ -80,8 +81,8 @@ public class TheInternetHerokuAppComTest extends TestSettings {
         HorizontalSliderPage horizontalSliderPage = new HorizontalSliderPage(
                 By.xpath(XPATH_SLIDER_PAGE_ELEMENT), "Slider range label");
         Assert.assertTrue(horizontalSliderPage.atPage());
-        horizontalSliderPage.moveToSlider();
-        horizontalSliderPage.sliderClick();
+        horizontalSliderPage.moveToStartSlider();
+        //horizontalSliderPage.sliderClick();
         Assert.assertEquals(horizontalSliderPage.getSliderValue(), "2.5", "Incorrect slider value");
     }
 
@@ -167,5 +168,24 @@ public class TheInternetHerokuAppComTest extends TestSettings {
         BrowserActions.switchWindow(stepTwoWindowHandle);
         BrowserActions.closeCurrentWindow();
         Assert.assertFalse(BrowserActions.windowIsPresent(stepTwoWindowHandle));
+    }
+
+    @Test
+    public void iFrames() {
+        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppIFramesUrl"));
+        FrameMainPage frameMainPage = new FrameMainPage(By.xpath(XPATH_IFRAME_ELEMENT),
+                "IFrame page element");
+        Assert.assertTrue(frameMainPage.isOpened());
+        frameMainPage.frameClearText(XPATH_IFRAME_ELEMENT);
+        String randomText = Randomizer.generateRandomText(
+                Integer.parseInt(DataProperties.getDataPropertyByKey("randomTextLength")));
+        frameMainPage.frameSetText(
+                randomText,
+                XPATH_IFRAME_ELEMENT);
+        String frameText = frameMainPage.frameGetText(XPATH_IFRAME_ELEMENT);
+        Assert.assertEquals(randomText, frameText, "The text is not inserted.");
+        frameMainPage.highlightFrameText(XPATH_IFRAME_ELEMENT);
+        frameMainPage.boldButtonClick();
+        Assert.assertTrue(frameMainPage.isBoldFrameText(frameText, XPATH_IFRAME_ELEMENT));
     }
 }

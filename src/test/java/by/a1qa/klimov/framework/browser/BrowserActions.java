@@ -2,6 +2,7 @@ package by.a1qa.klimov.framework.browser;
 
 import by.a1qa.klimov.framework.webdriversetting.WebDriverSinglton;
 import lombok.extern.log4j.Log4j;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
 
@@ -55,5 +56,13 @@ public class BrowserActions {
 
     public static void navigateBack() {
         driver.navigate().back();
+    }
+
+    public static void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
+
+    public static void switchToFrame(By locator) {
+        driver.switchTo().frame(driver.findElement(locator));
     }
 }

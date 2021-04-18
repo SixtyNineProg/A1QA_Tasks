@@ -62,11 +62,6 @@ public abstract class BaseElement {
         return driver.findElement(locator);
     }
 
-    public List<WebElement> findElements() {
-        log.info(FIND_ELEMENT + name);
-        return driver.findElements(locator);
-    }
-
     public List<WebElement> getElementsAsList(By locator) {
         return driver.findElements(locator);
     }
@@ -80,8 +75,25 @@ public abstract class BaseElement {
         actions.moveToElement(findElement()).perform();
     }
 
+    public void moveToElement(int xOffset, int yOffset) {
+        log.info(MOVE_TO_ELEMENT + name);
+        actions.moveToElement(findElement(), xOffset, yOffset).perform();
+    }
+
+    public void moveToElementAndClick(int xOffset, int yOffset) {
+        actions.moveToElement(findElement(), xOffset, yOffset).click().build().perform();
+    }
+
     public Point getLocation() {
         log.info(MOVE_TO_ELEMENT + name);
         return findElement().getLocation();
+    }
+
+    public void clear() {
+        findElement().clear();
+    }
+
+    public void highlightText() {
+        findElement().sendKeys(Keys.CONTROL, "a");
     }
 }

@@ -16,8 +16,8 @@ public class HorizontalSliderPage extends BaseForm {
         super(new Label(locator, name));
     }
 
-    public void moveToSlider() {
-        getSlider().moveToElement();
+    public void moveToStartSlider() {
+        getSlider().moveToElementAndClick(0, 0);
     }
 
     public void sliderClick() {

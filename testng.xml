@@ -9,6 +9,7 @@
                     <include name="javascriptAlerts"/>
                     <include name="horizontalSlider"/>
                     <include name="windows"/>
+                    <include name="iFrames"/>
                 </methods>
             </class>
         </classes>
