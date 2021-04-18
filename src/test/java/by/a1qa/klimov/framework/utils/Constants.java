@@ -5,6 +5,7 @@ public class Constants {
     public static final String PATH_CONFIGURATION_PROPERTIES = "./src/test/resources/config.properties";
 
     public static final String GET_WEBDRIVER = "Get webdriver.";
+    public static final String GET_ACTIONS = "Get actions.";
     public static final String PROPERTY_FILE_UPLOAD_ERROR = "Property file upload error. File not found on path: ";
     public static final String ELEMENT_CREATED = "Element created with name: ";
     public static final String ELEMENT_DISPLAYED = "Element displayed with name: ";

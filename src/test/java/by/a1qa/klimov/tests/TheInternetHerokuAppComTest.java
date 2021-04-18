@@ -81,9 +81,9 @@ public class TheInternetHerokuAppComTest extends TestSettings {
         HorizontalSliderPage horizontalSliderPage = new HorizontalSliderPage(
                 By.xpath(XPATH_SLIDER_PAGE_ELEMENT), "Slider range label");
         Assert.assertTrue(horizontalSliderPage.atPage());
-        horizontalSliderPage.moveToStartSlider();
-        //horizontalSliderPage.sliderClick();
-        Assert.assertEquals(horizontalSliderPage.getSliderValue(), "2.5", "Incorrect slider value");
+        double shiftValue = horizontalSliderPage.moveSliderInRandomPlace();
+        double screenValue = Double.parseDouble(horizontalSliderPage.getSliderValue());
+        Assert.assertEquals(screenValue, shiftValue, "Incorrect slider value");
     }
 
     @Test

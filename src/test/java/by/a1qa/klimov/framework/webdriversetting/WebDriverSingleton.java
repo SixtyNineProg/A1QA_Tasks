@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import static by.a1qa.klimov.framework.utils.Constants.GET_WEBDRIVER;
 
 @Log4j
-public class WebDriverSinglton {
+public class WebDriverSingleton {
 
     private static WebDriver driver = null;
 

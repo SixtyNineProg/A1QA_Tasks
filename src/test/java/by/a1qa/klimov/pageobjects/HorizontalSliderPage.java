@@ -16,16 +16,12 @@ public class HorizontalSliderPage extends BaseForm {
         super(new Label(locator, name));
     }
 
-    public void moveToStartSlider() {
-        getSlider().moveToElementAndClick(0, 0);
-    }
-
-    public void sliderClick() {
-        getSlider().click();
-    }
-
     public boolean atPage() {
         return isOpened();
+    }
+
+    public double moveSliderInRandomPlace() {
+        return getSlider().moveSliderInRandomPlace();
     }
 
     public String getSliderValue() {
@@ -43,5 +39,6 @@ public class HorizontalSliderPage extends BaseForm {
                 labelSliderValue = new Label(By.xpath(XPATH_SLIDER_VALUE), "Slider value") :
                 labelSliderValue;
     }
+
 
 }

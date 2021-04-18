@@ -1,7 +1,7 @@
 package by.a1qa.klimov.framework.testsettings;
 
 import by.a1qa.klimov.framework.property.ConfigurationProperties;
-import by.a1qa.klimov.framework.webdriversetting.WebDriverSinglton;
+import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
@@ -14,7 +14,7 @@ public class TestSettings {
     private static WebDriver driver;
 
     public TestSettings() {
-        driver = WebDriverSinglton.getWebDriver();
+        driver = WebDriverSingleton.getWebDriver();
         driver.manage().timeouts().implicitlyWait(Long.parseLong(
                 ConfigurationProperties.getConfigurationPropertyByKey("implicitlyWait")), TimeUnit.SECONDS);
     }

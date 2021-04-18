@@ -1,7 +1,7 @@
 package by.a1qa.klimov.framework.browser;
 
 import by.a1qa.klimov.framework.property.ConfigurationProperties;
-import by.a1qa.klimov.framework.webdriversetting.WebDriverSinglton;
+import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Alerts {
-    private static WebDriver driver = WebDriverSinglton.getWebDriver();
+    private static WebDriver driver = WebDriverSingleton.getWebDriver();
     private static Alert alert;
 
     public static void acceptAlert() {
