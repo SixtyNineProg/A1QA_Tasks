@@ -5,10 +5,10 @@ import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import static by.a1qa.klimov.framework.utils.Constants.GET_ACTIONS;
-
 @Log4j
 public class ActionsSingleton {
+    public static final String GET_ACTIONS = "Get actions.";
+
     private static WebDriver driver = WebDriverSingleton.getWebDriver();
     private static Actions action = null;
 

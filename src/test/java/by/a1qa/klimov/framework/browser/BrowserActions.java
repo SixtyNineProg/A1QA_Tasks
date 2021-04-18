@@ -1,23 +1,20 @@
 package by.a1qa.klimov.framework.browser;
 
-import by.a1qa.klimov.framework.action.ActionsSingleton;
 import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.a1qa.klimov.framework.utils.Constants.GET_PAGE_WITH_URL;
-import static by.a1qa.klimov.framework.utils.Constants.GET_REFRESH_PAGE;
-
 @Log4j
 public class BrowserActions {
+    public static final String GET_PAGE_WITH_URL = "Get page with URL: ";
+    public static final String GET_REFRESH_PAGE = "Refresh page.";
+
     private static WebDriver driver = WebDriverSingleton.getWebDriver();
-    private static Actions actions = ActionsSingleton.getActions();
 
     public static void openUrl(String url) {
         log.info(GET_PAGE_WITH_URL + url);
