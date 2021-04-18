@@ -20,10 +20,6 @@ public class HoverMainPage extends BaseForm {
         return getLabelUserName(userName).getText();
     }
 
-    public boolean userHrefIsExist(String userName) {
-        return getLabelUserHref(userName).isDisplayed();
-    }
-
     public String getUserHref(String userName) {
         return getLabelUserHref(userName).getAttribute(HREF_ATTRIBUTE);
     }

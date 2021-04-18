@@ -104,7 +104,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
         hoverMainPage.moveToUserImage(userName);
         String labelName = hoverMainPage.getTextLabelUserName(userName);
         Assert.assertTrue(Comparator.isExistPartsInText(labelName, userName));
-        Assert.assertTrue(hoverMainPage.userHrefIsExist(userName));
+        Assert.assertTrue(hoverMainPage.isDisplayedUserHref(userName));
         String userHref = hoverMainPage.getUserHref(userName);
         BrowserActions.openUrl(userHref);
         UserPage userPage = new UserPage(By.xpath(XPATH_USER_PAGE), "Label with user name");
