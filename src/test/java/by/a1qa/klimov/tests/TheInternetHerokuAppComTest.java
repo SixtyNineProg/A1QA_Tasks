@@ -92,8 +92,6 @@ public class TheInternetHerokuAppComTest extends TestSettings {
         HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");
         Assert.assertTrue(hoverMainPage.atPage());
 
-
-
         String userName = DataProperties.getDataPropertyByKey("userName1");
         testUserInHoverPage(userName, hoverMainPage);
         userName = DataProperties.getDataPropertyByKey("userName2");
