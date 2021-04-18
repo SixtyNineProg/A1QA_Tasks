@@ -2,7 +2,7 @@ package by.a1qa.klimov.pageobjects;
 
 import by.a1qa.klimov.framework.elements.Label;
 import by.a1qa.klimov.framework.elements.Slider;
-import by.a1qa.klimov.framework.model.BaseForm;
+import by.a1qa.klimov.framework.models.BaseForm;
 import org.openqa.selenium.By;
 
 public class HorizontalSliderPage extends BaseForm {

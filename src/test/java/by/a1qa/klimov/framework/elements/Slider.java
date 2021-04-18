@@ -1,8 +1,7 @@
 package by.a1qa.klimov.framework.elements;
 
 import by.a1qa.klimov.framework.action.ActionsSingleton;
-import by.a1qa.klimov.framework.browser.BrowserActions;
-import by.a1qa.klimov.framework.model.BaseElement;
+import by.a1qa.klimov.framework.models.BaseElement;
 import by.a1qa.klimov.framework.utils.Randomizer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

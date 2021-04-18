@@ -1,6 +1,6 @@
 package by.a1qa.klimov.framework.elements;
 
-import by.a1qa.klimov.framework.model.BaseElement;
+import by.a1qa.klimov.framework.models.BaseElement;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

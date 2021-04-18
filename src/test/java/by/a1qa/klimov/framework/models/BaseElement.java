@@ -1,4 +1,4 @@
-package by.a1qa.klimov.framework.model;
+package by.a1qa.klimov.framework.models;
 
 import by.a1qa.klimov.framework.action.ActionsSingleton;
 import by.a1qa.klimov.framework.property.ConfigurationProperties;

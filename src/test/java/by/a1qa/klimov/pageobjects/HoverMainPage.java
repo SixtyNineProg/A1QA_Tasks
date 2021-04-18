@@ -2,7 +2,7 @@ package by.a1qa.klimov.pageobjects;
 
 import by.a1qa.klimov.framework.elements.Image;
 import by.a1qa.klimov.framework.elements.Label;
-import by.a1qa.klimov.framework.model.BaseForm;
+import by.a1qa.klimov.framework.models.BaseForm;
 import org.openqa.selenium.By;
 
 public class HoverMainPage extends BaseForm {
@@ -30,6 +30,10 @@ public class HoverMainPage extends BaseForm {
 
     public boolean atPage() {
         return isOpened();
+    }
+
+    public boolean isDisplayedUserHref(String userName) {
+        return getLabelUserHref(userName).isDisplayed();
     }
 
     private Image getUserImage(String userName) {
