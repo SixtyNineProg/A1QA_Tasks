@@ -8,8 +8,9 @@
                     <include name="basicAuth"/>
                     <include name="javascriptAlerts"/>
                     <include name="horizontalSlider"/>
-                    <include name="windows"/>
+                    <include name="hovers"/>
                     <include name="iFrames"/>
+                    <include name="windows"/>
                 </methods>
             </class>
         </classes>
