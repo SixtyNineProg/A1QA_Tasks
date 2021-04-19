@@ -5,12 +5,12 @@
         <classes>
             <class name="by.a1qa.klimov.tests.TheInternetHerokuAppComTest">
                 <methods>
-                    <include name="basicAuth"/>
-                    <include name="javascriptAlerts"/>
-                    <include name="horizontalSlider"/>
+                    <include name="basicAuthorization"/>
+                    <include name="alerts"/>
+                    <include name="actions"/>
                     <include name="hovers"/>
-                    <include name="iFrames"/>
-                    <include name="windows"/>
+                    <include name="iFrame"/>
+                    <include name="handles"/>
                 </methods>
             </class>
         </classes>

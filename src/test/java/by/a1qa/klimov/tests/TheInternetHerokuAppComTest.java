@@ -30,7 +30,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
     private final static String XPATH_IFRAME_ELEMENT = "//div[@class='tox-editor-container']//iframe";
 
     @Test
-    public void basicAuth() {
+    public void basicAuthorization() {
         String user = DataProperties.getDataPropertyByKey("basicAuthUser");
         String password = DataProperties.getDataPropertyByKey("basicAuthPassword");
         String url = ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAuthUrl");
@@ -47,7 +47,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
     }
 
     @Test
-    public void javascriptAlerts() {
+    public void alerts() {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAlertUrl"));
         AlertsMainPage alertsMainPage = new AlertsMainPage(By.xpath(XPATH_ALERT_PAGE_ELEMENT),
                 "Auth page element.");
@@ -76,7 +76,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
     }
 
     @Test
-    public void horizontalSlider() {
+    public void actions() {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppSliderUrl"));
         HorizontalSliderPage horizontalSliderPage = new HorizontalSliderPage(
                 By.xpath(XPATH_SLIDER_PAGE_ELEMENT), "Slider range label");
@@ -113,7 +113,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
     }
 
     @Test
-    public void windows() {
+    public void handles() {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppWindowsUrl"));
         WindowsMainPage windowsMainPage = new WindowsMainPage(
                 By.xpath(XPATH_WINDOWS_PAGE_ELEMENT), "Window href");
@@ -171,7 +171,7 @@ public class TheInternetHerokuAppComTest extends TestSettings {
     }
 
     @Test
-    public void iFrames() {
+    public void iFrame() {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppIFramesUrl"));
         FrameMainPage frameMainPage = new FrameMainPage(By.xpath(XPATH_IFRAME_ELEMENT),
                 "IFrame page element");
