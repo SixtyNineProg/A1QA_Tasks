@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static by.a1qa.klimov.framework.utils.Constants.PATH_DATA_PROPERTIES;
-
 @Slf4j
 public class DataProperties {
     public static final String PROPERTY_FILE_UPLOAD_ERROR = "Data property file upload error. File not found on path: ";
@@ -15,12 +13,13 @@ public class DataProperties {
     private static Properties dataProperties = null;
 
     public static void setDataProperties() {
+        String pathToDataProperties = "./src/test/resources/testData.properties";
         if (dataProperties == null) {
-            try (FileInputStream fis = new FileInputStream(PATH_DATA_PROPERTIES)) {
+            try (FileInputStream fis = new FileInputStream(pathToDataProperties)) {
                 dataProperties = new Properties();
                 dataProperties.load(fis);
             } catch (IOException e) {
-                log.error(PROPERTY_FILE_UPLOAD_ERROR + PATH_DATA_PROPERTIES, e);
+                log.error(PROPERTY_FILE_UPLOAD_ERROR + pathToDataProperties, e);
                 throw new NullPointerException();
             }
         }

@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static by.a1qa.klimov.framework.utils.Constants.PATH_CONFIGURATION_PROPERTIES;
-
 @Slf4j
 public class ConfigurationProperties {
     public static final String PROPERTY_FILE_UPLOAD_ERROR = "Configuration property file upload error. File not found on path: ";
@@ -15,12 +13,13 @@ public class ConfigurationProperties {
     private static Properties configurationProperties = null;
 
     public static void setConfigurationProperties() {
+        String pathToConfigProperties = "./src/test/resources/config.properties";
         if (configurationProperties == null) {
-            try (FileInputStream fis = new FileInputStream(PATH_CONFIGURATION_PROPERTIES)) {
+            try (FileInputStream fis = new FileInputStream(pathToConfigProperties)) {
                 configurationProperties = new Properties();
                 configurationProperties.load(fis);
             } catch (IOException e) {
-                log.error(PROPERTY_FILE_UPLOAD_ERROR + PATH_CONFIGURATION_PROPERTIES, e);
+                log.error(PROPERTY_FILE_UPLOAD_ERROR + pathToConfigProperties, e);
                 throw new NullPointerException();
             }
         }
