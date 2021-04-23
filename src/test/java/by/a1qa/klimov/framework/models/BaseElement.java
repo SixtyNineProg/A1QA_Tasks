@@ -1,6 +1,5 @@
 package by.a1qa.klimov.framework.models;
 
-import by.a1qa.klimov.framework.action.ActionsSingleton;
 import by.a1qa.klimov.framework.property.ConfigurationProperties;
 import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
 import lombok.extern.log4j.Log4j;
@@ -26,7 +25,7 @@ public abstract class BaseElement {
     public static final String GET_WIGHT = "Take length of element with name: ";
 
     private WebDriver driver = WebDriverSingleton.getWebDriver();
-    private Actions actions = ActionsSingleton.getActions();
+    private Actions actions = new Actions(driver);
     private By locator;
     private String name;
 
