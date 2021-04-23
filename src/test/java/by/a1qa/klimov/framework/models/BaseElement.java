@@ -24,8 +24,7 @@ public abstract class BaseElement {
     public static final String CLEAR_ELEMENT = "Clear element with name: ";
     public static final String GET_WIGHT = "Take length of element with name: ";
 
-    private WebDriver driver = WebDriverSingleton.getWebDriver();
-    private Actions actions = new Actions(driver);
+    private Actions actions = new Actions(WebDriverSingleton.getWebDriver());
     private By locator;
     private String name;
 
@@ -62,14 +61,14 @@ public abstract class BaseElement {
 
     public void waitForDisplayed() {
         log.info(WAIT_PRESENCE_OF_ELEMENT + name);
-        new WebDriverWait(driver, Long.parseLong(
+        new WebDriverWait(WebDriverSingleton.getWebDriver(), Long.parseLong(
                 ConfigurationProperties.getConfigurationPropertyByKey("waitLoadingPageSeconds")))
                 .until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
     }
 
     public WebElement findElement() {
         log.info(FIND_ELEMENT + name);
-        return driver.findElement(locator);
+        return WebDriverSingleton.getWebDriver().findElement(locator);
     }
 
     public void moveToElement() {

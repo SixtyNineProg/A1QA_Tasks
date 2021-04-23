@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Alerts {
-    private static WebDriver driver = WebDriverSingleton.getWebDriver();
+
     private static Alert alert;
 
     public static void acceptAlert() {
@@ -35,7 +35,7 @@ public class Alerts {
 
     private static Alert getAlert() {
         return alert == null ?
-                alert = new WebDriverWait(driver, Long.parseLong(
+                alert = new WebDriverWait(WebDriverSingleton.getWebDriver(), Long.parseLong(
                         ConfigurationProperties.getConfigurationPropertyByKey("waitLoadingPageSeconds")))
                         .until(ExpectedConditions.alertIsPresent()) :
                 alert;

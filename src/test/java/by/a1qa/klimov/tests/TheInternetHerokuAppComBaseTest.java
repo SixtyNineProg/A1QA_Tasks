@@ -4,7 +4,7 @@ import by.a1qa.klimov.framework.browser.Alerts;
 import by.a1qa.klimov.framework.browser.BrowserActions;
 import by.a1qa.klimov.framework.property.ConfigurationProperties;
 import by.a1qa.klimov.framework.property.DataProperties;
-import by.a1qa.klimov.framework.testsettings.TestSettings;
+import by.a1qa.klimov.framework.testsettings.BaseTest;
 import by.a1qa.klimov.framework.utils.Comparator;
 import by.a1qa.klimov.framework.utils.Randomizer;
 import by.a1qa.klimov.pageobjects.*;
@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 @Log4j
-public class TheInternetHerokuAppComTest extends TestSettings {
+public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
     private static final String XPATH_AUTH_PAGE_ELEMENT = "//*[contains(text(),'Basic Auth')]//parent::div";
     private static final String PART_URL = "://";
@@ -88,7 +88,8 @@ public class TheInternetHerokuAppComTest extends TestSettings {
 
     @Test
     public void hovers() {
-        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl"));
+        String url = ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl");
+        BrowserActions.openUrl(url);
         HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");
         Assert.assertTrue(hoverMainPage.atPage());
 

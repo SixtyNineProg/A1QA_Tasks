@@ -16,4 +16,9 @@ public class WebDriverSingleton {
         return driver;
     }
 
+    public static WebDriver reopenSession() {
+        driver = WebDriverFactory.getWebDriver();
+        return driver;
+    }
+
 }

@@ -1,8 +1,8 @@
 package by.a1qa.klimov.framework.elements;
 
-import by.a1qa.klimov.framework.action.ActionsSingleton;
 import by.a1qa.klimov.framework.models.BaseElement;
 import by.a1qa.klimov.framework.utils.Randomizer;
+import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -11,7 +11,7 @@ public class Slider extends BaseElement {
     private static final String ATTRIBUTE_MAX_VALUE = "max";
     private static final String ATTRIBUTE_STEP_VALUER = "step";
 
-    private Actions actions = ActionsSingleton.getActions();
+    private Actions actions = new Actions(WebDriverSingleton.getWebDriver());
 
     public Slider(By locator, String name) {
         super(locator, name);

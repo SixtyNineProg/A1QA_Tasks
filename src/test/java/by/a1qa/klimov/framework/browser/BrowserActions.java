@@ -14,40 +14,38 @@ public class BrowserActions {
     public static final String GET_PAGE_WITH_URL = "Get page with URL: ";
     public static final String GET_REFRESH_PAGE = "Refresh page.";
 
-    private static WebDriver driver = WebDriverSingleton.getWebDriver();
-
     public static void openUrl(String url) {
         log.info(GET_PAGE_WITH_URL + url);
-        driver.get(url);
+        WebDriverSingleton.getWebDriver().get(url);
     }
 
     public static void refresh() {
         log.info(GET_REFRESH_PAGE);
-        driver.navigate().refresh();
+        WebDriverSingleton.getWebDriver().navigate().refresh();
     }
 
     public static List<String> getBrowserWindowHandles() {
         try {
-            return new ArrayList<>(driver.getWindowHandles());
+            return new ArrayList<>(WebDriverSingleton.getWebDriver().getWindowHandles());
         } catch (NoSuchSessionException e) {
             return new ArrayList<>();
         }
     }
 
     public static void switchWindow(String windowHandle) {
-        driver.switchTo().window(windowHandle);
+        WebDriverSingleton.getWebDriver().switchTo().window(windowHandle);
     }
 
     public static String getCurrentWindowTitle() {
-        return driver.getTitle();
+        return WebDriverSingleton.getWebDriver().getTitle();
     }
 
     public static void closeCurrentWindow() {
-        driver.close();
+        WebDriverSingleton.getWebDriver().close();
     }
 
     public static String getCurrentWindowHandle() {
-        return driver.getWindowHandle();
+        return WebDriverSingleton.getWebDriver().getWindowHandle();
     }
 
     public static boolean windowIsPresent(String windowHandle) {
@@ -55,14 +53,14 @@ public class BrowserActions {
     }
 
     public static void navigateBack() {
-        driver.navigate().back();
+        WebDriverSingleton.getWebDriver().navigate().back();
     }
 
     public static void switchToDefaultContent() {
-        driver.switchTo().defaultContent();
+        WebDriverSingleton.getWebDriver().switchTo().defaultContent();
     }
 
     public static void switchToFrame(By locator) {
-        driver.switchTo().frame(driver.findElement(locator));
+        WebDriverSingleton.getWebDriver().switchTo().frame(WebDriverSingleton.getWebDriver().findElement(locator));
     }
 }
