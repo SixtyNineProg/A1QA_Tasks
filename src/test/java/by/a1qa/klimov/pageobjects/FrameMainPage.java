@@ -2,7 +2,7 @@ package by.a1qa.klimov.pageobjects;
 
 import by.a1qa.klimov.framework.browser.BrowserActions;
 import by.a1qa.klimov.framework.elements.Button;
-import by.a1qa.klimov.framework.elements.Frame;
+import by.a1qa.klimov.framework.elements.Label;
 import by.a1qa.klimov.framework.elements.TextField;
 import by.a1qa.klimov.framework.models.BaseForm;
 import org.openqa.selenium.By;
@@ -15,7 +15,7 @@ public class FrameMainPage extends BaseForm {
     private Button boldButton;
 
     public FrameMainPage(By locator, String name) {
-        super(new Frame(locator, name));
+        super(new Label(locator, name));
     }
 
     public void frameSetText(String text, String frameXpath) {
