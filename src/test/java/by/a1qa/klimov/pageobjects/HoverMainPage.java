@@ -33,26 +33,20 @@ public class HoverMainPage extends BaseForm {
     }
 
     private Image getUserImage(String userName) {
-        return new Image(By.xpath(getXpathUserImage(userName)), "User image.");
+        return new Image(By.xpath(
+                "//*[contains(text(),'name:') and contains(text(),'" + userName + "')]/ancestor::div[@class='figure']"
+        ), "User image.");
     }
 
     private Label getLabelUserName(String userName) {
-        return new Label(By.xpath(getXpathUserLabelName(userName)), "Label user name.");
+        return new Label(By.xpath(
+                "//div[@class='figcaption']//*[contains(text(),'name:') and contains(text(),'" + userName + "')]"
+        ), "Label user name.");
     }
 
     private Label getLabelUserHref(String userName) {
-        return new Label(By.xpath(getXpathUserLabelHref(userName)), "Label user href.");
-    }
-
-    private String getXpathUserImage(String userName) {
-        return "//*[contains(text(),'name:') and contains(text(),'" + userName + "')]/ancestor::div[@class='figure']";
-    }
-
-    private String getXpathUserLabelName(String userName) {
-        return "//div[@class='figcaption']//*[contains(text(),'name:') and contains(text(),'" + userName + "')]";
-    }
-
-    private String getXpathUserLabelHref(String userName) {
-        return "//*[contains(text(),'name:') and contains(text(),'" + userName + "')]/ancestor::div[@class='figcaption']//a[@href]";
+        return new Label(By.xpath(
+                "//*[contains(text(),'name:') and contains(text(),'" + userName + "')]/ancestor::div[@class='figcaption']//a[@href]"
+        ), "Label user href.");
     }
 }

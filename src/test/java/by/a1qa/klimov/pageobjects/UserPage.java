@@ -7,8 +7,6 @@ import org.openqa.selenium.By;
 public class UserPage extends BaseForm {
     private static final String XPATH_LABEL_USER_NAME = "//*[contains(text(),'user1')]";
 
-    private Label labelUserName;
-
     public UserPage(By locator, String name) {
         super(new Label(locator, name));
     }
@@ -18,9 +16,7 @@ public class UserPage extends BaseForm {
     }
 
     private Label getLabelUserName(String userName) {
-        return labelUserName == null ?
-                labelUserName = new Label(By.xpath(getXpathLabelUserName(userName)), "Label user href.") :
-                labelUserName;
+        return new Label(By.xpath(getXpathLabelUserName(userName)), "Label user href.");
     }
 
     private String getXpathLabelUserName(String userName) {

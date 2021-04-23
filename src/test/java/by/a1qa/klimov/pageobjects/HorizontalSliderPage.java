@@ -9,8 +9,8 @@ public class HorizontalSliderPage extends BaseForm {
     private static final String XPATH_SLIDER = "//div[@class='sliderContainer']//input[@type='range']";
     private static final String XPATH_SLIDER_VALUE = "//span[@id='range']";
 
-    private Slider slider;
-    private Label labelSliderValue;
+    private Slider slider = new Slider(By.xpath(XPATH_SLIDER), "Slider");
+    private Label labelSliderValue = new Label(By.xpath(XPATH_SLIDER_VALUE), "Slider value");
 
     public HorizontalSliderPage(By locator, String name) {
         super(new Label(locator, name));
@@ -21,24 +21,11 @@ public class HorizontalSliderPage extends BaseForm {
     }
 
     public double moveSliderInRandomPlace() {
-        return getSlider().moveSliderInRandomPlace();
+        return slider.moveSliderInRandomPlace();
     }
 
     public String getSliderValue() {
-        return getLabelSliderValue().getText();
+        return labelSliderValue.getText();
     }
-
-    private Slider getSlider() {
-        return slider == null ?
-                slider = new Slider(By.xpath(XPATH_SLIDER), "Slider") :
-                slider;
-    }
-
-    private Label getLabelSliderValue() {
-        return labelSliderValue == null ?
-                labelSliderValue = new Label(By.xpath(XPATH_SLIDER_VALUE), "Slider value") :
-                labelSliderValue;
-    }
-
 
 }

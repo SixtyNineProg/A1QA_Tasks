@@ -12,7 +12,7 @@ public class FrameMainPage extends BaseForm {
     private final static String XPATH_IFRAME_BOLD_TEXT = "//body[@id='tinymce']//strong";
     private final static String XPATH_BOLD_BUTTON = "//button[@aria-label='Bold']";
 
-    private Button boldButton;
+    private Button boldButton = new Button(By.xpath(XPATH_BOLD_BUTTON), "Bold button.");
 
     public FrameMainPage(By locator, String name) {
         super(new Label(locator, name));
@@ -44,7 +44,7 @@ public class FrameMainPage extends BaseForm {
     }
 
     public void boldButtonClick() {
-        getBoldButton().click();
+        boldButton.click();
     }
 
     public boolean isBoldFrameText(String text, String frameXpath) {
@@ -60,11 +60,5 @@ public class FrameMainPage extends BaseForm {
 
     private TextField getFrameBoldTextField() {
         return new TextField(By.xpath(XPATH_IFRAME_BOLD_TEXT), "Frame text field.");
-    }
-
-    private Button getBoldButton() {
-        return boldButton == null ?
-                boldButton = new Button(By.xpath(XPATH_BOLD_BUTTON), "Bold button.") :
-                boldButton;
     }
 }

@@ -16,7 +16,6 @@ public class WebDriverFactory {
         String browserName = ConfigurationProperties.getConfigurationPropertyByKey("browserName");
         browserName = browserName.toUpperCase().trim();
         io.github.bonigarcia.wdm.WebDriverManager.getInstance(DriverManagerType.valueOf(browserName)).setup();
-        browserName = browserName.toUpperCase().trim();
         switch (browserName) {
             case "CHROME": {
                 log.info("Create ChromeDriver");
