@@ -16,6 +16,7 @@ public class TextField extends BaseElement {
     }
 
     public void highlightText() {
+        findElement().click();
         findElement().sendKeys(Keys.CONTROL, "a");
     }
 }
