@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
+
+    <test verbose="2" name="hoversUser1">
+        <parameter name="userName" value="user1"/>
+        <parameter name="userHref" value="http://the-internet.herokuapp.com/users/1"/>
+        <classes>
+            <class name="by.a1qa.klimov.tests.TheInternetHerokuAppComBaseTest">
+                    <methods>
+                        <include name="hovers"/>
+                    </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" name="hoversUser2">
+        <parameter name="userName" value="user2"/>
+        <parameter name="userHref" value="http://the-internet.herokuapp.com/users/2"/>
+        <classes>
+            <class name="by.a1qa.klimov.tests.TheInternetHerokuAppComBaseTest">
+                <methods>
+                    <include name="hovers"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" name="hoversUser3">
+        <parameter name="userName" value="user3"/>
+        <parameter name="userHref" value="http://the-internet.herokuapp.com/users/3"/>
+        <classes>
+            <class name="by.a1qa.klimov.tests.TheInternetHerokuAppComBaseTest">
+                <methods>
+                    <include name="hovers"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
     <test verbose="2" name="C:/Users/Keks/IdeaProjects/A1QA_Tasks">
         <classes>
             <class name="by.a1qa.klimov.tests.TheInternetHerokuAppComBaseTest">
@@ -8,7 +45,6 @@
                     <include name="basicAuthorization"/>
                     <include name="alerts"/>
                     <include name="actions"/>
-                    <include name="hovers"/>
                     <include name="handles"/>
                     <include name="iFrame"/>
                 </methods>

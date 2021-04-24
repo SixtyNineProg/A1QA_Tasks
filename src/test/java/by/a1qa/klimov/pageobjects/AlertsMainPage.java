@@ -20,6 +20,10 @@ public class AlertsMainPage extends BaseForm {
         super(new Button(locator, name));
     }
 
+    public boolean atPage() {
+        return isOpened();
+    }
+
     public void buttonAlertClick() {
         buttonAlert.click();
     }

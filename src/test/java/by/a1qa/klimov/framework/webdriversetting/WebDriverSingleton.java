@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 @Log4j
 public class WebDriverSingleton {
-    public static final String GET_WEBDRIVER = "Get webdriver.";
+    private static final String GET_WEBDRIVER = "Get webdriver.";
 
     private static WebDriver driver = null;
 

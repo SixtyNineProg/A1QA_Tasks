@@ -85,4 +85,13 @@ public abstract class BaseElement {
         log.info(GET_WIGHT + name);
         return findElement().getSize().width;
     }
+
+    public void dasd(String xpath) {
+        actions.moveToElement(findElement())
+                .moveToElement(
+                        WebDriverSingleton.getWebDriver().findElement(By.xpath(xpath)))
+                .click()
+                .build()
+                .perform();
+    }
 }

@@ -63,4 +63,8 @@ public class BrowserActions {
     public static void switchToFrame(By locator) {
         WebDriverSingleton.getWebDriver().switchTo().frame(WebDriverSingleton.getWebDriver().findElement(locator));
     }
+
+    public static String getCurrentUrl() {
+        return WebDriverSingleton.getWebDriver().getCurrentUrl();
+    }
 }

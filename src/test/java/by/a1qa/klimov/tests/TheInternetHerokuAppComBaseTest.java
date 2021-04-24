@@ -11,6 +11,7 @@ import by.a1qa.klimov.pageobjects.*;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -18,10 +19,6 @@ import java.util.List;
 @Log4j
 public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
-    private static final String XPATH_AUTH_PAGE_ELEMENT = "//*[contains(text(),'Basic Auth')]//parent::div";
-    private static final String PART_URL = "://";
-
-    private static final String XPATH_ALERT_PAGE_ELEMENT = "//button[contains(@onclick,'jsAlert')]";
     private static final String XPATH_SLIDER_PAGE_ELEMENT = "//div[@class='sliderContainer']//span[@id='range']";
     private static final String XPATH_HOVER_PAGE_ELEMENT = "//div[@class='figure']//img[@alt='User Avatar']";
     private static final String XPATH_WINDOWS_PAGE_ELEMENT = "//a[contains(@href,'windows')]";
@@ -31,26 +28,33 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
     @Test
     public void basicAuthorization() {
-        String user = DataProperties.getDataPropertyByKey("basicAuthUser");
-        String password = DataProperties.getDataPropertyByKey("basicAuthPassword");
-        String url = ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAuthUrl");
-        int insertIndex = url.indexOf(PART_URL) + PART_URL.length();
-        String urlWithCred = url.substring(0, insertIndex)
-                + user + ":" + password + "@"
-                + url.substring(insertIndex);
+        String urlWithCred = getUrlWithCred(
+                DataProperties.getDataPropertyByKey("basicAuthUser"),
+                DataProperties.getDataPropertyByKey("basicAuthPassword"),
+                ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAuthUrl"));
         BrowserActions.openUrl(urlWithCred);
-        ResultAuthPage resultAuthPage = new ResultAuthPage(By.xpath(XPATH_AUTH_PAGE_ELEMENT),
+        ResultAuthPage resultAuthPage = new ResultAuthPage(By.xpath("//*[contains(text(),'Basic Auth')]//parent::div"),
                 "Auth page element.");
         Assert.assertEquals(resultAuthPage.getTextAfterAuth(),
                 "Congratulations! You must have the proper credentials.",
                 "Authentication error.");
     }
 
+    private String getUrlWithCred(String user, String password, String url) {
+        String partUrl = "://";
+        int insertIndex = url.indexOf(partUrl) + partUrl.length();
+        return url.substring(0, insertIndex)
+                + user + ":" + password + "@"
+                + url.substring(insertIndex);
+    }
+
     @Test
     public void alerts() {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppAlertUrl"));
-        AlertsMainPage alertsMainPage = new AlertsMainPage(By.xpath(XPATH_ALERT_PAGE_ELEMENT),
+        AlertsMainPage alertsMainPage = new AlertsMainPage(By.xpath("//button[contains(@onclick,'jsAlert')]"),
                 "Auth page element.");
+        Assert.assertTrue(alertsMainPage.atPage());
+
         alertsMainPage.buttonAlertClick();
         Assert.assertEquals(Alerts.alertGetText(), "I am a JS Alert",
                 "Confirmation text does not match");
@@ -58,6 +62,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         Assert.assertTrue(Alerts.alertIsClose(), "Alert is not closed.");
         Assert.assertEquals(alertsMainPage.getTextResult(), "You successfully clicked an alert",
                 "Alert was not pressed");
+
         alertsMainPage.buttonConfirmClick();
         Assert.assertEquals(Alerts.alertGetText(), "I am a JS Confirm",
                 "Confirmation text does not match");
@@ -65,6 +70,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         Assert.assertTrue(Alerts.alertIsClose(), "Alert is not closed.");
         Assert.assertEquals(alertsMainPage.getTextResult(), "You clicked: Ok",
                 "Alert was not pressed");
+
         alertsMainPage.buttonPromptClick();
         String randomText = Randomizer.generateRandomText(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("randomTextLength")));
@@ -86,31 +92,24 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         Assert.assertEquals(screenValue, shiftValue, "Incorrect slider value");
     }
 
+    @Parameters({"userName", "userHref"})
     @Test
-    public void hovers() {
-        String url = ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl");
-        BrowserActions.openUrl(url);
+    public void hovers(String userName, String userHref) {
+        BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl"));
+
         HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");
         Assert.assertTrue(hoverMainPage.atPage());
 
-        String userName = DataProperties.getDataPropertyByKey("userName1");
-        testUserInHoverPage(userName, hoverMainPage);
-        userName = DataProperties.getDataPropertyByKey("userName2");
-        testUserInHoverPage(userName, hoverMainPage);
-        userName = DataProperties.getDataPropertyByKey("userName3");
-        testUserInHoverPage(userName, hoverMainPage);
-    }
-
-    private void testUserInHoverPage(String userName, HoverMainPage hoverMainPage) {
         hoverMainPage.moveToUserImage(userName);
         String labelName = hoverMainPage.getTextLabelUserName(userName);
         Assert.assertTrue(Comparator.isExistPartsInText(labelName, userName));
         Assert.assertTrue(hoverMainPage.isDisplayedUserHref(userName));
-        String userHref = hoverMainPage.getUserHref(userName);
-        BrowserActions.openUrl(userHref);
-        UserPage userPage = new UserPage(By.xpath(XPATH_USER_PAGE), "Label with user name");
-        Assert.assertTrue(userPage.isOpened());
+
+        hoverMainPage.userHrefClick(userName);
+        Assert.assertEquals(BrowserActions.getCurrentUrl(), userHref);
         BrowserActions.navigateBack();
+
+        Assert.assertTrue(hoverMainPage.atPage());
     }
 
     @Test
@@ -187,6 +186,6 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         Assert.assertEquals(randomText, frameText, "The text is not inserted.");
         frameMainPage.highlightFrameText(XPATH_IFRAME_ELEMENT);
         frameMainPage.boldButtonClick();
-        Assert.assertTrue(frameMainPage.isBoldFrameText(frameText, XPATH_IFRAME_ELEMENT));
+        Assert.assertEquals(frameMainPage.getBoldFrameText(XPATH_IFRAME_ELEMENT), frameText);
     }
 }

@@ -47,11 +47,11 @@ public class FrameMainPage extends BaseForm {
         boldButton.click();
     }
 
-    public boolean isBoldFrameText(String text, String frameXpath) {
+    public String getBoldFrameText(String frameXpath) {
         BrowserActions.switchToFrame(By.xpath(frameXpath));
-        boolean textIsBolded = getFrameBoldTextField().getText().equals(text);
+        String text = getFrameBoldTextField().getText();
         BrowserActions.switchToDefaultContent();
-        return textIsBolded;
+        return text;
     }
 
     private TextField getFrameTextField() {
