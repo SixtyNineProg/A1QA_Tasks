@@ -11,6 +11,7 @@ public class ConfigurationProperties {
     private static Properties configurationProperties = null;
 
     public static void setConfigurationProperties() {
+        log.info("Set configuration properties.");
         String pathToConfigProperties = "./src/test/resources/config.properties";
         if (configurationProperties == null) {
             try (FileInputStream fis = new FileInputStream(pathToConfigProperties)) {
@@ -24,6 +25,7 @@ public class ConfigurationProperties {
     }
 
     public static String getConfigurationPropertyByKey(String key) {
+        log.info("Get configuration property by key: " + key);
         if (configurationProperties == null) setConfigurationProperties();
         return configurationProperties.getProperty(key);
     }

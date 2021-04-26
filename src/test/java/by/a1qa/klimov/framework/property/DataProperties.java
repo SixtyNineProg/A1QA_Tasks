@@ -11,6 +11,7 @@ public class DataProperties {
     private static Properties dataProperties = null;
 
     public static void setDataProperties() {
+        log.info("Set data properties.");
         String pathToDataProperties = "./src/test/resources/testData.properties";
         if (dataProperties == null) {
             try (FileInputStream fis = new FileInputStream(pathToDataProperties)) {
@@ -24,6 +25,7 @@ public class DataProperties {
     }
 
     public static String getDataPropertyByKey(String key) {
+        log.info("Get data property by key: " + key);
         if (dataProperties == null) setDataProperties();
         return dataProperties.getProperty(key);
     }
