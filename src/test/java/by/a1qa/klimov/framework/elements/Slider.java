@@ -3,10 +3,12 @@ package by.a1qa.klimov.framework.elements;
 import by.a1qa.klimov.framework.models.BaseElement;
 import by.a1qa.klimov.framework.utils.Randomizer;
 import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
+@Log4j
 public class Slider extends BaseElement {
     private static final String ATTRIBUTE_MAX_VALUE = "max";
     private static final String ATTRIBUTE_STEP_VALUER = "step";
@@ -18,6 +20,7 @@ public class Slider extends BaseElement {
     }
 
     public double moveSliderInRandomPlace() {
+        log.info("Move slider in random place.");
         actions.moveToElement(findElement()).moveByOffset(-(getWight() / 2), 0).click().build().perform();
 
         double maxValue = Double.parseDouble(findElement().getAttribute(ATTRIBUTE_MAX_VALUE));

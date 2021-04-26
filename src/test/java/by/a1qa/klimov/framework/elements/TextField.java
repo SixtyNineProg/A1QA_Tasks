@@ -12,10 +12,12 @@ public class TextField extends BaseElement {
     }
 
     public void sendText(String text) {
+        log.info("Send text.");
         findElement().sendKeys(text);
     }
 
     public void highlightText() {
+        log.info("Highlight text.");
         findElement().click();
         findElement().sendKeys(Keys.CONTROL, "a");
     }

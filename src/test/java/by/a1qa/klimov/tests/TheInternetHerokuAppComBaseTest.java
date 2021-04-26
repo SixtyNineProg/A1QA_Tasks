@@ -191,7 +191,6 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         BrowserActions.switchToDefaultContent();
         frameMainPage.boldButtonClick();
         BrowserActions.switchToFrame(xpathIframeElement);
-
         Assert.assertEquals(frameMainPage.getBoldFrameText(), frameText);
 
         BrowserActions.switchToDefaultContent();
