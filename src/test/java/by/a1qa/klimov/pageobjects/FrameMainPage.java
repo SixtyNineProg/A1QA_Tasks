@@ -18,40 +18,29 @@ public class FrameMainPage extends BaseForm {
         super(new Label(locator, name));
     }
 
-    public void frameSetText(String text, String frameXpath) {
-        BrowserActions.switchToFrame(By.xpath(frameXpath));
+    public void frameSetText(String text) {
         getFrameTextField().sendText(text);
-        BrowserActions.switchToDefaultContent();
     }
 
-    public void frameClearText(String frameXpath) {
-        BrowserActions.switchToFrame(By.xpath(frameXpath));
+    public void frameClearText() {
+
         getFrameTextField().clear();
-        BrowserActions.switchToDefaultContent();
     }
 
-    public String frameGetText(String frameXpath) {
-        BrowserActions.switchToFrame(By.xpath(frameXpath));
-        String text = getFrameTextField().getText();
-        BrowserActions.switchToDefaultContent();
-        return text;
+    public String frameGetText() {
+        return getFrameTextField().getText();
     }
 
-    public void highlightFrameText(String frameXpath) {
-        BrowserActions.switchToFrame(By.xpath(frameXpath));
+    public void highlightFrameText() {
         getFrameTextField().highlightText();
-        BrowserActions.switchToDefaultContent();
     }
 
     public void boldButtonClick() {
         boldButton.click();
     }
 
-    public String getBoldFrameText(String frameXpath) {
-        BrowserActions.switchToFrame(By.xpath(frameXpath));
-        String text = getFrameBoldTextField().getText();
-        BrowserActions.switchToDefaultContent();
-        return text;
+    public String getBoldFrameText() {
+        return getFrameBoldTextField().getText();
     }
 
     private TextField getFrameTextField() {

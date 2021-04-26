@@ -20,13 +20,6 @@ import java.util.List;
 @Log4j
 public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
-    private static final String XPATH_SLIDER_PAGE_ELEMENT = "//div[@class='sliderContainer']//span[@id='range']";
-    private static final String XPATH_HOVER_PAGE_ELEMENT = "//div[@class='figure']//img[@alt='User Avatar']";
-    private static final String XPATH_WINDOWS_PAGE_ELEMENT = "//a[contains(@href,'windows')]";
-    private static final String XPATH_TEXT_NEW_WINDOW = "//div[@class='example']//*[contains(text(),'New Window')]";
-    private static final String XPATH_USER_PAGE = "//*[contains(text(),'user1')]";
-    private final static String XPATH_IFRAME_ELEMENT = "//div[@class='tox-editor-container']//iframe";
-
     @Test
     public void basicAuthorization() {
         String urlWithCred = getUrlWithCred(
@@ -86,7 +79,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
     public void actions() {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppSliderUrl"));
         HorizontalSliderPage horizontalSliderPage = new HorizontalSliderPage(
-                By.xpath(XPATH_SLIDER_PAGE_ELEMENT), "Slider range label");
+                By.xpath("//div[@class='sliderContainer']//span[@id='range']"), "Slider range label");
         Assert.assertTrue(horizontalSliderPage.atPage());
         double shiftValue = horizontalSliderPage.moveSliderInRandomPlace();
         double screenValue = Double.parseDouble(horizontalSliderPage.getSliderValue());
@@ -99,7 +92,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
                        @Optional("http://the-internet.herokuapp.com/users/1") String userHref) {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl"));
 
-        HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");
+        HoverMainPage hoverMainPage = new HoverMainPage(By.xpath("//div[@class='figure']//img[@alt='User Avatar']"), "Hover label");
         Assert.assertTrue(hoverMainPage.atPage());
 
         hoverMainPage.moveToUserImage(userName);
@@ -116,9 +109,12 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
     @Test
     public void handles() {
+        String xpathWindowsPageElement = "//a[contains(@href,'windows')]";
+        String xpathTextNewWindow = "//div[@class='example']//*[contains(text(),'New Window')]";
+
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppWindowsUrl"));
         WindowsMainPage windowsMainPage = new WindowsMainPage(
-                By.xpath(XPATH_WINDOWS_PAGE_ELEMENT), "Window href");
+                By.xpath(xpathWindowsPageElement), "Window href");
         Assert.assertTrue(windowsMainPage.atPage());
         String homeWindowHandle = BrowserActions.getCurrentWindowHandle();
 
@@ -131,7 +127,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         Assert.assertNotNull(stepOneWindowHandle, "Step one. Window handle is not found.");
         BrowserActions.switchWindow(stepOneWindowHandle);
 
-        NewTabPage stepOneTabPage = new NewTabPage(By.xpath(XPATH_TEXT_NEW_WINDOW), "Label new window");
+        NewTabPage stepOneTabPage = new NewTabPage(By.xpath(xpathTextNewWindow), "Label new window");
         Assert.assertTrue(stepOneTabPage.isOpened(), "Tab is not open");
         Assert.assertEquals(stepOneTabPage.getTextNewWindow(), "New Window",
                 "The text on the new tab is incorrect");
@@ -140,7 +136,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
         BrowserActions.switchWindow(homeWindowHandle);
         windowsMainPage = new WindowsMainPage(
-                By.xpath(XPATH_WINDOWS_PAGE_ELEMENT), "Window href");
+                By.xpath(xpathWindowsPageElement), "Window href");
         Assert.assertTrue(windowsMainPage.atPage());
 
         tabsBeforeOpenNew = BrowserActions.getBrowserWindowHandles();
@@ -152,7 +148,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
         Assert.assertNotNull(stepTwoWindowHandle, "Step two. Window handle is not found.");
         BrowserActions.switchWindow(stepTwoWindowHandle);
 
-        NewTabPage stepTwoTabPage = new NewTabPage(By.xpath(XPATH_TEXT_NEW_WINDOW), "Label new window");
+        NewTabPage stepTwoTabPage = new NewTabPage(By.xpath(xpathTextNewWindow), "Label new window");
         Assert.assertTrue(stepTwoTabPage.isOpened(), "Tab is not open");
         Assert.assertEquals(stepTwoTabPage.getTextNewWindow(), "New Window",
                 "The text on the new tab is incorrect");
@@ -174,20 +170,30 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
     @Test
     public void iFrame() {
+        String xpathIframeElement = "//div[@class='tox-editor-container']//iframe";
+
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppIFramesUrl"));
-        FrameMainPage frameMainPage = new FrameMainPage(By.xpath(XPATH_IFRAME_ELEMENT),
+        FrameMainPage frameMainPage = new FrameMainPage(By.xpath(xpathIframeElement),
                 "IFrame page element");
         Assert.assertTrue(frameMainPage.isOpened());
-        frameMainPage.frameClearText(XPATH_IFRAME_ELEMENT);
+
+        BrowserActions.switchToFrame(By.xpath(xpathIframeElement));
+
+        frameMainPage.frameClearText();
         String randomText = Randomizer.generateRandomText(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("randomTextLength")));
-        frameMainPage.frameSetText(
-                randomText,
-                XPATH_IFRAME_ELEMENT);
-        String frameText = frameMainPage.frameGetText(XPATH_IFRAME_ELEMENT);
+        frameMainPage.frameSetText(randomText);
+        String frameText = frameMainPage.frameGetText();
         Assert.assertEquals(randomText, frameText, "The text is not inserted.");
-        frameMainPage.highlightFrameText(XPATH_IFRAME_ELEMENT);
+
+        frameMainPage.highlightFrameText();
+
+        BrowserActions.switchToDefaultContent();
         frameMainPage.boldButtonClick();
-        Assert.assertEquals(frameMainPage.getBoldFrameText(XPATH_IFRAME_ELEMENT), frameText);
+        BrowserActions.switchToFrame(By.xpath(xpathIframeElement));
+
+        Assert.assertEquals(frameMainPage.getBoldFrameText(), frameText);
+
+        BrowserActions.switchToDefaultContent();
     }
 }
