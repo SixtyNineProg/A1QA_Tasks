@@ -177,7 +177,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
                 "IFrame page element");
         Assert.assertTrue(frameMainPage.isOpened());
 
-        BrowserActions.switchToFrame(By.xpath(xpathIframeElement));
+        BrowserActions.switchToFrame(xpathIframeElement);
 
         frameMainPage.frameClearText();
         String randomText = Randomizer.generateRandomText(
@@ -190,7 +190,7 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
         BrowserActions.switchToDefaultContent();
         frameMainPage.boldButtonClick();
-        BrowserActions.switchToFrame(By.xpath(xpathIframeElement));
+        BrowserActions.switchToFrame(xpathIframeElement);
 
         Assert.assertEquals(frameMainPage.getBoldFrameText(), frameText);
 

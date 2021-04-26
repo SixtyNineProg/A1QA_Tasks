@@ -1,6 +1,5 @@
 package by.a1qa.klimov.pageobjects;
 
-import by.a1qa.klimov.framework.browser.BrowserActions;
 import by.a1qa.klimov.framework.elements.Button;
 import by.a1qa.klimov.framework.elements.Label;
 import by.a1qa.klimov.framework.elements.TextField;
