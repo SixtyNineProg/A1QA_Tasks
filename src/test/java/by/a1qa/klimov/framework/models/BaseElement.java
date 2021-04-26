@@ -5,7 +5,6 @@ import by.a1qa.klimov.framework.webdriversetting.WebDriverSingleton;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,29 +12,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Log4j
 public abstract class BaseElement {
-    public static final String ELEMENT_CREATED = "Element created with name: ";
-    public static final String ELEMENT_DISPLAYED = "Element displayed with name: ";
-    public static final String ELEMENT_CLICKED = "Element clicked with name: ";
-    public static final String ELEMENT_GET_ATTRIBUTE = "Get attribute from an element with name: ";
-    public static final String ELEMENT_GET_TEXT = "Get text from an element with name: ";
-    public static final String WAIT_PRESENCE_OF_ELEMENT = "Wait presence of element with name: ";
-    public static final String FIND_ELEMENT = "Find element with name: ";
-    public static final String MOVE_TO_ELEMENT = "Move to element with name: ";
-    public static final String CLEAR_ELEMENT = "Clear element with name: ";
-    public static final String GET_WIGHT = "Take length of element with name: ";
 
     private Actions actions = new Actions(WebDriverSingleton.getWebDriver());
     private By locator;
     private String name;
 
     public BaseElement(By locator, String name) {
-        log.info(ELEMENT_CREATED + name);
+        log.info("Element created with name: " + name);
         this.locator = locator;
         this.name = name;
     }
 
     public boolean isDisplayed() {
-        log.info(ELEMENT_DISPLAYED + name);
+        log.info("Element displayed with name: " + name);
         try {
             waitForDisplayed();
             return findElement().isDisplayed();
@@ -45,53 +34,44 @@ public abstract class BaseElement {
     }
 
     public void click() {
-        log.info(ELEMENT_CLICKED + name);
+        log.info("Element clicked with name: " + name);
         findElement().click();
     }
 
     public String getAttribute(String name) {
-        log.info(ELEMENT_GET_ATTRIBUTE + this.name);
+        log.info("Get attribute from an element with name: " + this.name);
         return findElement().getAttribute(name);
     }
 
     public String getText() {
-        log.info(ELEMENT_GET_TEXT + this.name);
+        log.info("Get text from an element with name: " + this.name);
         return findElement().getText();
     }
 
     public void waitForDisplayed() {
-        log.info(WAIT_PRESENCE_OF_ELEMENT + name);
+        log.info("Wait presence of element with name: " + name);
         new WebDriverWait(WebDriverSingleton.getWebDriver(), Long.parseLong(
                 ConfigurationProperties.getConfigurationPropertyByKey("waitLoadingPageSeconds")))
                 .until(ExpectedConditions.presenceOfElementLocated(locator)).isDisplayed();
     }
 
     public WebElement findElement() {
-        log.info(FIND_ELEMENT + name);
+        log.info("Find element with name: " + name);
         return WebDriverSingleton.getWebDriver().findElement(locator);
     }
 
     public void moveToElement() {
-        log.info(MOVE_TO_ELEMENT + name);
+        log.info("Move to element with name: " + name);
         actions.moveToElement(findElement()).perform();
     }
 
     public void clear() {
-        log.info(CLEAR_ELEMENT + name);
+        log.info("Clear element with name: " + name);
         findElement().clear();
     }
 
     public int getWight() {
-        log.info(GET_WIGHT + name);
+        log.info("Take length of element with name: " + name);
         return findElement().getSize().width;
-    }
-
-    public void dasd(String xpath) {
-        actions.moveToElement(findElement())
-                .moveToElement(
-                        WebDriverSingleton.getWebDriver().findElement(By.xpath(xpath)))
-                .click()
-                .build()
-                .perform();
     }
 }
