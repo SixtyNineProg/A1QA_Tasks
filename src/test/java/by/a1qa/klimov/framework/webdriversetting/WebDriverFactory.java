@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class WebDriverFactory {
 
     public static WebDriver getWebDriver() {
+        log.info("Get web driver.");
         initializeProxy();
         String browserName = ConfigurationProperties.getConfigurationPropertyByKey("browserName");
         browserName = browserName.toUpperCase().trim();
@@ -32,6 +33,7 @@ public class WebDriverFactory {
     }
 
     private static void initializeProxy() {
+        log.info("Initialize proxy.");
         boolean proxyEnable = Boolean.parseBoolean(ConfigurationProperties.getConfigurationPropertyByKey("useProxy"));
         String host = ConfigurationProperties.getConfigurationPropertyByKey("proxyHost");
         String login = ConfigurationProperties.getConfigurationPropertyByKey("proxyLogin");

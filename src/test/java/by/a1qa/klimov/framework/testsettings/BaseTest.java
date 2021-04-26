@@ -13,12 +13,14 @@ public abstract class BaseTest {
 
     @BeforeMethod
     public void setUp() {
+        log.info("Set up");
         WebDriverSingleton.reopenSession().manage().timeouts().implicitlyWait(Long.parseLong(
                 ConfigurationProperties.getConfigurationPropertyByKey("implicitlyWait")), TimeUnit.SECONDS);
     }
 
     @AfterMethod
     public void close() {
+        log.info("Close");
         if (WebDriverSingleton.getWebDriver() != null)
             WebDriverSingleton.getWebDriver().quit();
     }
