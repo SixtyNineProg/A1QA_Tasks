@@ -11,6 +11,7 @@ import by.a1qa.klimov.pageobjects.*;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -94,7 +95,8 @@ public class TheInternetHerokuAppComBaseTest extends BaseTest {
 
     @Parameters({"userName", "userHref"})
     @Test
-    public void hovers(String userName, String userHref) {
+    public void hovers(@Optional("user1") String userName,
+                       @Optional("http://the-internet.herokuapp.com/users/1") String userHref) {
         BrowserActions.openUrl(ConfigurationProperties.getConfigurationPropertyByKey("internetHerokuAppHoverUrl"));
 
         HoverMainPage hoverMainPage = new HoverMainPage(By.xpath(XPATH_HOVER_PAGE_ELEMENT), "Hover label");

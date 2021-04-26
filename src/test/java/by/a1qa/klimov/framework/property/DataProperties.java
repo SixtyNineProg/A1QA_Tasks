@@ -8,8 +8,6 @@ import java.util.Properties;
 
 @Slf4j
 public class DataProperties {
-    public static final String PROPERTY_FILE_UPLOAD_ERROR = "Data property file upload error. File not found on path: ";
-
     private static Properties dataProperties = null;
 
     public static void setDataProperties() {
@@ -19,7 +17,7 @@ public class DataProperties {
                 dataProperties = new Properties();
                 dataProperties.load(fis);
             } catch (IOException e) {
-                log.error(PROPERTY_FILE_UPLOAD_ERROR + pathToDataProperties, e);
+                log.error("Data property file upload error. File not found on path: " + pathToDataProperties, e);
                 throw new NullPointerException();
             }
         }

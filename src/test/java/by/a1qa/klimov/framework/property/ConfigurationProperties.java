@@ -8,8 +8,6 @@ import java.util.Properties;
 
 @Slf4j
 public class ConfigurationProperties {
-    public static final String PROPERTY_FILE_UPLOAD_ERROR = "Configuration property file upload error. File not found on path: ";
-
     private static Properties configurationProperties = null;
 
     public static void setConfigurationProperties() {
@@ -19,7 +17,7 @@ public class ConfigurationProperties {
                 configurationProperties = new Properties();
                 configurationProperties.load(fis);
             } catch (IOException e) {
-                log.error(PROPERTY_FILE_UPLOAD_ERROR + pathToConfigProperties, e);
+                log.error("Configuration property file upload error. File not found on path: " + pathToConfigProperties, e);
                 throw new NullPointerException();
             }
         }
