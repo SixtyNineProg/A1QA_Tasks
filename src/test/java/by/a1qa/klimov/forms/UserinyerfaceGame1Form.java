@@ -31,7 +31,7 @@ public class UserinyerfaceGame1Form extends Form {
 //            new SelectOptions(By.xpath("//div[@class='dropdown__opener']"), "Button dropdown opener", ElementState.DISPLAYED);
 
     private final IButton buttonDropDownListLastItem = getElementFactory()
-            .getButton(By.xpath("//div[@class='login-form__container']//div[@class='align__cell'][4]"), "Last list item");
+            .getButton(By.xpath("//span[@class='icon icon-chevron-down']"), "Last list item");
     // .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
 
     private final IButton buttonNext = getElementFactory()
