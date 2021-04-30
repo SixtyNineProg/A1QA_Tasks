@@ -1,10 +1,14 @@
 package by.a1qa.klimov.forms;
 
+import aquality.selenium.core.elements.ElementState;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ICheckBox;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
+import by.a1qa.klimov.elements.impl.SelectOptions;
+import by.a1qa.klimov.elements.interfaces.ISelectOptions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ISelect;
 
 public class UserinyerfaceGame1Form extends Form {
 
@@ -21,13 +25,20 @@ public class UserinyerfaceGame1Form extends Form {
             .getCheckBox(By.cssSelector("#accept-terms-conditions"), "Check Box Accept Terms");
 
     private final IButton buttonDropdownOpener = getElementFactory()
-            .getButton(By.cssSelector(".dropdown__opener"), "Button dropdown opener");
+            .getButton(By.xpath("//div[@class='dropdown__opener']"), "Button dropdown opener");
+
+//    private final ISelectOptions select =
+//            new SelectOptions(By.xpath("//div[@class='dropdown__opener']"), "Button dropdown opener", ElementState.DISPLAYED);
 
     private final IButton buttonDropDownListLastItem = getElementFactory()
-            .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
+            .getButton(By.xpath("//div[@class='login-form__container']//div[@class='align__cell'][4]"), "Last list item");
+    // .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
+
+    private final IButton buttonNext = getElementFactory()
+            .getButton(By.xpath("//a[@class='button--secondary' and text()='Next']"), "Button next");
 
     public UserinyerfaceGame1Form() {
-        super(By.cssSelector(".login-form__container .login-form__fields"), "Timer");
+        super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
     }
 
     public void writePassword(String password) {
@@ -43,7 +54,14 @@ public class UserinyerfaceGame1Form extends Form {
     }
 
     public void chooseDomain() {
-        buttonDropdownOpener.click();
         buttonDropDownListLastItem.click();
+    }
+
+    public void acceptTerms() {
+        checkBoxAcceptTerms.uncheck();
+    }
+
+    public void clickNext() {
+        buttonNext.click();
     }
 }

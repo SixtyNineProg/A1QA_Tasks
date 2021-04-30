@@ -31,6 +31,8 @@ public class UserinyerfaceComTest extends BaseTest {
         userinyerfaceGame1Form.writeEmail(DataProperties.getDataPropertyByKey("email"));
         userinyerfaceGame1Form.writeDomain(DataProperties.getDataPropertyByKey("domain"));
         userinyerfaceGame1Form.chooseDomain();
+        userinyerfaceGame1Form.acceptTerms();
+        userinyerfaceGame1Form.clickNext();
 
     }
 }
