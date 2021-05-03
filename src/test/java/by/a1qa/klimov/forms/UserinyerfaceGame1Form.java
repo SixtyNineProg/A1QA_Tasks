@@ -1,14 +1,10 @@
 package by.a1qa.klimov.forms;
 
-import aquality.selenium.core.elements.ElementState;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ICheckBox;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
-import by.a1qa.klimov.elements.impl.SelectOptions;
-import by.a1qa.klimov.elements.interfaces.ISelectOptions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ISelect;
 
 public class UserinyerfaceGame1Form extends Form {
 
@@ -22,17 +18,13 @@ public class UserinyerfaceGame1Form extends Form {
             .getTextBox(By.cssSelector("[placeholder='Domain']"), "Domain field");
 
     private final ICheckBox checkBoxAcceptTerms = getElementFactory()
-            .getCheckBox(By.cssSelector("#accept-terms-conditions"), "Check Box Accept Terms");
+            .getCheckBox(By.cssSelector(".checkbox__box .icon-check"), "Check Box Accept Terms");
 
-    private final IButton buttonDropdownOpener = getElementFactory()
-            .getButton(By.xpath("//div[@class='dropdown__opener']"), "Button dropdown opener");
-
-//    private final ISelectOptions select =
-//            new SelectOptions(By.xpath("//div[@class='dropdown__opener']"), "Button dropdown opener", ElementState.DISPLAYED);
+    private final IButton buttonDropMenuWithDomains = getElementFactory()
+            .getButton(By.xpath("//span[@class='icon icon-chevron-down']"), "Button dropdown opener");
 
     private final IButton buttonDropDownListLastItem = getElementFactory()
-            .getButton(By.xpath("//span[@class='icon icon-chevron-down']"), "Last list item");
-    // .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
+            .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
 
     private final IButton buttonNext = getElementFactory()
             .getButton(By.xpath("//a[@class='button--secondary' and text()='Next']"), "Button next");
@@ -54,11 +46,12 @@ public class UserinyerfaceGame1Form extends Form {
     }
 
     public void chooseDomain() {
+        buttonDropMenuWithDomains.click();
         buttonDropDownListLastItem.click();
     }
 
     public void acceptTerms() {
-        checkBoxAcceptTerms.uncheck();
+        checkBoxAcceptTerms.check();
     }
 
     public void clickNext() {

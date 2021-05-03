@@ -24,7 +24,7 @@ public class SelectOptions extends Element implements ISelectOptions {
     }
 
     @Override
-    public void selectByIndex() {
-        select.selectByIndex(2);
+    public void selectByIndex(int index) {
+        select.selectByIndex(index);
     }
 }

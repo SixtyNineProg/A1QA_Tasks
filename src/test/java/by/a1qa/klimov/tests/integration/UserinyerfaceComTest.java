@@ -3,12 +3,17 @@ package by.a1qa.klimov.tests.integration;
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.browser.Browser;
 import by.a1qa.klimov.forms.UserinyerfaceGame1Form;
+import by.a1qa.klimov.forms.UserinyerfaceGame2Form;
+import by.a1qa.klimov.forms.UserinyerfaceGame3Form;
 import by.a1qa.klimov.forms.UserinyerfaceMainForm;
 import by.a1qa.klimov.properties.ConfigurationProperties;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
+import by.a1qa.klimov.utils.FileUploader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.io.File;
 
 
 public class UserinyerfaceComTest extends BaseTest {
@@ -34,5 +39,17 @@ public class UserinyerfaceComTest extends BaseTest {
         userinyerfaceGame1Form.acceptTerms();
         userinyerfaceGame1Form.clickNext();
 
+        UserinyerfaceGame2Form userinyerfaceGame2Form = new UserinyerfaceGame2Form();
+        Assert.assertTrue(userinyerfaceGame2Form.state().waitForDisplayed());
+
+        userinyerfaceGame2Form.buttonUploadAvatarClick();
+        FileUploader.setUploadedFile(
+                new File(DataProperties.getDataPropertyByKey("pathToUploadFile")).getAbsolutePath());
+
+        userinyerfaceGame2Form.chooseThreeInterest();
+        userinyerfaceGame2Form.buttonNextClick();
+
+        UserinyerfaceGame3Form userinyerfaceGame3Form = new UserinyerfaceGame3Form();
+        Assert.assertTrue(userinyerfaceGame3Form.state().waitForDisplayed());
     }
 }
