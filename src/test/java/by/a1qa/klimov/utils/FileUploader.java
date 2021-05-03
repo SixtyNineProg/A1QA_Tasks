@@ -1,5 +1,6 @@
 package by.a1qa.klimov.utils;
 
+import by.a1qa.klimov.properties.ConfigurationProperties;
 import by.a1qa.klimov.properties.DataProperties;
 import lombok.extern.log4j.Log4j;
 
@@ -14,7 +15,7 @@ public class FileUploader {
      */
     public static void setUploadedFile(String filePath) {
 
-        File autoIt = new File(DataProperties.getDataPropertyByKey("pathToScriptUploadFile"));
+        File autoIt = new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToScriptUploadFile"));
 
         try {
             // запуск exe с передачей пути к загружаемому файлу
