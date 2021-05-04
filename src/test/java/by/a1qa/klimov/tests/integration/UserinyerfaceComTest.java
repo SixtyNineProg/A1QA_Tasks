@@ -25,12 +25,11 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.waitForPageToLoad();
 
         UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
-        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed());
-
+        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
         userinyerfaceMainForm.startLinkClick();
 
         UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
-        Assert.assertTrue(userinyerfaceGame1Form.state().waitForDisplayed());
+        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
 
         userinyerfaceGame1Form.writePassword(DataProperties.getDataPropertyByKey("password"));
         userinyerfaceGame1Form.writeEmail(DataProperties.getDataPropertyByKey("email"));
@@ -40,7 +39,7 @@ public class UserinyerfaceComTest extends BaseTest {
         userinyerfaceGame1Form.clickNext();
 
         UserinyerfaceGame2Form userinyerfaceGame2Form = new UserinyerfaceGame2Form();
-        Assert.assertTrue(userinyerfaceGame2Form.state().waitForDisplayed());
+        Assert.assertTrue(userinyerfaceGame2Form.state().isDisplayed(), "Game2 page not open.");
 
         userinyerfaceGame2Form.buttonUploadAvatarClick();
         FileUploader.setUploadedFile(
@@ -50,7 +49,7 @@ public class UserinyerfaceComTest extends BaseTest {
         userinyerfaceGame2Form.buttonNextClick();
 
         UserinyerfaceGame3Form userinyerfaceGame3Form = new UserinyerfaceGame3Form();
-        Assert.assertTrue(userinyerfaceGame3Form.state().waitForDisplayed());
+        Assert.assertTrue(userinyerfaceGame3Form.state().isDisplayed(), "Game3 page not open.");
     }
 
     @Test
@@ -60,6 +59,48 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.waitForPageToLoad();
 
         UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
-        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed());
+        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
+        userinyerfaceMainForm.startLinkClick();
+
+        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
+        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+
+        userinyerfaceGame1Form.buttonSendToBottomClick();
+        userinyerfaceGame1Form.waitHideButtonSendToBottom();
+        Assert.assertFalse(userinyerfaceGame1Form.buttonSendToBottomIsPresent(), "Help form isn't closed.");
+    }
+
+    @Test
+    public void textCase3() {
+        Browser browser = AqualityServices.getBrowser();
+        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
+        browser.waitForPageToLoad();
+
+        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
+        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
+        userinyerfaceMainForm.startLinkClick();
+
+        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
+        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+
+        userinyerfaceGame1Form.waitDisplayButtonTransparent();
+        userinyerfaceGame1Form.buttonTransparentClick();
+        Assert.assertFalse(userinyerfaceGame1Form.buttonTransparentIsPresent(), "Cookies form isn't closed.");
+    }
+
+    @Test
+    public void textCase4() {
+        Browser browser = AqualityServices.getBrowser();
+        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
+        browser.waitForPageToLoad();
+
+        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
+        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
+        userinyerfaceMainForm.startLinkClick();
+
+        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
+        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+
+        Assert.assertEquals(userinyerfaceGame1Form.labelTimerGetText(), "00:00:00", "Timer not reset");
     }
 }

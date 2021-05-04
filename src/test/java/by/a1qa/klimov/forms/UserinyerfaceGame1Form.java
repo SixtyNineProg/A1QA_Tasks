@@ -1,10 +1,13 @@
 package by.a1qa.klimov.forms;
 
+import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ICheckBox;
+import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class UserinyerfaceGame1Form extends Form {
 
@@ -31,6 +34,12 @@ public class UserinyerfaceGame1Form extends Form {
 
     private final IButton buttonSendToBottom = getElementFactory()
             .getButton(By.cssSelector(".help-form__send-to-bottom-button"), "Button send to bottom");
+
+    private final IButton buttonTransparent = getElementFactory()
+            .getButton(By.cssSelector(".button--transparent"), "Transparent button");
+
+    private final ILabel labelTimer = getElementFactory()
+            .getLabel(By.cssSelector(".timer--center"), "Timer label");
 
     public UserinyerfaceGame1Form() {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
@@ -61,8 +70,36 @@ public class UserinyerfaceGame1Form extends Form {
         buttonNext.click();
     }
 
+    public boolean buttonSendToBottomIsPresent() {
+        return buttonSendToBottom.state().isDisplayed();
+    }
+
     public void buttonSendToBottomClick() {
-        if (buttonSendToBottom != null)
+        if (buttonSendToBottomIsPresent())
             buttonSendToBottom.click();
+    }
+
+    public void waitHideButtonSendToBottom() {
+        AqualityServices.getConditionalWait().waitFor(
+                ExpectedConditions.invisibilityOf(buttonSendToBottom.getElement()),
+                "Send down button is hidden");
+    }
+
+    public void waitDisplayButtonTransparent() {
+        AqualityServices.getConditionalWait().waitFor(
+                ExpectedConditions.elementToBeClickable(buttonTransparent.getElement()),
+                "Send down button is hidden");
+    }
+
+    public boolean buttonTransparentIsPresent() {
+        return buttonTransparent.state().isDisplayed();
+    }
+
+    public void buttonTransparentClick() {
+        buttonTransparent.click();
+    }
+
+    public String labelTimerGetText() {
+        return labelTimer.getText();
     }
 }
