@@ -1,6 +1,5 @@
 package by.a1qa.klimov.forms;
 
-import aquality.selenium.elements.Label;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;

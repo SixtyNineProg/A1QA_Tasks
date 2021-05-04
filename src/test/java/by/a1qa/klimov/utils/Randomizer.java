@@ -14,6 +14,14 @@ public class Randomizer {
                 .toString();
     }
 
+    public static String generateRandomText(int length, int lowCodeAsciiChar, int highCodeAsciiChar) {
+        return new Random().ints(lowCodeAsciiChar, highCodeAsciiChar)
+                .mapToObj(i -> (char) i)
+                .limit(length)
+                .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                .toString();
+    }
+
     public static int generateRandomNumFromRange(int lowBound, int upperBound) {
         return (int) Math.floor(Math.random() * (upperBound - lowBound + 1) + lowBound);
     }
