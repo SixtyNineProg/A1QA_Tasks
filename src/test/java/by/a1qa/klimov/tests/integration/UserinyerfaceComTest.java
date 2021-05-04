@@ -45,7 +45,8 @@ public class UserinyerfaceComTest extends BaseTest {
         FileUploader.setUploadedFile(
                 new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToUploadFile")).getAbsolutePath());
 
-        userinyerfaceGame2Form.chooseThreeInterest();
+        userinyerfaceGame2Form.chooseInterests(
+                Integer.parseInt(DataProperties.getDataPropertyByKey("numberOfInterests")));
         userinyerfaceGame2Form.buttonNextClick();
 
         UserinyerfaceGame3Form userinyerfaceGame3Form = new UserinyerfaceGame3Form();
