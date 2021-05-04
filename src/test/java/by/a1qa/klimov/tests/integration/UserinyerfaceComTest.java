@@ -7,7 +7,6 @@ import by.a1qa.klimov.forms.UserinyerfaceGame2Form;
 import by.a1qa.klimov.forms.UserinyerfaceGame3Form;
 import by.a1qa.klimov.forms.UserinyerfaceMainForm;
 import by.a1qa.klimov.properties.ConfigurationProperties;
-import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.FileUploader;
 import lombok.extern.log4j.Log4j;
@@ -33,8 +32,8 @@ public class UserinyerfaceComTest extends BaseTest {
         Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
 
         userinyerfaceGame1Form.writePassword();
-        userinyerfaceGame1Form.writeEmail(DataProperties.getDataPropertyByKey("email"));
-        userinyerfaceGame1Form.writeDomain(DataProperties.getDataPropertyByKey("domain"));
+        userinyerfaceGame1Form.writeEmail();
+        userinyerfaceGame1Form.writeDomain();
         userinyerfaceGame1Form.chooseDomain();
         userinyerfaceGame1Form.acceptTerms();
         userinyerfaceGame1Form.clickNext();
@@ -46,8 +45,7 @@ public class UserinyerfaceComTest extends BaseTest {
         FileUploader.uploadFileWithRobot(
                 new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToUploadFile")).getAbsolutePath());
 
-        userinyerfaceGame2Form.chooseInterests(
-                Integer.parseInt(DataProperties.getDataPropertyByKey("numberOfInterests")));
+        userinyerfaceGame2Form.chooseInterests();
         userinyerfaceGame2Form.buttonNextClick();
 
         UserinyerfaceGame3Form userinyerfaceGame3Form = new UserinyerfaceGame3Form();

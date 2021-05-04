@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 public class UserinyerfaceGame2Form extends Form {
+    private final int NUM_INTERESTS = 3;
 
     private final IButton buttonUploadAvatar = getElementFactory()
             .getButton(By.cssSelector(".avatar-and-interests__upload-button"), "Button upload avatar");
@@ -27,11 +28,11 @@ public class UserinyerfaceGame2Form extends Form {
         buttonUploadAvatar.click();
     }
 
-    public void chooseInterests(int numInterests) {
+    public void chooseInterests() {
         labelUnselectAll.click();
         List<ILabel> interests = getInterestsList();
-        if (interests.size() >= numInterests + 2) {
-            for (int i = 0; i < numInterests;) {
+        if (interests.size() >= NUM_INTERESTS + 2) {
+            for (int i = 0; i < NUM_INTERESTS;) {
                 int randomNum = Randomizer.generateRandomNumFromRange(0, interests.size() - 1);
                 ILabel interest = interests.get(randomNum);
                 String attribute = interest.getAttribute("htmlFor");
@@ -42,7 +43,7 @@ public class UserinyerfaceGame2Form extends Form {
                 }
             }
         } else {
-            throw new IllegalArgumentException("Many interests selected");
+            throw new IllegalArgumentException("There are not enough interests on the page");
         }
     }
 

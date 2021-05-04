@@ -67,12 +67,20 @@ public class UserinyerfaceGame1Form extends Form {
                         "@";
     }
 
-    public void writeEmail(String mail) {
-        textFieldEmail.clearAndType(mail);
+    public void writeEmail() {
+        textFieldEmail.clearAndType(
+                Randomizer.generateRandomText(
+                        Randomizer.generateRandomNumFromRange(5,15)
+                )
+        );
     }
 
-    public void writeDomain(String domain) {
-        textFieldDomain.clearAndType(domain);
+    public void writeDomain() {
+        textFieldDomain.clearAndType(
+                Randomizer.generateRandomText(
+                        Randomizer.generateRandomNumFromRange(2, 8)
+                )
+        );
     }
 
     public void chooseDomain() {
