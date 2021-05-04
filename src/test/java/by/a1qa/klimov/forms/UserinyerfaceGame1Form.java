@@ -29,6 +29,9 @@ public class UserinyerfaceGame1Form extends Form {
     private final IButton buttonNext = getElementFactory()
             .getButton(By.xpath("//a[@class='button--secondary' and text()='Next']"), "Button next");
 
+    private final IButton buttonSendToBottom = getElementFactory()
+            .getButton(By.cssSelector(".help-form__send-to-bottom-button"), "Button send to bottom");
+
     public UserinyerfaceGame1Form() {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
     }
@@ -56,5 +59,10 @@ public class UserinyerfaceGame1Form extends Form {
 
     public void clickNext() {
         buttonNext.click();
+    }
+
+    public void buttonSendToBottomClick() {
+        if (buttonSendToBottom != null)
+            buttonSendToBottom.click();
     }
 }

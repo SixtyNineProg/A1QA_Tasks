@@ -52,4 +52,14 @@ public class UserinyerfaceComTest extends BaseTest {
         UserinyerfaceGame3Form userinyerfaceGame3Form = new UserinyerfaceGame3Form();
         Assert.assertTrue(userinyerfaceGame3Form.state().waitForDisplayed());
     }
+
+    @Test
+    public void textCase2() {
+        Browser browser = AqualityServices.getBrowser();
+        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
+        browser.waitForPageToLoad();
+
+        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
+        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed());
+    }
 }
