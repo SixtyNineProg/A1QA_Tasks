@@ -17,21 +17,8 @@ public class UserinyerfaceGame2Form extends Form {
     private final ILabel labelUnselectAll = getElementFactory()
             .getLabel(By.xpath("//label[@for='interest_unselectall']"), "CheckBox unselect all");
 
-    private final ILabel labelInterestSquares = getElementFactory()
-            .getLabel(By.xpath("//label[@for='interest_squares']"), "CheckBox interest_squares");
-
-    private final ILabel labelInterestPolo = getElementFactory()
-            .getLabel(By.xpath("//label[@for='interest_polo']"), "CheckBox interest polo");
-
-    private final ILabel labelInterestDough = getElementFactory()
-            .getLabel(By.xpath("//label[@for='interest_dough']"), "CheckBox interest dough");
-
     private final IButton buttonNext = getElementFactory()
             .getButton(By.xpath("//button[contains(text(),'Next')]"), "Button upload avatar");
-
-    private final List<Label> interests = getElementFactory()
-            .findElements(By.cssSelector("label[for*='interest']"), Label.class);
-
 
     public UserinyerfaceGame2Form() {
         super(By.cssSelector(".avatar-and-interests-page"), "This is me container");
@@ -43,10 +30,11 @@ public class UserinyerfaceGame2Form extends Form {
 
     public void chooseInterests(int numInterests) {
         labelUnselectAll.click();
+        List<ILabel> interests = getInterestsList();
         if (interests.size() >= numInterests + 2) {
-            for (int i = 0; i < 3;) {
+            for (int i = 0; i < numInterests;) {
                 int randomNum = Randomizer.generateRandomNumFromRange(0, interests.size() - 1);
-                Label interest = interests.get(randomNum);
+                ILabel interest = interests.get(randomNum);
                 String attribute = interest.getAttribute("htmlFor");
                 if (!attribute.equals("interest_unselectall") && !attribute.equals("interest_selectall")) {
                     interests.get(randomNum).click();
@@ -61,5 +49,9 @@ public class UserinyerfaceGame2Form extends Form {
 
     public void buttonNextClick() {
         buttonNext.click();
+    }
+
+    private List<ILabel> getInterestsList() {
+        return getElementFactory().findElements(By.cssSelector("label[for*='interest']"), ILabel.class);
     }
 }
