@@ -20,10 +20,6 @@ public class UserinyerfaceComTest extends BaseTest {
 
     @Test
     public void textCase1() {
-        Browser browser = AqualityServices.getBrowser();
-        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
-        browser.waitForPageToLoad();
-
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
@@ -54,10 +50,6 @@ public class UserinyerfaceComTest extends BaseTest {
 
     @Test
     public void textCase2() {
-        Browser browser = AqualityServices.getBrowser();
-        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
-        browser.waitForPageToLoad();
-
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
@@ -72,10 +64,6 @@ public class UserinyerfaceComTest extends BaseTest {
 
     @Test
     public void textCase3() {
-        Browser browser = AqualityServices.getBrowser();
-        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
-        browser.waitForPageToLoad();
-
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
@@ -90,10 +78,6 @@ public class UserinyerfaceComTest extends BaseTest {
 
     @Test
     public void textCase4() {
-        Browser browser = AqualityServices.getBrowser();
-        browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
-        browser.waitForPageToLoad();
-
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();

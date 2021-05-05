@@ -45,6 +45,9 @@ public class LoginForm extends Form {
     private final ILabel labelTimer = getElementFactory()
             .getLabel(By.cssSelector(".timer--center"), "Timer label");
 
+    private final ILabel labelHelpForm = getElementFactory()
+            .getLabel(By.cssSelector(".help-form"), "Help form label");
+
     public LoginForm() {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
     }
