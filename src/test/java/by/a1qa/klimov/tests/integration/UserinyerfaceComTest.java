@@ -31,7 +31,7 @@ public class UserinyerfaceComTest extends BaseTest {
         LoginForm loginForm = new LoginForm();
         Assert.assertTrue(loginForm.state().waitForDisplayed(), "LoginForm page not open.");
 
-        loginForm.fillPassword();
+        loginForm.fillPassword(5, 3, 3, true);
         loginForm.fillEmail();
         loginForm.fillDomain();
         loginForm.chooseDomain();

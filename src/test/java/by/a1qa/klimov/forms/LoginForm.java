@@ -6,6 +6,7 @@ import aquality.selenium.elements.interfaces.ICheckBox;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
+import by.a1qa.klimov.utils.Generator;
 import by.a1qa.klimov.utils.Randomizer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -46,31 +47,21 @@ public class LoginForm extends Form {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
     }
 
-    public void fillPassword() {
-        textBoxPassword.clearAndType(generatePassword());
-    }
-
-    private String generatePassword() {
-        return
-                //ASCII A(65)-Z(90)
-                Randomizer.generateRandomText(
-                        Randomizer.generateRandomNumFromRange(3, 5),
-                        65, 90) +
-                        //ASCII a(97)-z(122)
-                        Randomizer.generateRandomText(
-                                Randomizer.generateRandomNumFromRange(3, 5),
-                                97, 122) +
-                        //ASCII 0(48)-9(57)
-                        Randomizer.generateRandomText(
-                                Randomizer.generateRandomNumFromRange(3, 5),
-                                48, 57) +
-                        "@";
+    public void fillPassword(int numCapitalLetter,
+                             int numLowerCaseLetter,
+                             int numNumeral,
+                             boolean atSymbol) {
+        textBoxPassword.clearAndType(Generator.generatePassword(
+                numCapitalLetter,
+                numLowerCaseLetter,
+                numNumeral,
+                atSymbol));
     }
 
     public void fillEmail() {
         textBoxEmail.clearAndType(
                 Randomizer.generateRandomText(
-                        Randomizer.generateRandomNumFromRange(5,15)
+                        Randomizer.generateRandomNumFromRange(5, 15)
                 )
         );
     }
