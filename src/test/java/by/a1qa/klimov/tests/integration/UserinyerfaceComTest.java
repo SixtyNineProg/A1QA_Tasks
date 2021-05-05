@@ -25,21 +25,21 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.waitForPageToLoad();
 
         WelcomePage welcomePage = new WelcomePage();
-        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
 
         LoginForm loginForm = new LoginForm();
-        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
+        Assert.assertTrue(loginForm.state().waitForDisplayed(), "LoginForm page not open.");
 
-        loginForm.writePassword();
-        loginForm.writeEmail();
-        loginForm.writeDomain();
+        loginForm.fillPassword();
+        loginForm.fillEmail();
+        loginForm.fillDomain();
         loginForm.chooseDomain();
         loginForm.acceptTerms();
         loginForm.clickNext();
 
         AvatarAndInterestsPage avatarAndInterestsPage = new AvatarAndInterestsPage();
-        Assert.assertTrue(avatarAndInterestsPage.state().isDisplayed(), "Game2 page not open.");
+        Assert.assertTrue(avatarAndInterestsPage.state().waitForDisplayed(), "AvatarAndInterests page not open.");
 
         avatarAndInterestsPage.buttonUploadAvatarClick();
         Robot.uploadFileWithRobot(
@@ -49,7 +49,7 @@ public class UserinyerfaceComTest extends BaseTest {
         avatarAndInterestsPage.buttonNextClick();
 
         PersonalDetailsForm personalDetailsForm = new PersonalDetailsForm();
-        Assert.assertTrue(personalDetailsForm.state().isDisplayed(), "Game3 page not open.");
+        Assert.assertTrue(personalDetailsForm.state().waitForDisplayed(), "PersonalDetailsForm page not open.");
     }
 
     @Test
@@ -59,11 +59,11 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.waitForPageToLoad();
 
         WelcomePage welcomePage = new WelcomePage();
-        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
 
         LoginForm loginForm = new LoginForm();
-        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
+        Assert.assertTrue(loginForm.state().waitForDisplayed(), "LoginForm page not open.");
 
         loginForm.buttonSendToBottomClick();
         loginForm.waitHideButtonSendToBottom();
@@ -77,11 +77,11 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.waitForPageToLoad();
 
         WelcomePage welcomePage = new WelcomePage();
-        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
 
         LoginForm loginForm = new LoginForm();
-        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
+        Assert.assertTrue(loginForm.state().waitForDisplayed(), "LoginForm page not open.");
 
         loginForm.waitDisplayButtonTransparent();
         loginForm.buttonTransparentClick();
@@ -95,11 +95,11 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.waitForPageToLoad();
 
         WelcomePage welcomePage = new WelcomePage();
-        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
 
         LoginForm loginForm = new LoginForm();
-        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
+        Assert.assertTrue(loginForm.state().isDisplayed(), "LoginForm page not open.");
 
         Assert.assertEquals(loginForm.labelTimerGetText(), "00:00:00", "Timer not reset");
     }

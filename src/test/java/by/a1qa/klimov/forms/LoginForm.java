@@ -12,20 +12,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginForm extends Form {
 
-    private final ITextBox textFieldPassword = getElementFactory()
+    private final ITextBox textBoxPassword = getElementFactory()
             .getTextBox(By.cssSelector("[placeholder='Choose Password']"), "Password field");
 
-    private final ITextBox textFieldEmail = getElementFactory()
+    private final ITextBox textBoxEmail = getElementFactory()
             .getTextBox(By.cssSelector("[placeholder='Your email']"), "Email field");
 
-    private final ITextBox textFieldDomain = getElementFactory()
+    private final ITextBox textBoxDomain = getElementFactory()
             .getTextBox(By.cssSelector("[placeholder='Domain']"), "Domain field");
 
     private final ICheckBox checkBoxAcceptTerms = getElementFactory()
             .getCheckBox(By.cssSelector(".checkbox__box .icon-check"), "Check Box Accept Terms");
 
     private final IButton buttonDropMenuWithDomains = getElementFactory()
-            .getButton(By.xpath("//span[@class='icon icon-chevron-down']"), "Button dropdown opener");
+            .getButton(By.xpath("//span[contains(@class,'icon-chevron-down')]"), "Button dropdown opener");
 
     private final IButton buttonDropDownListLastItem = getElementFactory()
             .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
@@ -46,8 +46,8 @@ public class LoginForm extends Form {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
     }
 
-    public void writePassword() {
-        textFieldPassword.clearAndType(generatePassword());
+    public void fillPassword() {
+        textBoxPassword.clearAndType(generatePassword());
     }
 
     private String generatePassword() {
@@ -67,16 +67,16 @@ public class LoginForm extends Form {
                         "@";
     }
 
-    public void writeEmail() {
-        textFieldEmail.clearAndType(
+    public void fillEmail() {
+        textBoxEmail.clearAndType(
                 Randomizer.generateRandomText(
                         Randomizer.generateRandomNumFromRange(5,15)
                 )
         );
     }
 
-    public void writeDomain() {
-        textFieldDomain.clearAndType(
+    public void fillDomain() {
+        textBoxDomain.clearAndType(
                 Randomizer.generateRandomText(
                         Randomizer.generateRandomNumFromRange(2, 8)
                 )
