@@ -45,7 +45,7 @@ public class UserinyerfaceComTest extends BaseTest {
         Robot.uploadFileWithRobot(
                 new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToUploadFile")).getAbsolutePath());
 
-        avatarAndInterestsPage.chooseInterests();
+        avatarAndInterestsPage.chooseInterests(3);
         avatarAndInterestsPage.buttonNextClick();
 
         PersonalDetailsForm personalDetailsForm = new PersonalDetailsForm();

@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 public class AvatarAndInterestsPage extends Form {
-    private final int NUM_INTERESTS = 3;
 
     private final IButton buttonUploadAvatar = getElementFactory()
             .getButton(By.cssSelector(".avatar-and-interests__upload-button"), "Button upload avatar");
@@ -28,11 +27,11 @@ public class AvatarAndInterestsPage extends Form {
         buttonUploadAvatar.click();
     }
 
-    public void chooseInterests() {
+    public void chooseInterests(int numInterests) {
         labelUnselectAll.click();
         List<ILabel> interests = getInterestsList();
-        if (interests.size() >= NUM_INTERESTS + 2) {
-            for (int i = 0; i < NUM_INTERESTS;) {
+        if (interests.size() >= numInterests + 2) {
+            for (int i = 0; i < numInterests;) {
                 int randomNum = Randomizer.generateRandomNumFromRange(0, interests.size() - 1);
                 ILabel interest = interests.get(randomNum);
                 String attribute = interest.getAttribute("htmlFor");
