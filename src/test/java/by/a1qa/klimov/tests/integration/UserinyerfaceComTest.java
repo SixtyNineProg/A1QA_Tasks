@@ -2,13 +2,12 @@ package by.a1qa.klimov.tests.integration;
 
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.browser.Browser;
-import by.a1qa.klimov.forms.UserinyerfaceGame1Form;
-import by.a1qa.klimov.forms.UserinyerfaceGame2Form;
-import by.a1qa.klimov.forms.UserinyerfaceGame3Form;
-import by.a1qa.klimov.forms.UserinyerfaceMainForm;
+import by.a1qa.klimov.forms.LoginForm;
+import by.a1qa.klimov.forms.AvatarAndInterestsPage;
+import by.a1qa.klimov.forms.PersonalDetailsForm;
+import by.a1qa.klimov.forms.WelcomePage;
 import by.a1qa.klimov.properties.ConfigurationProperties;
 import by.a1qa.klimov.tests.BaseTest;
-import by.a1qa.klimov.utils.FileUploader;
 import by.a1qa.klimov.utils.Robot;
 import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
@@ -25,32 +24,32 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
         browser.waitForPageToLoad();
 
-        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
-        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
-        userinyerfaceMainForm.startLinkClick();
+        WelcomePage welcomePage = new WelcomePage();
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        welcomePage.startLinkClick();
 
-        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
-        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+        LoginForm loginForm = new LoginForm();
+        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
 
-        userinyerfaceGame1Form.writePassword();
-        userinyerfaceGame1Form.writeEmail();
-        userinyerfaceGame1Form.writeDomain();
-        userinyerfaceGame1Form.chooseDomain();
-        userinyerfaceGame1Form.acceptTerms();
-        userinyerfaceGame1Form.clickNext();
+        loginForm.writePassword();
+        loginForm.writeEmail();
+        loginForm.writeDomain();
+        loginForm.chooseDomain();
+        loginForm.acceptTerms();
+        loginForm.clickNext();
 
-        UserinyerfaceGame2Form userinyerfaceGame2Form = new UserinyerfaceGame2Form();
-        Assert.assertTrue(userinyerfaceGame2Form.state().isDisplayed(), "Game2 page not open.");
+        AvatarAndInterestsPage avatarAndInterestsPage = new AvatarAndInterestsPage();
+        Assert.assertTrue(avatarAndInterestsPage.state().isDisplayed(), "Game2 page not open.");
 
-        userinyerfaceGame2Form.buttonUploadAvatarClick();
+        avatarAndInterestsPage.buttonUploadAvatarClick();
         Robot.uploadFileWithRobot(
                 new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToUploadFile")).getAbsolutePath());
 
-        userinyerfaceGame2Form.chooseInterests();
-        userinyerfaceGame2Form.buttonNextClick();
+        avatarAndInterestsPage.chooseInterests();
+        avatarAndInterestsPage.buttonNextClick();
 
-        UserinyerfaceGame3Form userinyerfaceGame3Form = new UserinyerfaceGame3Form();
-        Assert.assertTrue(userinyerfaceGame3Form.state().isDisplayed(), "Game3 page not open.");
+        PersonalDetailsForm personalDetailsForm = new PersonalDetailsForm();
+        Assert.assertTrue(personalDetailsForm.state().isDisplayed(), "Game3 page not open.");
     }
 
     @Test
@@ -59,16 +58,16 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
         browser.waitForPageToLoad();
 
-        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
-        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
-        userinyerfaceMainForm.startLinkClick();
+        WelcomePage welcomePage = new WelcomePage();
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        welcomePage.startLinkClick();
 
-        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
-        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+        LoginForm loginForm = new LoginForm();
+        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
 
-        userinyerfaceGame1Form.buttonSendToBottomClick();
-        userinyerfaceGame1Form.waitHideButtonSendToBottom();
-        Assert.assertFalse(userinyerfaceGame1Form.buttonSendToBottomIsPresent(), "Help form isn't closed.");
+        loginForm.buttonSendToBottomClick();
+        loginForm.waitHideButtonSendToBottom();
+        Assert.assertFalse(loginForm.buttonSendToBottomIsPresent(), "Help form isn't closed.");
     }
 
     @Test
@@ -77,16 +76,16 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
         browser.waitForPageToLoad();
 
-        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
-        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
-        userinyerfaceMainForm.startLinkClick();
+        WelcomePage welcomePage = new WelcomePage();
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        welcomePage.startLinkClick();
 
-        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
-        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+        LoginForm loginForm = new LoginForm();
+        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
 
-        userinyerfaceGame1Form.waitDisplayButtonTransparent();
-        userinyerfaceGame1Form.buttonTransparentClick();
-        Assert.assertFalse(userinyerfaceGame1Form.buttonTransparentIsPresent(), "Cookies form isn't closed.");
+        loginForm.waitDisplayButtonTransparent();
+        loginForm.buttonTransparentClick();
+        Assert.assertFalse(loginForm.buttonTransparentIsPresent(), "Cookies form isn't closed.");
     }
 
     @Test
@@ -95,13 +94,13 @@ public class UserinyerfaceComTest extends BaseTest {
         browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
         browser.waitForPageToLoad();
 
-        UserinyerfaceMainForm userinyerfaceMainForm = new UserinyerfaceMainForm();
-        Assert.assertTrue(userinyerfaceMainForm.state().waitForDisplayed(), "Main page not open.");
-        userinyerfaceMainForm.startLinkClick();
+        WelcomePage welcomePage = new WelcomePage();
+        Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Main page not open.");
+        welcomePage.startLinkClick();
 
-        UserinyerfaceGame1Form userinyerfaceGame1Form = new UserinyerfaceGame1Form();
-        Assert.assertTrue(userinyerfaceGame1Form.state().isDisplayed(), "Game1 page not open.");
+        LoginForm loginForm = new LoginForm();
+        Assert.assertTrue(loginForm.state().isDisplayed(), "Game1 page not open.");
 
-        Assert.assertEquals(userinyerfaceGame1Form.labelTimerGetText(), "00:00:00", "Timer not reset");
+        Assert.assertEquals(loginForm.labelTimerGetText(), "00:00:00", "Timer not reset");
     }
 }

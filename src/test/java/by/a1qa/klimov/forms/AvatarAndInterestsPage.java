@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-public class UserinyerfaceGame2Form extends Form {
+public class AvatarAndInterestsPage extends Form {
     private final int NUM_INTERESTS = 3;
 
     private final IButton buttonUploadAvatar = getElementFactory()
@@ -20,7 +20,7 @@ public class UserinyerfaceGame2Form extends Form {
     private final IButton buttonNext = getElementFactory()
             .getButton(By.xpath("//button[contains(text(),'Next')]"), "Button upload avatar");
 
-    public UserinyerfaceGame2Form() {
+    public AvatarAndInterestsPage() {
         super(By.cssSelector(".avatar-and-interests-page"), "This is me container");
     }
 

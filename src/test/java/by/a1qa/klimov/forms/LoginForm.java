@@ -10,7 +10,7 @@ import by.a1qa.klimov.utils.Randomizer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class UserinyerfaceGame1Form extends Form {
+public class LoginForm extends Form {
 
     private final ITextBox textFieldPassword = getElementFactory()
             .getTextBox(By.cssSelector("[placeholder='Choose Password']"), "Password field");
@@ -42,7 +42,7 @@ public class UserinyerfaceGame1Form extends Form {
     private final ILabel labelTimer = getElementFactory()
             .getLabel(By.cssSelector(".timer--center"), "Timer label");
 
-    public UserinyerfaceGame1Form() {
+    public LoginForm() {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
     }
 
