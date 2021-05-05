@@ -2,8 +2,8 @@ package by.a1qa.klimov.tests.integration;
 
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.browser.Browser;
-import by.a1qa.klimov.forms.LoginForm;
 import by.a1qa.klimov.forms.AvatarAndInterestsPage;
+import by.a1qa.klimov.forms.LoginForm;
 import by.a1qa.klimov.forms.PersonalDetailsForm;
 import by.a1qa.klimov.forms.WelcomePage;
 import by.a1qa.klimov.properties.ConfigurationProperties;

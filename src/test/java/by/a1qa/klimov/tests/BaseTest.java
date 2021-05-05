@@ -18,7 +18,7 @@ public abstract class BaseTest {
     }
 
     @AfterMethod
-    public void afterTest() {
+    public void tearDown() {
         if (AqualityServices.isBrowserStarted()) {
             AqualityServices.getBrowser().quit();
         }

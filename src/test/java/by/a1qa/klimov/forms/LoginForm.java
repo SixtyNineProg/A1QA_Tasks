@@ -11,6 +11,8 @@ import by.a1qa.klimov.utils.Randomizer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 public class LoginForm extends Form {
 
     private final ITextBox textBoxPassword = getElementFactory()
@@ -76,7 +78,8 @@ public class LoginForm extends Form {
 
     public void chooseDomain() {
         buttonDropMenuWithDomains.click();
-        buttonDropDownListLastItem.click();
+        List<ILabel> domainsList = getDomainsList();
+        domainsList.get(Randomizer.generateRandomNumFromRange(0, domainsList.size() - 1)).click();
     }
 
     public void acceptTerms() {
@@ -118,5 +121,9 @@ public class LoginForm extends Form {
 
     public String labelTimerGetText() {
         return labelTimer.getText();
+    }
+
+    private List<ILabel> getDomainsList() {
+        return getElementFactory().findElements(By.xpath("//div[@class='dropdown__list-item']"), ILabel.class);
     }
 }
