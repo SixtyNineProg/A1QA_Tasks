@@ -9,6 +9,7 @@ import by.a1qa.klimov.forms.UserinyerfaceMainForm;
 import by.a1qa.klimov.properties.ConfigurationProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.FileUploader;
+import by.a1qa.klimov.utils.Robot;
 import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -42,7 +43,7 @@ public class UserinyerfaceComTest extends BaseTest {
         Assert.assertTrue(userinyerfaceGame2Form.state().isDisplayed(), "Game2 page not open.");
 
         userinyerfaceGame2Form.buttonUploadAvatarClick();
-        FileUploader.uploadFileWithRobot(
+        Robot.uploadFileWithRobot(
                 new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToUploadFile")).getAbsolutePath());
 
         userinyerfaceGame2Form.chooseInterests();
