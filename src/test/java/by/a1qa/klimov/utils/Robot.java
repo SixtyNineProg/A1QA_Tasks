@@ -1,5 +1,8 @@
 package by.a1qa.klimov.utils;
 
+import by.a1qa.klimov.properties.ConfigurationProperties;
+import by.a1qa.klimov.properties.DataProperties;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -53,7 +56,7 @@ public class Robot {
             throw new NullPointerException("The robot object has not been created.");
         }
 
-        robot.delay(2000);
+        robot.delay(Integer.parseInt(ConfigurationProperties.getConfigurationPropertyByKey("waitForOpenUploadWindowMs")));
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.keyPress(KeyEvent.VK_CONTROL);
