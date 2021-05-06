@@ -1,12 +1,11 @@
 package by.a1qa.klimov.tests.integration;
 
-import aquality.selenium.browser.AqualityServices;
-import aquality.selenium.browser.Browser;
 import by.a1qa.klimov.forms.AvatarAndInterestsPage;
 import by.a1qa.klimov.forms.LoginForm;
 import by.a1qa.klimov.forms.PersonalDetailsForm;
 import by.a1qa.klimov.forms.WelcomePage;
 import by.a1qa.klimov.properties.ConfigurationProperties;
+import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.Robot;
 import lombok.extern.log4j.Log4j;
@@ -27,7 +26,11 @@ public class UserinyerfaceComTest extends BaseTest {
         LoginForm loginForm = new LoginForm();
         Assert.assertTrue(loginForm.state().waitForDisplayed(), "LoginForm page not open.");
 
-        loginForm.fillPassword(5, 3, 3, true);
+        loginForm.fillPassword(
+                Integer.parseInt(DataProperties.getDataPropertyByKey("numCapitalLetter")),
+                Integer.parseInt(DataProperties.getDataPropertyByKey("numLowerCaseLetter")),
+                Integer.parseInt(DataProperties.getDataPropertyByKey("numNumeral")),
+                Boolean.parseBoolean(DataProperties.getDataPropertyByKey("atSymbol")));
         loginForm.fillEmail();
         loginForm.fillDomain();
         loginForm.chooseDomain();
@@ -41,7 +44,9 @@ public class UserinyerfaceComTest extends BaseTest {
         Robot.uploadFileWithRobot(
                 new File(ConfigurationProperties.getConfigurationPropertyByKey("pathToUploadFile")).getAbsolutePath());
 
-        avatarAndInterestsPage.chooseInterests(3);
+        avatarAndInterestsPage.chooseInterests(
+                Integer.parseInt(DataProperties.getDataPropertyByKey("numInterests"))
+        );
         avatarAndInterestsPage.buttonNextClick();
 
         PersonalDetailsForm personalDetailsForm = new PersonalDetailsForm();
@@ -85,6 +90,9 @@ public class UserinyerfaceComTest extends BaseTest {
         LoginForm loginForm = new LoginForm();
         Assert.assertTrue(loginForm.state().isDisplayed(), "LoginForm page not open.");
 
-        Assert.assertEquals(loginForm.labelTimerGetText(), "00:00:00", "Timer not reset");
+        Assert.assertEquals(
+                loginForm.labelTimerGetText(),
+                DataProperties.getDataPropertyByKey("expectedTimerValue"),
+                "Timer not reset");
     }
 }

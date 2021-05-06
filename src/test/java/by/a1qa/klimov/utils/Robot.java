@@ -53,7 +53,7 @@ public class Robot {
             throw new NullPointerException("The robot object has not been created.");
         }
 
-        robot.delay(250);
+        robot.delay(2000);
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
         robot.keyPress(KeyEvent.VK_CONTROL);
