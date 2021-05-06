@@ -1,4 +1,4 @@
-package by.a1qa.klimov.http;
+package by.a1qa.klimov.utils;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
