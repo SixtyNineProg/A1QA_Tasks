@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
-    Integer userId;
-    Integer id;
-    String title;
-    String body;
+public class RequestResult {
+    String answer;
+    int code;
 }
