@@ -45,8 +45,8 @@ public class LoginForm extends Form {
     private final ILabel labelTimer = getElementFactory()
             .getLabel(By.cssSelector(".timer--center"), "Timer label");
 
-    private final ILabel labelHelpForm = getElementFactory()
-            .getLabel(By.cssSelector(".help-form"), "Help form label");
+    private final ILabel labelHelpFormTitle = getElementFactory()
+            .getLabel(By.cssSelector(".help-form__title"), "Help form title label");
 
     public LoginForm() {
         super(By.cssSelector(".login-form__container .login-form__fields"), "Login container");
@@ -102,16 +102,20 @@ public class LoginForm extends Form {
             buttonSendToBottom.click();
     }
 
-    public void waitHideButtonSendToBottom() {
+    public void waitHideLabelHelpFormTitle() {
         AqualityServices.getConditionalWait().waitFor(
-                ExpectedConditions.invisibilityOf(buttonSendToBottom.getElement()),
-                "Send down button is hidden");
+                ExpectedConditions.invisibilityOf(labelHelpFormTitle.getElement()),
+                "Help form title is hidden");
     }
 
     public void waitDisplayButtonTransparent() {
         AqualityServices.getConditionalWait().waitFor(
                 ExpectedConditions.elementToBeClickable(buttonTransparent.getElement()),
                 "Send down button is hidden");
+    }
+
+    public boolean labelHelpFormIsPresent() {
+        return labelHelpFormTitle.state().isDisplayed();
     }
 
     public boolean buttonTransparentIsPresent() {

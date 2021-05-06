@@ -18,7 +18,7 @@ import java.io.File;
 public class UserinyerfaceComTest extends BaseTest {
 
     @Test
-    public void textCase1() {
+    public void testRegistrationForm() {
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
@@ -54,7 +54,7 @@ public class UserinyerfaceComTest extends BaseTest {
     }
 
     @Test
-    public void textCase2() {
+    public void testCloseHelpForm() {
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
@@ -63,12 +63,12 @@ public class UserinyerfaceComTest extends BaseTest {
         Assert.assertTrue(loginForm.state().waitForDisplayed(), "LoginForm page not open.");
 
         loginForm.buttonSendToBottomClick();
-        loginForm.waitHideButtonSendToBottom();
-        Assert.assertFalse(loginForm.buttonSendToBottomIsPresent(), "Help form isn't closed.");
+        loginForm.waitHideLabelHelpFormTitle();
+        Assert.assertFalse(loginForm.labelHelpFormIsPresent(), "Help form isn't closed.");
     }
 
     @Test
-    public void textCase3() {
+    public void testCloseCookiesForm() {
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
@@ -82,7 +82,7 @@ public class UserinyerfaceComTest extends BaseTest {
     }
 
     @Test
-    public void textCase4() {
+    public void testTimerIsReset() {
         WelcomePage welcomePage = new WelcomePage();
         Assert.assertTrue(welcomePage.state().waitForDisplayed(), "Welcome page not open.");
         welcomePage.startLinkClick();
