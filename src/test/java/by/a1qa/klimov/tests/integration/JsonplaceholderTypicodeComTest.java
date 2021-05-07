@@ -152,18 +152,8 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
         User user = getUserById(users, Integer.parseInt(DataProperties.getDataPropertyByKey("userIdGetUsers")));
         assert user != null;
 
-        String jsonExpected = "{\"website\":\"demarco.info\"," +
-                "\"address\":{\"zipcode\":\"33263\",\"geo\":{\"lng\":\"62.5342\",\"lat\":\"-31.8129\"}," +
-                "\"suite\":\"Suite 351\",\"city\":\"Roscoeview\",\"street\":\"Skiles Walks\"}," +
-                "\"phone\":\"(254)954-1289\"," +
-                "\"name\":\"Chelsey Dietrich\"," +
-                "\"company\":{\"bs\":\"revolutionize end-to-end systems\",\"catchPhrase\":\"User-centric fault-tolerant solution\",\"name\":\"Keebler LLC\"}," +
-                "\"id\":5," +
-                "\"email\":\"Lucio_Hettinger@annie.ca\"," +
-                "\"username\":\"Kamren\"}";
-
+        String jsonExpected = DataProperties.getDataPropertyByKey("expectedUserDataGetUsers");
         User expectedUser = JsonUtils.toObject(jsonExpected, User.class);
-
         Assert.assertEquals(user, expectedUser);
     }
 
@@ -171,7 +161,6 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
         List<User> userList = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(jsonUsers);
         for (int i = 0; i < jsonArray.length(); i++) {
-            String str = jsonArray.get(i).toString();
             userList.add(JsonUtils.toObject(jsonArray.get(i).toString(), User.class));
         }
         return userList;
@@ -182,37 +171,25 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     }
 
     @Test
-    @Parameters({"url", "method", "contentType", "accept"})
-    public void testOneUser(@Optional("https://jsonplaceholder.typicode.com/users/5") String url,
-                          @Optional("GET") String method,
-                          @Optional("application/x-www-form-urlencoded") String contentType,
-                          @Optional("application/json") String accept) {
+    @Parameters({"url"})
+    public void testGetOneUser(@Optional("https://jsonplaceholder.typicode.com/users/5") String url) {
         RequestResult requestResult = APIUtils.doRequest(
                 APIUtils.createUrl(url),
-                method,
-                contentType,
-                accept,
+                "GET",
+                "application/x-www-form-urlencoded",
+                "application/json",
                 null);
 
         assert requestResult != null;
-
-        Assert.assertEquals(requestResult.getCode(), 200);
+        Assert.assertEquals(
+                requestResult.getCode(),
+                Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetOneUser")));
 
         User user = JsonUtils.toObject(requestResult.getAnswer(), User.class);
         assert user != null;
 
-        String jsonExpected = "{\"website\":\"demarco.info\"," +
-                "\"address\":{\"zipcode\":\"33263\",\"geo\":{\"lng\":\"62.5342\",\"lat\":\"-31.8129\"}," +
-                "\"suite\":\"Suite 351\",\"city\":\"Roscoeview\",\"street\":\"Skiles Walks\"}," +
-                "\"phone\":\"(254)954-1289\"," +
-                "\"name\":\"Chelsey Dietrich\"," +
-                "\"company\":{\"bs\":\"revolutionize end-to-end systems\",\"catchPhrase\":\"User-centric fault-tolerant solution\",\"name\":\"Keebler LLC\"}," +
-                "\"id\":5," +
-                "\"email\":\"Lucio_Hettinger@annie.ca\"," +
-                "\"username\":\"Kamren\"}";
-
+        String jsonExpected = DataProperties.getDataPropertyByKey("expectedUserGetOneUser");
         User expectedUser = JsonUtils.toObject(jsonExpected, User.class);
-
         Assert.assertEquals(user, expectedUser);
     }
 }
