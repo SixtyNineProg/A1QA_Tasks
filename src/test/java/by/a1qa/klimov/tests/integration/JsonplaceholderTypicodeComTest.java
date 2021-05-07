@@ -3,6 +3,7 @@ package by.a1qa.klimov.tests.integration;
 import by.a1qa.klimov.models.Post;
 import by.a1qa.klimov.models.RequestResult;
 import by.a1qa.klimov.models.User;
+import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.APIUtils;
 import by.a1qa.klimov.utils.JsonUtils;
@@ -22,29 +23,26 @@ import java.util.List;
 public class JsonplaceholderTypicodeComTest extends BaseTest {
 
     @Test
-    @Parameters({"url", "method", "contentType", "accept"})
-    public void testAllPots(@Optional("https://jsonplaceholder.typicode.com/posts") String url,
-                            @Optional("GET") String method,
-                            @Optional("application/x-www-form-urlencoded") String contentType,
-                            @Optional("application/json") String accept) {
+    @Parameters({"url"})
+    public void testGetAllPots(@Optional("https://jsonplaceholder.typicode.com/posts") String url) {
         RequestResult requestResult = APIUtils.doRequest(
                 APIUtils.createUrl(url),
-                method,
-                contentType,
-                accept,
+                "GET",
+                "application/x-www-form-urlencoded",
+                "application/json",
                 null);
 
         assert requestResult != null;
 
-        Assert.assertEquals(requestResult.getCode(), 200);
+        Assert.assertEquals(requestResult.getCode(), Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetAllPots")));
 
         Assert.assertTrue(JsonUtils.stringIsJsonArray(requestResult.getAnswer()));
 
-        List<Integer> ids = getIdsFormPodts(requestResult.getAnswer());
+        List<Integer> ids = getIdsFormPosts(requestResult.getAnswer());
         Assert.assertTrue(Sort.listIsSortedByASC(ids));
     }
 
-    private List<Integer> getIdsFormPodts(String posts) {
+    private List<Integer> getIdsFormPosts(String posts) {
         List<Integer> ids = new ArrayList<>();
         if (posts != null) {
             JSONArray jsonArray = new JSONArray(posts);
@@ -59,69 +57,70 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
 
 
     @Test
-    @Parameters({"url", "method", "contentType", "accept"})
-    public void testExistPost(@Optional("https://jsonplaceholder.typicode.com/posts/99") String url,
-                              @Optional("GET") String method,
-                              @Optional("application/x-www-form-urlencoded") String contentType,
-                              @Optional("application/json") String accept) {
+    @Parameters({"url"})
+    public void testGetExistPost(@Optional("https://jsonplaceholder.typicode.com/posts/99") String url) {
         RequestResult requestResult = APIUtils.doRequest(
                 APIUtils.createUrl(url),
-                method,
-                contentType,
-                accept,
+                "GET",
+                "application/x-www-form-urlencoded",
+                "application/json",
                 null);
 
         assert requestResult != null;
-        Assert.assertEquals(requestResult.getCode(), 200);
+        Assert.assertEquals(
+                requestResult.getCode(),
+                Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetExistPost")));
 
         Post post = JsonUtils.toObject(requestResult.getAnswer(), Post.class);
         assert post != null;
-        Assert.assertEquals(post.getUserId(), (Integer) 10);
-        Assert.assertEquals(post.getId(), (Integer) 99);
+        Assert.assertEquals(
+                post.getUserId(),
+                Integer.valueOf(DataProperties.getDataPropertyByKey("userIdGetExistPost")));
+        Assert.assertEquals(
+                post.getId(),
+                Integer.valueOf(DataProperties.getDataPropertyByKey("idGetExistPost")));
         Assert.assertNotEquals(post.getTitle(), "");
         Assert.assertNotEquals(post.getBody(), "");
     }
 
     @Test
-    @Parameters({"url", "method", "contentType", "accept"})
-    public void testNonExistPost(@Optional("https://jsonplaceholder.typicode.com/posts/150") String url,
-                                 @Optional("GET") String method,
-                                 @Optional("application/x-www-form-urlencoded") String contentType,
-                                 @Optional("application/json") String accept) {
+    @Parameters({"url"})
+    public void testGetNonExistPost(@Optional("https://jsonplaceholder.typicode.com/posts/150") String url) {
         RequestResult requestResult = APIUtils.doRequest(
                 APIUtils.createUrl(url),
-                method,
-                contentType,
-                accept,
+                "GET",
+                "application/x-www-form-urlencoded",
+                "application/json",
                 null);
 
         assert requestResult != null;
-        Assert.assertEquals(requestResult.getCode(), 404);
+        Assert.assertEquals(requestResult.getCode(), Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetNonExistPost")));
         Assert.assertNull(requestResult.getAnswer());
     }
 
     @Test
-    @Parameters({"url", "method", "contentType", "accept"})
-    public void testPostRequestWithBody(@Optional("https://jsonplaceholder.typicode.com/posts") String url,
-                                        @Optional("POST") String method,
-                                        @Optional("application/json") String contentType,
-                                        @Optional("application/json") String accept) {
+    @Parameters({"url"})
+    public void testPostRequestWithBody(@Optional("https://jsonplaceholder.typicode.com/posts") String url) {
+        int randomLength = Integer.parseInt(DataProperties.getDataPropertyByKey("randomGenerateLength"));
 
         Post post = new Post(
-                1,
+                Integer.valueOf(DataProperties.getDataPropertyByKey("userIdPostRequestWithBody")),
                 null,
-                Randomizer.generateRandomText(6),
-                Randomizer.generateRandomText(6)
+                Randomizer.generateRandomText(randomLength),
+                Randomizer.generateRandomText(randomLength)
         );
+
         RequestResult requestResult = APIUtils.doRequest(
                 APIUtils.createUrl(url),
-                method,
-                contentType,
-                accept,
-                post);
+                "POST",
+                "application/json",
+                "application/json",
+                JsonUtils.toJson(post));
 
         assert requestResult != null;
-        Assert.assertEquals(requestResult.getCode(), 201);
+        Assert.assertEquals(
+                requestResult.getCode(),
+                Integer.parseInt(DataProperties.getDataPropertyByKey("codePostRequestWithBody")));
 
         Post answerPost = JsonUtils.toObject(requestResult.getAnswer(), Post.class);
         assert answerPost != null;
@@ -132,27 +131,25 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     }
 
     @Test
-    @Parameters({"url", "method", "contentType", "accept"})
-    public void testUsers(@Optional("https://jsonplaceholder.typicode.com/users") String url,
-                          @Optional("GET") String method,
-                          @Optional("application/x-www-form-urlencoded") String contentType,
-                          @Optional("application/json") String accept) {
+    @Parameters({"url"})
+    public void testGetUsers(@Optional("https://jsonplaceholder.typicode.com/users") String url) {
         RequestResult requestResult = APIUtils.doRequest(
                 APIUtils.createUrl(url),
-                method,
-                contentType,
-                accept,
+                "GET",
+                "application/x-www-form-urlencoded",
+                "application/json",
                 null);
 
         assert requestResult != null;
-
-        Assert.assertEquals(requestResult.getCode(), 200);
+        Assert.assertEquals(
+                requestResult.getCode(),
+                Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetUsers")));
 
         Assert.assertTrue(JsonUtils.stringIsJsonArray(requestResult.getAnswer()));
 
         List<User> users = createListUsers(requestResult.getAnswer());
 
-        User user = getUserById(users, 5);
+        User user = getUserById(users, Integer.parseInt(DataProperties.getDataPropertyByKey("userIdGetUsers")));
         assert user != null;
 
         String jsonExpected = "{\"website\":\"demarco.info\"," +
@@ -173,8 +170,10 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     private List<User> createListUsers(String jsonUsers) {
         List<User> userList = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(jsonUsers);
-        for (int i = 0; i < jsonArray.length(); i++)
+        for (int i = 0; i < jsonArray.length(); i++) {
+            String str = jsonArray.get(i).toString();
             userList.add(JsonUtils.toObject(jsonArray.get(i).toString(), User.class));
+        }
         return userList;
     }
 

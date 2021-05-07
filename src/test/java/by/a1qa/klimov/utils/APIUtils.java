@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 @Log4j
 public class APIUtils {
-    public static RequestResult doRequest(URL url, String method, String contentType, String accept, Post post) {
+    public static RequestResult doRequest(URL url, String method, String contentType, String accept, String body) {
         RequestResult requestResult = new RequestResult();
         HttpURLConnection con = null;
         try {
@@ -26,13 +26,9 @@ public class APIUtils {
             con.setRequestProperty("Accept", accept);
             con.setDoOutput(true);
 
-            if (post != null) {
-                String jsonInputString = JsonUtils.toJson(post);
+            if (body != null) {
                 try (OutputStream os = con.getOutputStream()) {
-                    byte[] input = new byte[0];
-                    if (jsonInputString != null) {
-                        input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                    }
+                    byte[] input = body.getBytes(StandardCharsets.UTF_8);
                     os.write(input, 0, input.length);
                 }
             }
@@ -50,13 +46,13 @@ public class APIUtils {
             }
             requestResult.setAnswer(response.toString());
         } catch (MalformedURLException e) {
-            log.error("URL is not created", e);
+            log.error("URL is not created");
             return requestResult;
         } catch (IOException e) {
-            log.error("HttpURLConnection error", e);
+            log.error("HttpURLConnection error");
             return requestResult;
         } catch (JSONException e) {
-            log.error("JSON body is not created", e);
+            log.error("JSON body is not created");
             return requestResult;
         } finally {
             if (con != null) {
