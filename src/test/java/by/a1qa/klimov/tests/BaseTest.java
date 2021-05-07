@@ -12,16 +12,4 @@ public abstract class BaseTest {
     protected void beforeSuite() {
         BasicConfigurator.configure();
     }
-
-    @BeforeMethod
-    protected void beforeMethod() {
-    }
-
-    @AfterMethod
-    public void tearDown() {
-    }
-
-    @AfterSuite
-    protected void afterSuite() {
-    }
 }
