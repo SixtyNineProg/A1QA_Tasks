@@ -8,7 +8,7 @@ import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.APIUtils;
 import by.a1qa.klimov.utils.JsonUtils;
 import by.a1qa.klimov.utils.Randomizer;
-import by.a1qa.klimov.utils.Sort;
+import by.a1qa.klimov.utils.ListUtils;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONArray;
 import org.testng.Assert;
@@ -16,6 +16,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +35,12 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
 
         assert requestResult != null;
 
-        Assert.assertEquals(requestResult.getCode(), Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetAllPots")));
+        Assert.assertEquals(requestResult.getCode(), HttpURLConnection.HTTP_OK);
 
-        Assert.assertTrue(JsonUtils.stringIsJsonArray(requestResult.getAnswer()));
+        Assert.assertTrue(JsonUtils.isStringJsonArray(requestResult.getAnswer()));
 
         List<Integer> ids = getIdsFormPosts(requestResult.getAnswer());
-        Assert.assertTrue(Sort.listIsSortedByASC(ids));
+        Assert.assertTrue(ListUtils.listIsSortedByASC(ids));
     }
 
     private List<Integer> getIdsFormPosts(String posts) {
@@ -55,7 +56,6 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
         return ids;
     }
 
-
     @Test
     @Parameters({"url"})
     public void testGetExistPost(@Optional("https://jsonplaceholder.typicode.com/posts/99") String url) {
@@ -67,9 +67,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
                 null);
 
         assert requestResult != null;
-        Assert.assertEquals(
-                requestResult.getCode(),
-                Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetExistPost")));
+        Assert.assertEquals(requestResult.getCode(), HttpURLConnection.HTTP_OK);
 
         Post post = JsonUtils.toObject(requestResult.getAnswer(), Post.class);
         assert post != null;
@@ -94,7 +92,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
                 null);
 
         assert requestResult != null;
-        Assert.assertEquals(requestResult.getCode(), Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetNonExistPost")));
+        Assert.assertEquals(requestResult.getCode(), HttpURLConnection.HTTP_NOT_FOUND);
         Assert.assertNull(requestResult.getAnswer());
     }
 
@@ -118,9 +116,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
                 JsonUtils.toJson(post));
 
         assert requestResult != null;
-        Assert.assertEquals(
-                requestResult.getCode(),
-                Integer.parseInt(DataProperties.getDataPropertyByKey("codePostRequestWithBody")));
+        Assert.assertEquals(requestResult.getCode(), HttpURLConnection.HTTP_CREATED);
 
         Post answerPost = JsonUtils.toObject(requestResult.getAnswer(), Post.class);
         assert answerPost != null;
@@ -141,11 +137,9 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
                 null);
 
         assert requestResult != null;
-        Assert.assertEquals(
-                requestResult.getCode(),
-                Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetUsers")));
+        Assert.assertEquals(requestResult.getCode(), HttpURLConnection.HTTP_OK);
 
-        Assert.assertTrue(JsonUtils.stringIsJsonArray(requestResult.getAnswer()));
+        Assert.assertTrue(JsonUtils.isStringJsonArray(requestResult.getAnswer()));
 
         List<User> users = createListUsers(requestResult.getAnswer());
 
@@ -181,9 +175,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
                 null);
 
         assert requestResult != null;
-        Assert.assertEquals(
-                requestResult.getCode(),
-                Integer.parseInt(DataProperties.getDataPropertyByKey("codeGetOneUser")));
+        Assert.assertEquals(requestResult.getCode(), HttpURLConnection.HTTP_OK);
 
         User user = JsonUtils.toObject(requestResult.getAnswer(), User.class);
         assert user != null;

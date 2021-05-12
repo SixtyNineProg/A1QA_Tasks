@@ -32,7 +32,7 @@ public class JsonUtils {
         }
     }
 
-    public static boolean stringIsJsonArray(String str) {
+    public static boolean isStringJsonArray(String str) {
         try {
             new JSONArray(str);
             return true;

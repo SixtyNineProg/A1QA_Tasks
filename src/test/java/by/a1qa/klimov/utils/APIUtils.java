@@ -22,8 +22,10 @@ public class APIUtils {
         try {
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod(method);
-            con.setRequestProperty("Content-Type", contentType);
-            con.setRequestProperty("Accept", accept);
+            if (contentType != null)
+                con.setRequestProperty("Content-Type", contentType);
+            if (accept != null)
+                con.setRequestProperty("Accept", accept);
             con.setDoOutput(true);
 
             if (body != null) {
