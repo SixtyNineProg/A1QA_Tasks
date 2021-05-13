@@ -1,5 +1,6 @@
 package by.a1qa.klimov.properties;
 
+import aquality.selenium.core.logging.Logger;
 import lombok.extern.log4j.Log4j;
 
 import java.io.FileInputStream;
@@ -18,14 +19,16 @@ public class DataProperties {
                 dataProperties = new Properties();
                 dataProperties.load(fis);
             } catch (IOException e) {
-                log.error("Data property file upload error. File not found on path: " + pathToDataProperties, e);
+                Logger.getInstance().fatal(
+                        "Data property file upload error. File not found on path: " +
+                                pathToDataProperties, e);
                 throw new NullPointerException();
             }
         }
     }
 
     public static String getDataPropertyByKey(String key) {
-        log.info("Get data property by key: " + key);
+        Logger.getInstance().info("Get data property by key: " + key);
         if (dataProperties == null) setDataProperties();
         return dataProperties.getProperty(key);
     }

@@ -1,5 +1,6 @@
 package by.a1qa.klimov.properties;
 
+import aquality.selenium.core.logging.Logger;
 import lombok.extern.log4j.Log4j;
 
 import java.io.FileInputStream;
@@ -18,14 +19,16 @@ public class ConfigurationProperties {
                 configurationProperties = new Properties();
                 configurationProperties.load(fis);
             } catch (IOException e) {
-                log.error("Configuration property file upload error. File not found on path: " + pathToConfigProperties, e);
+                Logger.getInstance().fatal(
+                        "Configuration property file upload error. File not found on path: " +
+                                pathToConfigProperties, e);
                 throw new NullPointerException();
             }
         }
     }
 
     public static String getConfigurationPropertyByKey(String key) {
-        log.info("Get configuration property by key: " + key);
+        Logger.getInstance().info("Get configuration property by key: " + key);
         if (configurationProperties == null) setConfigurationProperties();
         return configurationProperties.getProperty(key);
     }
