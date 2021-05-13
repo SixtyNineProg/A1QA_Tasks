@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class JsonUtils {
@@ -39,5 +41,18 @@ public class JsonUtils {
         } catch (JSONException e) {
             return false;
         }
+    }
+
+    public static <T> List<T> toObjectsList(String jsonArrayT, Class<T> valueType) {
+        List<T> objects = new ArrayList<>();
+        if (jsonArrayT != null) {
+            JSONArray jsonArray = new JSONArray(jsonArrayT);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                T object = toObject(jsonArray.get(i).toString(), valueType);
+                if (object != null) objects.add(object);
+                else throw new NullPointerException("Post is empty.");
+            }
+        } else throw new NullPointerException("Json array is empty.");
+        return objects;
     }
 }
