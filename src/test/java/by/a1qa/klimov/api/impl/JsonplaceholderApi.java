@@ -18,8 +18,10 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
     public List<Post> readAllPosts(int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("postsUrl"));
-        Assert.assertEquals(requestResult.getCode(), expectedRequestCode);
-        Assert.assertTrue(JsonUtils.isStringJsonArray(requestResult.getAnswer()));
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
+        Assert.assertTrue(JsonUtils.isStringJsonArray(requestResult.getAnswer()),
+                "The answer does not match the JSON format");
         return JsonUtils.toObjectsList(requestResult.getAnswer(), Post.class);
     }
 
@@ -27,7 +29,8 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
     public Post readPost(int id, int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("onePostUrl") + id);
-        Assert.assertEquals(requestResult.getCode(), expectedRequestCode);
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
         try {
             return JsonUtils.toObject(requestResult.getAnswer(), Post.class);
         } catch (IllegalArgumentException e) {
@@ -41,7 +44,8 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
         RequestResult requestResult = APIUtils.doPostRequest(
                 ConfigurationProperties.getConfigurationPropertyByKey("postsUrl"),
                 JsonUtils.toJson(post));
-        Assert.assertEquals(requestResult.getCode(), expectedRequestCode);
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
         try {
             return JsonUtils.toObject(requestResult.getAnswer(), Post.class);
         } catch (IllegalArgumentException e) {
@@ -54,8 +58,10 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
     public List<User> readAllUsers(int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("usersUrl"));
-        Assert.assertEquals(requestResult.getCode(), expectedRequestCode);
-        Assert.assertTrue(JsonUtils.isStringJsonArray(requestResult.getAnswer()));
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
+        Assert.assertTrue(JsonUtils.isStringJsonArray(requestResult.getAnswer()),
+                "The answer does not match the JSON format");
         return JsonUtils.toObjectsList(requestResult.getAnswer(), User.class);
     }
 
@@ -63,7 +69,8 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
     public User readUser(int id, int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("oneUserUrl") + id);
-        Assert.assertEquals(requestResult.getCode(), expectedRequestCode);
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
         try {
             return JsonUtils.toObject(requestResult.getAnswer(), User.class);
         } catch (IllegalArgumentException e) {
