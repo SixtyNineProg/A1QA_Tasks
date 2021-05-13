@@ -1,5 +1,6 @@
 package by.a1qa.klimov.utils;
 
+import aquality.selenium.core.logging.Logger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +19,8 @@ public class JsonUtils {
         try {
             json = objectMapper.writeValueAsString(o);
         } catch (JsonProcessingException e) {
-            log.error("can't represent object of class {} in json form for logging: {}",
-                    o.getClass().getSimpleName(), e.toString());
+            Logger.getInstance().error("can't represent object of class " +
+                    o.getClass().getSimpleName() + " in json form for logging: " + e);
         }
         return json;
     }
@@ -28,8 +29,8 @@ public class JsonUtils {
         try {
             return objectMapper.readValue(jsonObject, valueType);
         } catch (JsonProcessingException e) {
-            log.error("can't represent json form of class {} in object for logging: {}",
-                    valueType.getSimpleName(), e.toString());
+            Logger.getInstance().error("can't represent json form of class " +
+                    valueType.getSimpleName() + " in object for logging: " + e);
             return null;
         }
     }

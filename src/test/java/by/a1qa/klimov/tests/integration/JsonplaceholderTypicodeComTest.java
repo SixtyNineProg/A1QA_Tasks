@@ -26,7 +26,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     public void testGetAllPots() {
         List<Post> posts = jsonplaceholderApi.readAllPosts(HttpURLConnection.HTTP_OK);
         List<Integer> ids = posts.stream().map(Post::getId).collect(Collectors.toList());
-        Assert.assertTrue(ListUtils.listIsSortedByASC(ids));
+        Assert.assertTrue(ListUtils.listIsSortedByASC(ids),"IDs are not sorted.");
     }
 
 
@@ -40,9 +40,9 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
                 post.getUserId(),
                 Integer.valueOf(DataProperties.getDataPropertyByKey("userIdGetExistPost")));
 
-        Assert.assertEquals(post.getId(), id);
-        Assert.assertNotEquals(post.getTitle(), "");
-        Assert.assertNotEquals(post.getBody(), "");
+        Assert.assertEquals(post.getId(), id, "Ids do not mach.");
+        Assert.assertNotEquals(post.getTitle(), "", "Title isn't empty.");
+        Assert.assertNotEquals(post.getBody(), "", "Body isn't empty.");
     }
 
     @Test
@@ -50,7 +50,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
         Post post = jsonplaceholderApi.readPost(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("idGetNonExistPost")),
                 HttpURLConnection.HTTP_NOT_FOUND);
-        Assert.assertNull(post);
+        Assert.assertNull(post, "User found.");
     }
 
     @Test
@@ -66,10 +66,10 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
 
         Post answerPost = jsonplaceholderApi.createPost(post, HttpURLConnection.HTTP_CREATED);
 
-        Assert.assertEquals(answerPost.getTitle(), post.getTitle());
-        Assert.assertEquals(answerPost.getBody(), post.getBody());
-        Assert.assertEquals(answerPost.getUserId(), post.getUserId());
-        Assert.assertNotNull(answerPost.getId());
+        Assert.assertEquals(answerPost.getTitle(), post.getTitle(), "Titles don't mach");
+        Assert.assertEquals(answerPost.getBody(), post.getBody(), "Bodes don't mach");
+        Assert.assertEquals(answerPost.getUserId(), post.getUserId(), "User ids don't mach");
+        Assert.assertNotNull(answerPost.getId(),"Id not found.");
     }
 
     @Test
@@ -79,7 +79,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
 
         String jsonExpected = DataProperties.getDataPropertyByKey("expectedUserDataGetUsers");
         User expectedUser = JsonUtils.toObject(jsonExpected, User.class);
-        Assert.assertEquals(user, expectedUser);
+        Assert.assertEquals(user, expectedUser, "The current user does not match the expected user.");
     }
 
     @Test
@@ -91,6 +91,6 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
 
         String jsonExpected = DataProperties.getDataPropertyByKey("expectedUserGetOneUser");
         User expectedUser = JsonUtils.toObject(jsonExpected, User.class);
-        Assert.assertEquals(user, expectedUser);
+        Assert.assertEquals(user, expectedUser, "The current user does not match the expected user.");
     }
 }
