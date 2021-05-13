@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j
 public class JsonplaceholderTypicodeComTest extends BaseTest {
@@ -20,11 +21,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     @Test
     public void testGetAllPots() {
         List<Post> posts = jsonplaceholderApi.readAllPosts(HttpURLConnection.HTTP_OK);
-
-        List<Integer> ids = new ArrayList<>();
-        posts.stream().map(post -> ids.add(post.getId()));
-
-        List<Integer> ids = getIdsFormPosts(requestResult.getAnswer());
+        List<Integer> ids = posts.stream().map(Post::getId).collect(Collectors.toList());
         Assert.assertTrue(ListUtils.listIsSortedByASC(ids));
     }
 
