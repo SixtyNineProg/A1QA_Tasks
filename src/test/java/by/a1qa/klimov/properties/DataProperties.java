@@ -1,18 +1,16 @@
 package by.a1qa.klimov.properties;
 
 import aquality.selenium.core.logging.Logger;
-import lombok.extern.log4j.Log4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-@Log4j
 public class DataProperties {
     private static Properties dataProperties = null;
 
     public static void setDataProperties() {
-        log.info("Set data properties.");
+        Logger.getInstance().info("Set data properties.");
         String pathToDataProperties = "./src/test/resources/testData.properties";
         if (dataProperties == null) {
             try (FileInputStream fis = new FileInputStream(pathToDataProperties)) {

@@ -1,18 +1,17 @@
 package by.a1qa.klimov.properties;
 
 import aquality.selenium.core.logging.Logger;
-import lombok.extern.log4j.Log4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-@Log4j
+
 public class ConfigurationProperties {
     private static Properties configurationProperties = null;
 
     public static void setConfigurationProperties() {
-        log.info("Set configuration properties.");
+        Logger.getInstance().info("Set configuration properties.");
         String pathToConfigProperties = "./src/test/resources/config.properties";
         if (configurationProperties == null) {
             try (FileInputStream fis = new FileInputStream(pathToConfigProperties)) {

@@ -10,7 +10,6 @@ import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.JsonUtils;
 import by.a1qa.klimov.utils.ListUtils;
 import by.a1qa.klimov.utils.Randomizer;
-import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,7 +17,6 @@ import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Log4j
 public class JsonplaceholderTypicodeComTest extends BaseTest {
     private final IJsonplaceholderApi jsonplaceholderApi = new JsonplaceholderApi();
 
@@ -26,7 +24,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     public void testGetAllPots() {
         List<Post> posts = jsonplaceholderApi.readAllPosts(HttpURLConnection.HTTP_OK);
         List<Integer> ids = posts.stream().map(Post::getId).collect(Collectors.toList());
-        Assert.assertTrue(ListUtils.listIsSortedByASC(ids),"IDs are not sorted.");
+        Assert.assertTrue(ListUtils.listIsSortedByASC(ids), "IDs are not sorted.");
     }
 
 
@@ -69,7 +67,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
         Assert.assertEquals(answerPost.getTitle(), post.getTitle(), "Titles don't mach");
         Assert.assertEquals(answerPost.getBody(), post.getBody(), "Bodes don't mach");
         Assert.assertEquals(answerPost.getUserId(), post.getUserId(), "User ids don't mach");
-        Assert.assertNotNull(answerPost.getId(),"Id not found.");
+        Assert.assertNotNull(answerPost.getId(), "Id not found.");
     }
 
     @Test

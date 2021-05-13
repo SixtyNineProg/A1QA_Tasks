@@ -4,7 +4,6 @@ import aquality.selenium.core.logging.Logger;
 import by.a1qa.klimov.exception.RequestException;
 import by.a1qa.klimov.models.RequestResult;
 import by.a1qa.klimov.models.User;
-import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 
 import java.io.BufferedReader;
@@ -17,7 +16,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@Log4j
 public class APIUtils {
     public static RequestResult doGetRequest(String url) {
         RequestResult requestResult = new RequestResult();

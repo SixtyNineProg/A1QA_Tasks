@@ -3,14 +3,13 @@ package by.a1qa.klimov.utils;
 import aquality.selenium.core.logging.Logger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+
 public class JsonUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
