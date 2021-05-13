@@ -1,66 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" name="testGetAllPots">
-        <parameter name="url" value="https://jsonplaceholder.typicode.com/posts"/>
+    <test verbose="2" name="C:/Users/ircfb_klimov/IdeaProjects/A1QA_Tasks">
         <classes>
             <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
                 <methods>
                     <include name="testGetAllPots"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <test verbose="2" name="testGetExistPost">
-        <parameter name="url" value="https://jsonplaceholder.typicode.com/posts/99"/>
-        <classes>
-            <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
-                <methods>
                     <include name="testGetExistPost"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <test verbose="2" name="testGetNonExistPost">
-        <parameter name="url" value="https://jsonplaceholder.typicode.com/posts/150"/>
-        <classes>
-            <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
-                <methods>
                     <include name="testGetNonExistPost"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <test verbose="2" name="testPostRequestWithBody">
-        <parameter name="url" value="https://jsonplaceholder.typicode.com/posts"/>
-        <classes>
-            <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
-                <methods>
                     <include name="testPostRequestWithBody"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <test verbose="2" name="testGetUsers">
-        <parameter name="url" value="https://jsonplaceholder.typicode.com/users"/>
-        <classes>
-            <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
-                <methods>
                     <include name="testGetUsers"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-
-    <test verbose="2" name="testGetOneUser">
-        <parameter name="url" value="https://jsonplaceholder.typicode.com/users/5"/>
-        <classes>
-            <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
-                <methods>
                     <include name="testGetOneUser"/>
                 </methods>
             </class>
