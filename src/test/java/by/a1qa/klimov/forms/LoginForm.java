@@ -83,7 +83,9 @@ public class LoginForm extends Form {
     }
 
     public void chooseDomain() {
-        buttonDropMenuWithDomains.click();
+        getElementFactory()
+                .getButton(By.xpath("//span[contains(@class,'icon-chevron-down')]"), "Button dropdown opener")
+                .click();
         waitDisplayDomainList();
         List<ILabel> domainsList = getDomainsList();
         domainsList.get(Randomizer.generateRandomNumFromRange(0, domainsList.size() - 1)).click();
