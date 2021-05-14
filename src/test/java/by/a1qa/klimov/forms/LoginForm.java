@@ -30,6 +30,9 @@ public class LoginForm extends Form {
     private final IButton buttonDropMenuWithDomains = getElementFactory()
             .getButton(By.xpath("//span[contains(@class,'icon-chevron-down')]"), "Button dropdown opener");
 
+    private final IButton buttonLastItemInDomains = getElementFactory()
+            .getButton(By.xpath("//div[@class='dropdown__list-item'][last()]"), "Button last item in domains");
+
     private final IButton buttonDropDownListLastItem = getElementFactory()
             .getButton(By.cssSelector(".dropdown__list :last-child"), "Last list item");
 
@@ -81,14 +84,14 @@ public class LoginForm extends Form {
 
     public void chooseDomain() {
         buttonDropMenuWithDomains.click();
+        waitDisplayDomainList();
         List<ILabel> domainsList = getDomainsList();
-        waitDisplayDomainList(domainsList);
         domainsList.get(Randomizer.generateRandomNumFromRange(0, domainsList.size() - 1)).click();
     }
 
-    public void waitDisplayDomainList(List<ILabel> domainsList) {
+    public void waitDisplayDomainList() {
         AqualityServices.getConditionalWait().waitFor(
-                ExpectedConditions.visibilityOf(domainsList.get(0).getElement()),
+                ExpectedConditions.elementToBeClickable(buttonLastItemInDomains.getElement()),
                 "Domain list is displayed.");
     }
 
