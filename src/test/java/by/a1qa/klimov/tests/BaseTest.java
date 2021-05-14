@@ -15,7 +15,7 @@ public abstract class BaseTest {
         Browser browser = AqualityServices.getBrowser();
         browser.goTo(ConfigurationProperties.getConfigurationPropertyByKey("userinyerfaceUrl"));
         browser.waitForPageToLoad();
-        Robot.loginProxy();
+        //Robot.loginProxy();
     }
 
     @AfterMethod

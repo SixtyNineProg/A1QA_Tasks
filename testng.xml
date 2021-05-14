@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" name="C:/Users/Keks/IdeaProjects/A1QA_Tasks">
+    <test verbose="2" name="C:/Users/ircfb_klimov/IdeaProjects/A1QA_Tasks">
         <classes>
             <class name="by.a1qa.klimov.tests.integration.UserinyerfaceComTest">
                 <methods>
-                    <include name="textCase1"/>
-                    <include name="textCase2"/>
-                    <include name="textCase3"/>
-                    <include name="textCase4"/>
+                    <include name="testRegistrationForm"/>
+                    <include name="testCloseHelpForm"/>
+                    <include name="testCloseCookiesForm"/>
+                    <include name="testTimerIsReset"/>
                 </methods>
             </class>
         </classes>
