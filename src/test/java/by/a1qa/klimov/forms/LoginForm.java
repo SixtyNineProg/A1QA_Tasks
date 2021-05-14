@@ -82,7 +82,14 @@ public class LoginForm extends Form {
     public void chooseDomain() {
         buttonDropMenuWithDomains.click();
         List<ILabel> domainsList = getDomainsList();
+        waitDisplayDomainList(domainsList);
         domainsList.get(Randomizer.generateRandomNumFromRange(0, domainsList.size() - 1)).click();
+    }
+
+    public void waitDisplayDomainList(List<ILabel> domainsList) {
+        AqualityServices.getConditionalWait().waitFor(
+                ExpectedConditions.elementToBeClickable(domainsList.get(0).getElement()),
+                "Domain list is displayed.");
     }
 
     public void acceptTerms() {
