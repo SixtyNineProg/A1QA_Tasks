@@ -88,7 +88,7 @@ public class LoginForm extends Form {
 
     public void waitDisplayDomainList(List<ILabel> domainsList) {
         AqualityServices.getConditionalWait().waitFor(
-                ExpectedConditions.elementToBeClickable(domainsList.get(0).getElement()),
+                ExpectedConditions.visibilityOf(domainsList.get(0).getElement()),
                 "Domain list is displayed.");
     }
 
