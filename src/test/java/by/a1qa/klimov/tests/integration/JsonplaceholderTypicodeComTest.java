@@ -1,7 +1,6 @@
 package by.a1qa.klimov.tests.integration;
 
-import by.a1qa.klimov.api.IJsonplaceholderApi;
-import by.a1qa.klimov.api.impl.JsonplaceholderApi;
+import by.a1qa.klimov.api.JsonplaceholderApi;
 import by.a1qa.klimov.api.utils.APIUtils;
 import by.a1qa.klimov.models.Post;
 import by.a1qa.klimov.models.User;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JsonplaceholderTypicodeComTest extends BaseTest {
-    private final IJsonplaceholderApi jsonplaceholderApi = new JsonplaceholderApi();
+    private final JsonplaceholderApi jsonplaceholderApi = new JsonplaceholderApi();
 
     @Test
     public void testGetAllPots() {

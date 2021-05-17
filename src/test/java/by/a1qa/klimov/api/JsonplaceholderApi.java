@@ -1,7 +1,6 @@
-package by.a1qa.klimov.api.impl;
+package by.a1qa.klimov.api;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.api.IJsonplaceholderApi;
 import by.a1qa.klimov.models.Post;
 import by.a1qa.klimov.models.RequestResult;
 import by.a1qa.klimov.models.User;
@@ -12,9 +11,8 @@ import org.testng.Assert;
 
 import java.util.List;
 
-public class JsonplaceholderApi implements IJsonplaceholderApi {
+public class JsonplaceholderApi{
 
-    @Override
     public List<Post> readAllPosts(int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("postsUrl"));
@@ -25,7 +23,6 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
         return JsonUtils.toObjectsList(requestResult.getAnswer(), Post.class);
     }
 
-    @Override
     public Post readPost(int id, int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("onePostUrl") + id);
@@ -39,7 +36,6 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
         }
     }
 
-    @Override
     public Post createPost(Post post, int expectedRequestCode) {
         RequestResult requestResult = APIUtils.doPostRequest(
                 ConfigurationProperties.getConfigurationPropertyByKey("postsUrl"),
@@ -54,7 +50,6 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
         }
     }
 
-    @Override
     public List<User> readAllUsers(int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("usersUrl"));
@@ -65,7 +60,6 @@ public class JsonplaceholderApi implements IJsonplaceholderApi {
         return JsonUtils.toObjectsList(requestResult.getAnswer(), User.class);
     }
 
-    @Override
     public User readUser(int id, int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(ConfigurationProperties.getConfigurationPropertyByKey("oneUserUrl") + id);
