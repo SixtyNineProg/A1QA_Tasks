@@ -1,7 +1,6 @@
 package by.a1qa.klimov.tests.integration;
 
 import by.a1qa.klimov.api.JsonplaceholderApi;
-import by.a1qa.klimov.api.utils.APIUtils;
 import by.a1qa.klimov.models.Post;
 import by.a1qa.klimov.models.User;
 import by.a1qa.klimov.properties.DataProperties;
