@@ -39,7 +39,9 @@ public class JsonplaceholderApi{
     public Post createPost(Post post, int expectedRequestCode) {
         RequestResult requestResult = APIUtils.doPostRequest(
                 ConfigurationProperties.getConfigurationPropertyByKey("postsUrl"),
-                JsonUtils.toJson(post));
+                JsonUtils.toJson(post),
+                "application/json",
+                "application/json");
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
                 "Response code does not match" + expectedRequestCode);
         try {

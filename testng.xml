@@ -4,6 +4,8 @@
     <test name="JsonplaceholderTypicodeComTest">
         <classes>
             <class name="by.a1qa.klimov.tests.integration.JsonplaceholderTypicodeComTest">
+                <methods>
+                </methods>
             </class>
         </classes>
     </test>
