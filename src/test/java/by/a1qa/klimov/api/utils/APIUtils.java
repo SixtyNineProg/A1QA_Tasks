@@ -42,16 +42,19 @@ public class APIUtils {
 
             requestResult.setCode(con.getResponseCode());
 
-            StringBuilder response;
-            try (BufferedReader br = new BufferedReader(
-                    new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
-                response = new StringBuilder();
-                String responseLine;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
+            int requestStatusCode = requestResult.getCode();
+            if (requestStatusCode >= 200 && requestStatusCode < 300) {
+                StringBuilder response;
+                try (BufferedReader br = new BufferedReader(
+                        new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+                    response = new StringBuilder();
+                    String responseLine;
+                    while ((responseLine = br.readLine()) != null) {
+                        response.append(responseLine.trim());
+                    }
                 }
+                requestResult.setAnswer(response.toString());
             }
-            requestResult.setAnswer(response.toString());
             return requestResult;
         } catch (MalformedURLException e) {
             Logger.getInstance().fatal("URL is not created", e);
@@ -127,16 +130,19 @@ public class APIUtils {
 
             requestResult.setCode(con.getResponseCode());
 
-            StringBuilder response;
-            try (BufferedReader br = new BufferedReader(
-                    new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
-                response = new StringBuilder();
-                String responseLine;
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
+            int requestStatusCode = requestResult.getCode();
+            if (requestStatusCode >= 200 && requestStatusCode < 300) {
+                StringBuilder response;
+                try (BufferedReader br = new BufferedReader(
+                        new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+                    response = new StringBuilder();
+                    String responseLine;
+                    while ((responseLine = br.readLine()) != null) {
+                        response.append(responseLine.trim());
+                    }
                 }
+                requestResult.setAnswer(response.toString());
             }
-            requestResult.setAnswer(response.toString());
             return requestResult;
         } catch (MalformedURLException e) {
             Logger.getInstance().fatal("URL is not created", e);
