@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +21,8 @@ public class User {
     String website;
     @JsonProperty("company")
     Company company;
+
+    public static User getUserById(List<User> users, int userId) {
+        return users.stream().filter(p -> p.getId() == userId).findAny().orElse(null);
+    }
 }

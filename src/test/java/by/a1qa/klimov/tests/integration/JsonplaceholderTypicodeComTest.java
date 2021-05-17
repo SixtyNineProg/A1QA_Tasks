@@ -72,7 +72,7 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
     @Test
     public void testGetUsers() {
         List<User> users = jsonplaceholderApi.readAllUsers(HttpURLConnection.HTTP_OK);
-        User user = APIUtils.getUserById(users, Integer.parseInt(DataProperties.getDataPropertyByKey("userIdGetUsers")));
+        User user = User.getUserById(users, Integer.parseInt(DataProperties.getDataPropertyByKey("userIdGetUsers")));
 
         String jsonExpected = DataProperties.getDataPropertyByKey("expectedUserDataGetUsers");
         User expectedUser = JsonUtils.toObject(jsonExpected, User.class);

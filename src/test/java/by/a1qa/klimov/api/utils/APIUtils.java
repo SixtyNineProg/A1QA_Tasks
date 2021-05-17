@@ -117,8 +117,4 @@ public class APIUtils {
             throw new MalformedURLException();
         }
     }
-
-    public static User getUserById(List<User> users, int userId) {
-        return users.stream().filter(p -> p.getId() == userId).findAny().orElse(null);
-    }
 }
