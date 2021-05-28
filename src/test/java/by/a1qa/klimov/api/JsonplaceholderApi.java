@@ -15,6 +15,22 @@ public class JsonplaceholderApi {
     private static final String BASE_URL =
             new JsonSettingsFile("settings.json").getValue("/url").toString();
 
+    public Post createWallPost(Post post, int expectedRequestCode) {
+        RequestResult requestResult = APIUtils.doPostRequest(
+                BASE_URL + UrlPath.POSTS,
+                JsonUtils.toJson(post),
+                "application/json",
+                "application/json");
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
+        try {
+            return JsonUtils.toObject(requestResult.getAnswer(), Post.class);
+        } catch (IllegalArgumentException e) {
+            Logger.getInstance().fatal("Does not fit JSON format", e);
+            return null;
+        }
+    }
+
     public List<Post> readAllPosts(int expectedRequestCode) {
         RequestResult requestResult = APIUtils
                 .doGetRequest(BASE_URL + UrlPath.POSTS);

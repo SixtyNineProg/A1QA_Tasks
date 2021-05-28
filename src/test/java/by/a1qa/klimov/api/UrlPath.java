@@ -1,6 +1,12 @@
 package by.a1qa.klimov.api;
 
 public enum UrlPath {
+    WALL_POST {
+        @Override
+        public String toString() {
+            return "method/wall.post";
+        }
+    },
     POSTS {
         @Override
         public String toString() {
