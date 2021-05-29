@@ -1,11 +1,14 @@
 package by.a1qa.klimov.models.wallpost;
 
+import by.a1qa.klimov.models.wallpost.attachments.Attachment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +26,8 @@ public class Post {
     Integer can_pin;
     Boolean can_archive;
     Boolean is_archived;
+    @JsonProperty("attachments")
+    List<Attachment> attachments;
     @JsonProperty("post_source")
     PostSource post_source;
     @JsonProperty("comments")
@@ -37,4 +42,12 @@ public class Post {
     @JsonProperty("donut")
     Donut donut;
     Double short_text_rate;
+    @Nullable
+    Integer edited;
+
+    public static Integer getPostId(List<Post> posts, String text) {
+        return Objects.requireNonNull(
+                posts.stream().filter(post -> text.equals(post.getText())).findAny().orElse(null))
+                .getId();
+    }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class VkComApi {
-    public Integer getWallPostId(String text, int expectedRequestCode) {
+    public List<Post> getWallPosts(int expectedRequestCode) {
         Map<String, String> requestParameters = new HashMap<>() {{
             put("owner_id", DataProperties.getDataPropertyByKey("userId"));
             put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
@@ -30,7 +30,6 @@ public class VkComApi {
         JSONObject answer = new JSONObject(requestResult.getAnswer());
         JSONObject response = answer.getJSONObject("response");
         JSONArray items = response.getJSONArray("items");
-        List<Post> posts = JsonUtils.toObjectsList(items, Post.class);
-        return 0;
+        return JsonUtils.toObjectsList(items, Post.class);
     }
 }
