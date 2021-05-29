@@ -50,7 +50,19 @@ public class JsonUtils {
             for (int i = 0; i < jsonArray.length(); i++) {
                 T object = toObject(jsonArray.get(i).toString(), valueType);
                 if (object != null) objects.add(object);
-                else throw new NullPointerException("Post is empty.");
+                else throw new NullPointerException("Object is empty.");
+            }
+        } else throw new NullPointerException("Json array is empty.");
+        return objects;
+    }
+
+    public static <T> List<T> toObjectsList(JSONArray jsonArray, Class<T> valueType) {
+        List<T> objects = new ArrayList<>();
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                T object = toObject(jsonArray.get(i).toString(), valueType);
+                if (object != null) objects.add(object);
+                else throw new NullPointerException("Object is empty.");
             }
         } else throw new NullPointerException("Json array is empty.");
         return objects;

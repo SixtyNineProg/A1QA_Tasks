@@ -7,6 +7,12 @@ public enum UrlPath {
             return "method/wall.post";
         }
     },
+    WALL_GET {
+        @Override
+        public String toString() {
+            return "method/wall.get";
+        }
+    },
     POSTS {
         @Override
         public String toString() {
