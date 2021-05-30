@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reposts {
-    Integer count;
-    Integer wall_count;
-    Integer mail_count;
-    Integer user_reposted;
+    private Integer count;
+    private Integer wall_count;
+    private Integer mail_count;
+    private Integer user_reposted;
 }

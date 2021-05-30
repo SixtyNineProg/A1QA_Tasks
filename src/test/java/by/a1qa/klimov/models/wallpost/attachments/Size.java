@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Size {
-    Integer height;
-    String url;
-    String type;
-    Integer width;
+    private Integer height;
+    private String url;
+    private String type;
+    private Integer width;
 }

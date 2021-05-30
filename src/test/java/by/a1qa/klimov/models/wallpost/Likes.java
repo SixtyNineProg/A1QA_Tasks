@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Likes {
-    Integer count;
-    Integer user_likes;
-    Integer can_like;
-    Integer can_publish;
+    private Integer count;
+    private Integer user_likes;
+    private Integer can_like;
+    private Integer can_publish;
 }

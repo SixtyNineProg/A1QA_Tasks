@@ -1,4 +1,4 @@
-package by.a1qa.klimov.models.wallpost;
+package by.a1qa.klimov.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostSource {
-    private String type;
+public class PostData {
+    private Integer userId;
+    private String text;
 }

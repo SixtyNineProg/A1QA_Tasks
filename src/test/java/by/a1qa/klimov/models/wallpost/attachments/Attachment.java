@@ -5,13 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Attachment {
-    String type;
+    private String type;
     @JsonProperty("photo")
-    Photo photo;
+    private Photo photo;
 }

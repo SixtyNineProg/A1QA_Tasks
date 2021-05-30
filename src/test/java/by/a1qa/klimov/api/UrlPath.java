@@ -13,6 +13,12 @@ public enum UrlPath {
             return "method/wall.get";
         }
     },
+    USERS_GET {
+        @Override
+        public String toString() {
+            return "method/users.get";
+        }
+    },
     POSTS {
         @Override
         public String toString() {

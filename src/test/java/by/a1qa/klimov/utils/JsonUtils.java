@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,16 @@ public class JsonUtils {
     public static <T> T toObject(String jsonObject, Class<T> valueType) {
         try {
             return objectMapper.readValue(jsonObject, valueType);
+        } catch (JsonProcessingException e) {
+            Logger.getInstance().error("can't represent json form of class " +
+                    valueType.getSimpleName() + " in object for logging: " + e);
+            return null;
+        }
+    }
+
+    public static <T> T toObject(JSONObject jsonObject, Class<T> valueType) {
+        try {
+            return objectMapper.readValue(jsonObject.toString(), valueType);
         } catch (JsonProcessingException e) {
             Logger.getInstance().error("can't represent json form of class " +
                     valueType.getSimpleName() + " in object for logging: " + e);

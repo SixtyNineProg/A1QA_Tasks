@@ -11,13 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Photo {
-    Integer album_id;
-    Integer date;
-    Integer id;
-    Integer owner_id;
-    Boolean has_tags;
-    String access_key;
+    private Integer album_id;
+    private Integer date;
+    private Integer id;
+    private Integer owner_id;
+    private Boolean has_tags;
+    private String access_key;
     @JsonProperty("sizes")
-    List<Size> sizes;
-    String text;
+    private List<Size> sizes;
+    private String text;
 }

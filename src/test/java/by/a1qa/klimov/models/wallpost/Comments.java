@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comments {
-    Integer count;
-    Integer can_post;
-    Boolean groups_can_post;
-    Integer can_close;
+    private Integer count;
+    private Integer can_post;
+    private Boolean groups_can_post;
+    private Integer can_close;
 }

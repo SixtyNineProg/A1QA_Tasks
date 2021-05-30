@@ -8,46 +8,43 @@ import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
-    Integer id;
-    Integer from_id;
-    Integer owner_id;
-    Integer date;
-    String post_type;
-    String text;
+    private Integer id;
+    private Integer from_id;
+    private Integer owner_id;
+    private Integer date;
+    private String post_type;
+    private String text;
     @Nullable
-    Integer can_edit;
-    Integer can_delete;
-    Integer can_pin;
-    Boolean can_archive;
-    Boolean is_archived;
+    private Integer can_edit;
+    private Integer can_delete;
+    private Integer can_pin;
+    private Boolean can_archive;
+    private Boolean is_archived;
     @JsonProperty("attachments")
-    List<Attachment> attachments;
+    private List<Attachment> attachments;
     @JsonProperty("post_source")
-    PostSource post_source;
+    private PostSource post_source;
     @JsonProperty("comments")
-    Comments comments;
+    private Comments comments;
     @JsonProperty("likes")
-    Likes likes;
+    private Likes likes;
     @JsonProperty("reposts")
-    Reposts reposts;
+    private Reposts reposts;
     @JsonProperty("views")
-    Views views;
-    Boolean is_favorite;
+    private Views views;
+    private Boolean is_favorite;
     @JsonProperty("donut")
-    Donut donut;
-    Double short_text_rate;
+    private Donut donut;
+    private Double short_text_rate;
     @Nullable
-    Integer edited;
+    private Integer edited;
 
-    public static Integer getPostId(List<Post> posts, String text) {
-        return Objects.requireNonNull(
-                posts.stream().filter(post -> text.equals(post.getText())).findAny().orElse(null))
-                .getId();
+    public static Post getPost(List<Post> posts, String text) {
+        return posts.stream().filter(post -> text.equals(post.getText())).findAny().orElse(null);
     }
 }

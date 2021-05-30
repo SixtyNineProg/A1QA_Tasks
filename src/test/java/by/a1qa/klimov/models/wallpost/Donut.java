@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Donut {
-    Boolean is_donut;
+    private Boolean is_donut;
 }

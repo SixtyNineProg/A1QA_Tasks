@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestResult {
-    String answer;
-    int code;
+    private String answer;
+    private int code;
 }
