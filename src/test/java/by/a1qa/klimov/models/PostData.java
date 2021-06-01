@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostData {
-    private Integer userId;
+    private String userHref;
     private String text;
 }

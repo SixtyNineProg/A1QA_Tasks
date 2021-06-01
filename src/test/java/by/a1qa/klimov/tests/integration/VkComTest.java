@@ -7,7 +7,7 @@ import by.a1qa.klimov.forms.UserPage;
 import by.a1qa.klimov.forms.VkNavigationBar;
 import by.a1qa.klimov.models.PostData;
 import by.a1qa.klimov.models.User;
-import by.a1qa.klimov.models.wallpost.Post;
+import by.a1qa.klimov.properties.ConfigurationData;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.Randomizer;
@@ -15,7 +15,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
-import java.util.List;
 
 public class VkComTest extends BaseTest {
     private final VkComApi vkComApi = new VkComApi();
@@ -24,6 +23,8 @@ public class VkComTest extends BaseTest {
     public void testUserAction() {
         User user = vkComApi.getUser(HttpURLConnection.HTTP_OK);
         Integer userId = user.getId();
+
+        String userHref = ConfigurationData.getConfigurationPropertyByKey("vkUrl") + "id" + userId;
 
         LoginPage loginPage = new LoginPage();
         Assert.assertTrue(loginPage.state().waitForDisplayed(), "Login page not open.");
@@ -41,17 +42,30 @@ public class VkComTest extends BaseTest {
         Assert.assertTrue(userPage.state().waitForDisplayed(), "User page not open.");
 
         String message = Randomizer.generateRandomText(
-                Integer.parseInt(DataProperties.getDataPropertyByKey("postLengthText")));
-        userPage.createPost(message);
+                Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
+        Integer postId = vkComApi.createPost(userId, message, HttpURLConnection.HTTP_OK);
 
-        List<Post> posts = vkComApi.getWallPosts(userId, HttpURLConnection.HTTP_OK);
-        Post newPost = Post.getPost(posts, message);
-        Assert.assertNotNull(newPost, "Post not created");
-        Assert.assertEquals(newPost.getFrom_id(), userId,
-                "User does not match");
+        PostData postData = userPage.getPostData(postId, userId);
+        Assert.assertEquals(postData.getUserHref(), userHref, "User does not match");
+        Assert.assertEquals(postData.getText(), message, "Text does not match");
 
-        PostData lastPostData = userPage.getLastPostData();
-        Assert.assertEquals(lastPostData.getUserId(), userId, "User does not match");
-        Assert.assertEquals(lastPostData.getText(), message, "Text does not match");
+        String editedMessage = Randomizer.generateRandomText(
+                Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
+
+        Integer editedPostId = vkComApi.editPostMessage(
+                userId,
+                postId,
+                editedMessage,
+                DataProperties.getDataPropertyByKey("picturePath"),
+                HttpURLConnection.HTTP_OK);
+        Assert.assertEquals(editedPostId, postId, "Post isn't edited");
+
+        postData = userPage.getPostData(postId, userId);
+        Assert.assertEquals(postData.getText(), editedMessage, "Edited text does not match");
+
+        Assert.assertTrue(
+                userPage.isExistPictureOnPost(
+                        postId, userId, "/" + DataProperties.getDataPropertyByKey("picturePath")),
+                "Picture is not present");
     }
 }

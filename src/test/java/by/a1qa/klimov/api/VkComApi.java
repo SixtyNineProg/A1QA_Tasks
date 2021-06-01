@@ -16,6 +16,49 @@ import java.util.List;
 import java.util.Map;
 
 public class VkComApi {
+    private static final String RESPONSE_OBJECT_KEY = "response";
+    private static final String WALL_POSTS_ITEMS = "items";
+    private static final String POST_ID_ATTRIBUTE = "post_id";
+
+    public Integer editPostMessage(
+            Integer ownerId, Integer postId, String message, String picturePath, int expectedRequestCode) {
+        Map<String, String> requestParameters = new HashMap<>() {{
+            put("owner_id", String.valueOf(ownerId));
+            put("post_id", String.valueOf(postId));
+            put("message", message);
+            put("attachments", picturePath);
+            put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
+            put("access_token", DataProperties.getDataPropertyByKey("userAccessToken"));
+        }};
+
+        RequestResult requestResult = APIUtils.doGetRequest(
+                ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") + UrlPath.WALL_EDIT_POST,
+                requestParameters);
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
+        JSONObject jsonObject = new JSONObject(requestResult.getAnswer());
+        JSONObject response = jsonObject.getJSONObject(RESPONSE_OBJECT_KEY);
+        return (Integer) response.get(POST_ID_ATTRIBUTE);
+    }
+
+    public Integer createPost(Integer ownerId, String message, int expectedRequestCode) {
+        Map<String, String> requestParameters = new HashMap<>() {{
+            put("owner_id", String.valueOf(ownerId));
+            put("message", message);
+            put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
+            put("access_token", DataProperties.getDataPropertyByKey("userAccessToken"));
+        }};
+
+        RequestResult requestResult = APIUtils.doGetRequest(
+                ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") + UrlPath.WALL_POST,
+                requestParameters);
+        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
+                "Response code does not match" + expectedRequestCode);
+        JSONObject jsonObject = new JSONObject(requestResult.getAnswer());
+        JSONObject response = jsonObject.getJSONObject(RESPONSE_OBJECT_KEY);
+        return (Integer) response.get(POST_ID_ATTRIBUTE);
+    }
+
     public User getUser(int expectedRequestCode) {
         Map<String, String> requestParameters = new HashMap<>() {{
             put("usid", null);
@@ -29,9 +72,9 @@ public class VkComApi {
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
                 "Response code does not match" + expectedRequestCode);
         JSONObject jsonObject = new JSONObject(requestResult.getAnswer());
-        JSONArray response = jsonObject.getJSONArray("response");
+        JSONArray response = jsonObject.getJSONArray(RESPONSE_OBJECT_KEY);
         JSONObject firstUser;
-        if (response.length() != 0)  firstUser = response.getJSONObject(0);
+        if (response.length() != 0) firstUser = response.getJSONObject(0);
         else throw new NullPointerException("The answer does not include users");
         return JsonUtils.toObject(firstUser, User.class);
     }
@@ -49,8 +92,8 @@ public class VkComApi {
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
                 "Response code does not match" + expectedRequestCode);
         JSONObject answer = new JSONObject(requestResult.getAnswer());
-        JSONObject response = answer.getJSONObject("response");
-        JSONArray items = response.getJSONArray("items");
+        JSONObject response = answer.getJSONObject(RESPONSE_OBJECT_KEY);
+        JSONArray items = response.getJSONArray(WALL_POSTS_ITEMS);
         return JsonUtils.toObjectsList(items, Post.class);
     }
 }

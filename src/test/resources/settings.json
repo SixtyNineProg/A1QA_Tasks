@@ -2,7 +2,6 @@
   "vkUrl": "https://vk.com/",
   "vkApiUrl": "https://api.vk.com/",
   "vkApiVersion": "5.131",
-  "pathMethodWallPost": "method/wall.post",
   "browserName": "chrome",
   "isRemote": false,
   "remoteConnectionUrl": "http://localhost:4444/wd/hub",
