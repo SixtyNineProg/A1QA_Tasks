@@ -1,4 +1,5 @@
 {
+  "pathToUploadFile": "./src/test/resources/image.jpg",
   "vkUrl": "https://vk.com/",
   "vkApiUrl": "https://api.vk.com/",
   "vkApiVersion": "5.131",

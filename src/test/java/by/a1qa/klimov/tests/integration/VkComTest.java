@@ -11,6 +11,7 @@ import by.a1qa.klimov.properties.ConfigurationData;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.Randomizer;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -67,5 +68,13 @@ public class VkComTest extends BaseTest {
                 userPage.isExistPictureOnPost(
                         postId, userId, "/" + DataProperties.getDataPropertyByKey("picturePath")),
                 "Picture is not present");
+    }
+
+    @Test
+    public void requestTest() throws UnirestException {
+        vkComApi.uploadPicture(
+                "file1",
+                ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"),
+                HttpURLConnection.HTTP_OK);
     }
 }

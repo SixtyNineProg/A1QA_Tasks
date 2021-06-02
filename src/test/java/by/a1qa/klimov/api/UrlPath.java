@@ -24,5 +24,17 @@ public enum UrlPath {
         public String toString() {
             return "method/wall.edit";
         }
+    },
+    PHOTOS_GET_UPLOAD_SERVER {
+        @Override
+        public String toString() {
+            return "method/photos.getUploadServer";
+        }
+    },
+    PHOTOS_SAVE {
+        @Override
+        public String toString() {
+            return "method/photos.save";
+        }
     }
 }
