@@ -8,6 +8,8 @@ import by.a1qa.klimov.models.PostData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.List;
+
 public class UserPage extends Form {
 
     public UserPage() {
@@ -22,7 +24,7 @@ public class UserPage extends Form {
 
         AqualityServices.getConditionalWait().waitFor(
                 ExpectedConditions.elementToBeClickable(labelPost.getElement()),
-                "Post is created");
+                "Post is exist");
 
         PostData postData = new PostData();
 
@@ -48,7 +50,7 @@ public class UserPage extends Form {
 
         AqualityServices.getConditionalWait().waitFor(
                 ExpectedConditions.elementToBeClickable(labelPost.getElement()),
-                "Post is created");
+                "Post is exist");
 
         return labelPost.findChildElements(By.xpath("//*[@href='" + picturePath + "']"), ILabel.class).size() != 0;
     }
@@ -58,12 +60,14 @@ public class UserPage extends Form {
                 .getLabel(By.xpath(
                         "//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']"),
                         "Post with id: " + postId);
+        AqualityServices.getConditionalWait().waitFor(
+                ExpectedConditions.elementToBeClickable(labelPost.getElement()),
+                "Post is exist");
 
         ILabel labelShowAllReplies = labelPost.findChildElement(
                 By.xpath("//*[contains(@onclick,'wall.showNextReplies')]"),
                 "Show all replies label",
                 ILabel.class);
-
         AqualityServices.getConditionalWait().waitFor(
                 ExpectedConditions.elementToBeClickable(labelShowAllReplies.getElement()));
         labelShowAllReplies.click();
@@ -73,10 +77,9 @@ public class UserPage extends Form {
                 "Comment with id: " + commentId,
                 ILabel.class
         );
-
         AqualityServices.getConditionalWait().waitFor(
                 ExpectedConditions.elementToBeClickable(labelComment.getElement()),
-                "Comment is created");
+                "Comment is exist");
 
         CommentData commentData = new CommentData();
 
@@ -92,5 +95,32 @@ public class UserPage extends Form {
                 ILabel.class);
         commentData.setText(labelText.getText());
         return commentData;
+    }
+
+    public void likePost(Integer ownerId, Integer postId) {
+        ILabel labelPost = getElementFactory()
+                .getLabel(By.xpath(
+                        "//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']"),
+                        "Post with id: " + postId);
+        AqualityServices.getConditionalWait().waitFor(
+                ExpectedConditions.elementToBeClickable(labelPost.getElement()),
+                "Post is exist");
+
+        ILabel labelLikes = labelPost.findChildElement(
+                By.xpath("//a[contains(@onclick,'Likes.toggle')]"),
+                "Post likes with id: " + postId,
+                ILabel.class);
+        labelLikes.click();
+    }
+
+    public Boolean isPostDeleted(Integer ownerId, Integer postId) {
+        ILabel labelPost = getElementFactory()
+                .getLabel(By.xpath(
+                        "//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']"),
+                        "Post with id: " + postId);
+        AqualityServices.getConditionalWait().waitFor(
+                ExpectedConditions.invisibilityOf(labelPost.getElement()),
+                "Post is exist");
+        return true;
     }
 }

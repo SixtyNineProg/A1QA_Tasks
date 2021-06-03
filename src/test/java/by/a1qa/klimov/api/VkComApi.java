@@ -41,8 +41,10 @@ public class VkComApi {
         RequestResult requestResult = APIUtils.doGetRequest(
                 ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") + UrlPath.WALL_EDIT_POST,
                 requestParameters);
+
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
                 "Response code does not match" + expectedRequestCode);
+
         JSONObject jsonObject = new JSONObject(requestResult.getAnswer());
         JSONObject response = jsonObject.getJSONObject(RESPONSE_OBJECT_KEY);
         return (Integer) response.get(POST_ID_ATTRIBUTE);
@@ -59,8 +61,10 @@ public class VkComApi {
         RequestResult requestResult = APIUtils.doGetRequest(
                 ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") + UrlPath.WALL_POST,
                 requestParameters);
+
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
                 "Response code does not match" + expectedRequestCode);
+
         JSONObject jsonObject = new JSONObject(requestResult.getAnswer());
         JSONObject response = jsonObject.getJSONObject(RESPONSE_OBJECT_KEY);
         return (Integer) response.get(POST_ID_ATTRIBUTE);
@@ -76,32 +80,17 @@ public class VkComApi {
         RequestResult requestResult = APIUtils.doGetRequest(
                 ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") + UrlPath.USERS_GET,
                 requestParameters);
+
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
                 "Response code does not match" + expectedRequestCode);
+
         JSONObject jsonObject = new JSONObject(requestResult.getAnswer());
         JSONArray response = jsonObject.getJSONArray(RESPONSE_OBJECT_KEY);
         JSONObject firstUser;
+
         if (response.length() != 0) firstUser = response.getJSONObject(0);
         else throw new NullPointerException("The answer does not include users");
         return JsonUtils.toObject(firstUser, User.class);
-    }
-
-    public List<Post> getWallPosts(Integer owner_id, int expectedRequestCode) {
-        Map<String, String> requestParameters = new HashMap<>() {{
-            put("owner_id", owner_id.toString());
-            put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
-            put("access_token", DataProperties.getDataPropertyByKey("userAccessToken"));
-        }};
-
-        RequestResult requestResult = APIUtils.doGetRequest(
-                ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") + UrlPath.WALL_GET,
-                requestParameters);
-        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
-                "Response code does not match" + expectedRequestCode);
-        JSONObject answer = new JSONObject(requestResult.getAnswer());
-        JSONObject response = answer.getJSONObject(RESPONSE_OBJECT_KEY);
-        JSONArray items = response.getJSONArray(WALL_POSTS_ITEMS);
-        return JsonUtils.toObjectsList(items, Post.class);
     }
 
     public Photo uploadPicture(String fieldName, String pathToPicture) throws UnirestException {
@@ -183,7 +172,7 @@ public class VkComApi {
         return response.getString("upload_url");
     }
 
-    public Integer leaveComment(String ownerId, String postId, String message) throws UnirestException {
+    public Integer leaveComment(Integer ownerId, Integer postId, String message) throws UnirestException {
         Map<String, String> headers = new HashMap<>();
         headers.put("accept", "application/json");
         headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
@@ -208,5 +197,49 @@ public class VkComApi {
         JSONObject body = new JSONObject(jsonResponse.getBody().toString());
         JSONObject response = body.getJSONObject(RESPONSE_OBJECT_KEY);
         return response.getInt("comment_id");
+    }
+
+    public Integer isLike(Integer userId, Integer ownerId, Integer itemId, TypeObject type) throws UnirestException {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("accept", "application/json");
+        headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("type", type.toString().toLowerCase());
+        parameters.put("user_id", userId);
+        parameters.put("owner_id", ownerId);
+        parameters.put("item_id", itemId);
+        parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
+
+        HttpResponse<JsonNode> jsonResponse
+                = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
+                UrlPath.LIKES_IS_LIKED)
+                .headers(headers)
+                .queryString(parameters)
+                .asJson();
+
+        JSONObject body = new JSONObject(jsonResponse.getBody().toString());
+        JSONObject response = body.getJSONObject(RESPONSE_OBJECT_KEY);
+        return response.getInt("liked");
+    }
+
+    public Integer deletePost(Integer ownerId, Integer postId) throws UnirestException {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("accept", "application/json");
+        headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("owner_id", ownerId);
+        parameters.put("post_id", postId);
+        parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
+
+        HttpResponse<JsonNode> jsonResponse
+                = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
+                UrlPath.WALL_DELETE)
+                .headers(headers)
+                .queryString(parameters)
+                .asJson();
+
+        return jsonResponse.getBody().getObject().getInt(RESPONSE_OBJECT_KEY);
     }
 }

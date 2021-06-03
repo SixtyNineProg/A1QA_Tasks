@@ -7,12 +7,6 @@ public enum UrlPath {
             return "method/wall.post";
         }
     },
-    WALL_GET {
-        @Override
-        public String toString() {
-            return "method/wall.get";
-        }
-    },
     USERS_GET {
         @Override
         public String toString() {
@@ -41,6 +35,18 @@ public enum UrlPath {
         @Override
         public String toString() {
             return "method/wall.createComment";
+        }
+    },
+    LIKES_IS_LIKED {
+        @Override
+        public String toString() {
+            return "method/likes.isLiked";
+        }
+    },
+    WALL_DELETE {
+        @Override
+        public String toString() {
+            return "method/wall.delete";
         }
     }
 }

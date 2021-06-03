@@ -1,5 +1,6 @@
 package by.a1qa.klimov.tests.integration;
 
+import by.a1qa.klimov.api.TypeObject;
 import by.a1qa.klimov.api.VkComApi;
 import by.a1qa.klimov.forms.FeedPage;
 import by.a1qa.klimov.forms.LoginPage;
@@ -80,10 +81,17 @@ public class VkComTest extends BaseTest {
         String commentMessage = Randomizer.generateRandomText(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
 
-        Integer commentId = vkComApi.leaveComment(String.valueOf(userId), String.valueOf(postId), commentMessage);
+        Integer commentId = vkComApi.leaveComment(userId, postId, commentMessage);
 
         CommentData commentData = userPage.getCommentData(userId, postId, commentId);
         Assert.assertEquals(commentData.getUserHref(), userHref, "Author comment does not match");
         Assert.assertEquals(commentData.getText(), commentMessage, "Text comment does not match");
+
+        userPage.likePost(userId, postId);
+        Assert.assertEquals(vkComApi.isLike(userId, userId, postId, TypeObject.POST), (Integer) 1,
+                "Not found like from user with id: " + userId);
+
+        Assert.assertEquals(vkComApi.deletePost(userId, postId), (Integer) 1, "Post isn't deleted");
+        Assert.assertTrue(userPage.isPostDeleted(userId, postId), "Post isn't deleted");
     }
 }
