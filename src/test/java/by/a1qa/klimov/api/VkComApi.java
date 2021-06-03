@@ -1,6 +1,5 @@
 package by.a1qa.klimov.api;
 
-import aquality.selenium.core.logging.Logger;
 import by.a1qa.klimov.api.utils.APIUtils;
 import by.a1qa.klimov.models.RequestResult;
 import by.a1qa.klimov.models.User;
@@ -13,13 +12,12 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 
 import java.io.File;
-import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,22 +104,61 @@ public class VkComApi {
         return JsonUtils.toObjectsList(items, Post.class);
     }
 
-    //    public Post createPost(Post post, int expectedRequestCode) {
-//        RequestResult requestResult = APIUtils.doPostRequest(
-//                BASE_URL + UrlPath.POSTS,
-//                JsonUtils.toJson(post),
-//                "application/json",
-//                "application/json");
-//        Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
-//                "Response code does not match" + expectedRequestCode);
-//        try {
-//            return JsonUtils.toObject(requestResult.getAnswer(), Post.class);
-//        } catch (IllegalArgumentException e) {
-//            Logger.getInstance().fatal("Does not fit JSON format", e);
-//            return null;
-//        }
-//    }
-    public Photo uploadPicture(String fieldName, String pathToPicture, int expectedRequestCode) throws UnirestException {
+    public Photo uploadPicture(String fieldName, String pathToPicture) throws UnirestException {
+        String uploadUrl = getUploadServer();
+
+        JsonNode jsonNode = uploadPictureToServer(uploadUrl, fieldName, pathToPicture);
+        String server = jsonNode.getObject().get("server").toString();
+        String photosList = jsonNode.getObject().get("photos_list").toString();
+        String hash = jsonNode.getObject().get("hash").toString();
+
+        List<Photo> photos = savePictures(server, photosList, hash);
+        if (photos.size() != 0) return photos.get(0);
+        else throw new NullPointerException();
+    }
+
+    private List<Photo> savePictures(String server, String photosList, String hash) throws UnirestException {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("accept", "application/json");
+        headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("album_id", DataProperties.getDataPropertyByKey("userPhotoAlbumId"));
+        parameters.put("server", server);
+        parameters.put("photos_list", photosList);
+        parameters.put("hash", hash);
+        parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
+
+        HttpResponse<JsonNode> jsonResponse = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
+                UrlPath.PHOTOS_SAVE)
+                .headers(headers)
+                .queryString(parameters)
+                .asJson();
+
+        Assert.assertEquals(jsonResponse.getStatus(), HttpURLConnection.HTTP_OK,
+                "Response code does not match" + HttpURLConnection.HTTP_OK);
+        Assert.assertNotNull(jsonResponse.getBody());
+
+        JSONObject body = new JSONObject(jsonResponse.getBody().toString());
+        JSONArray responseArray = body.getJSONArray(RESPONSE_OBJECT_KEY);
+        return JsonUtils.toObjectsList(responseArray, Photo.class);
+    }
+
+    private JsonNode uploadPictureToServer(
+            String uploadUrl, String fieldName, String pathToPicture) throws UnirestException {
+        HttpResponse<JsonNode> jsonResponse = Unirest.post(
+                uploadUrl)
+                .field(fieldName, new File(pathToPicture))
+                .asJson();
+
+        Assert.assertEquals(jsonResponse.getStatus(), HttpURLConnection.HTTP_OK,
+                "Response code does not match" + HttpURLConnection.HTTP_OK);
+        JsonNode jsonNode = jsonResponse.getBody();
+        Assert.assertNotNull(jsonNode);
+        return jsonNode;
+    }
+
+    private String getUploadServer() throws UnirestException {
         Map<String, String> headers = new HashMap<>();
         headers.put("accept", "application/json");
         headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
@@ -137,55 +174,39 @@ public class VkComApi {
                 .queryString(parameters)
                 .asJson();
 
-        Assert.assertEquals(jsonResponse.getStatus(), expectedRequestCode,
-                "Response code does not match" + expectedRequestCode);
+        Assert.assertEquals(jsonResponse.getStatus(), HttpURLConnection.HTTP_OK,
+                "Response code does not match" + HttpURLConnection.HTTP_OK);
         Assert.assertNotNull(jsonResponse.getBody());
 
         JSONObject body = new JSONObject(jsonResponse.getBody().toString());
         JSONObject response = body.getJSONObject(RESPONSE_OBJECT_KEY);
-        String uploadUrl = response.getString("upload_url");
+        return response.getString("upload_url");
+    }
 
-
-        jsonResponse = Unirest.post(
-                uploadUrl)
-                .field(fieldName, new File(pathToPicture))
-                .asJson();
-
-        Assert.assertEquals(jsonResponse.getStatus(), expectedRequestCode,
-                "Response code does not match" + expectedRequestCode);
-        Assert.assertNotNull(jsonResponse.getBody());
-
-        JsonNode jsonNode = jsonResponse.getBody();
-        String server = jsonNode.getObject().get("server").toString();
-        String photosList = jsonNode.getObject().get("photos_list").toString();
-        String hash = jsonNode.getObject().get("hash").toString();
-
-
-        headers = new HashMap<>();
+    public Integer leaveComment(String ownerId, String postId, String message) throws UnirestException {
+        Map<String, String> headers = new HashMap<>();
         headers.put("accept", "application/json");
         headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
 
-        parameters = new HashMap<>();
-        parameters.put("album_id", DataProperties.getDataPropertyByKey("userPhotoAlbumId"));
-        parameters.put("server", server);
-        parameters.put("photos_list", photosList);
-        parameters.put("hash", hash);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("owner_id", ownerId);
+        parameters.put("post_id", postId);
+        parameters.put("message", message);
         parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
 
-        jsonResponse = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
-                UrlPath.PHOTOS_SAVE)
+        HttpResponse<JsonNode> jsonResponse
+                = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
+                UrlPath.WALL_CRATE_COMMENT)
                 .headers(headers)
                 .queryString(parameters)
                 .asJson();
 
-        Assert.assertEquals(jsonResponse.getStatus(), expectedRequestCode,
-                "Response code does not match" + expectedRequestCode);
+        Assert.assertEquals(jsonResponse.getStatus(), HttpURLConnection.HTTP_OK,
+                "Response code does not match" + HttpURLConnection.HTTP_OK);
         Assert.assertNotNull(jsonResponse.getBody());
 
-        body = new JSONObject(jsonResponse.getBody().toString());
-        JSONArray responseArray = body.getJSONArray(RESPONSE_OBJECT_KEY);
-        List<Photo> photos = JsonUtils.toObjectsList(responseArray, Photo.class);
-        if (photos.size() != 0) return photos.get(0);
-        else throw new NullPointerException();
+        JSONObject body = new JSONObject(jsonResponse.getBody().toString());
+        JSONObject response = body.getJSONObject(RESPONSE_OBJECT_KEY);
+        return response.getInt("comment_id");
     }
 }

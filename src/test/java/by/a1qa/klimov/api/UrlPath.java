@@ -36,5 +36,11 @@ public enum UrlPath {
         public String toString() {
             return "method/photos.save";
         }
+    },
+    WALL_CRATE_COMMENT {
+        @Override
+        public String toString() {
+            return "method/wall.createComment";
+        }
     }
 }

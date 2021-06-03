@@ -5,8 +5,10 @@ import by.a1qa.klimov.forms.FeedPage;
 import by.a1qa.klimov.forms.LoginPage;
 import by.a1qa.klimov.forms.UserPage;
 import by.a1qa.klimov.forms.VkNavigationBar;
+import by.a1qa.klimov.models.CommentData;
 import by.a1qa.klimov.models.PostData;
 import by.a1qa.klimov.models.User;
+import by.a1qa.klimov.models.wallpost.attachments.Photo;
 import by.a1qa.klimov.properties.ConfigurationData;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
@@ -21,7 +23,7 @@ public class VkComTest extends BaseTest {
     private final VkComApi vkComApi = new VkComApi();
 
     @Test
-    public void testUserAction() {
+    public void testUserAction() throws UnirestException {
         User user = vkComApi.getUser(HttpURLConnection.HTTP_OK);
         Integer userId = user.getId();
 
@@ -53,11 +55,17 @@ public class VkComTest extends BaseTest {
         String editedMessage = Randomizer.generateRandomText(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
 
+        Photo picture = vkComApi.uploadPicture(
+                "file1",
+                ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"));
+
+        String picturePath = "photo" + userId + "_" + picture.getId();
+
         Integer editedPostId = vkComApi.editPostMessage(
                 userId,
                 postId,
                 editedMessage,
-                DataProperties.getDataPropertyByKey("picturePath"),
+                picturePath,
                 HttpURLConnection.HTTP_OK);
         Assert.assertEquals(editedPostId, postId, "Post isn't edited");
 
@@ -66,15 +74,16 @@ public class VkComTest extends BaseTest {
 
         Assert.assertTrue(
                 userPage.isExistPictureOnPost(
-                        postId, userId, "/" + DataProperties.getDataPropertyByKey("picturePath")),
+                        postId, userId, "/" + picturePath),
                 "Picture is not present");
-    }
 
-    @Test
-    public void requestTest() throws UnirestException {
-        vkComApi.uploadPicture(
-                "file1",
-                ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"),
-                HttpURLConnection.HTTP_OK);
+        String commentMessage = Randomizer.generateRandomText(
+                Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
+
+        Integer commentId = vkComApi.leaveComment(String.valueOf(userId), String.valueOf(postId), commentMessage);
+
+        CommentData commentData = userPage.getCommentData(userId, postId, commentId);
+        Assert.assertEquals(commentData.getUserHref(), userHref, "Author comment does not match");
+        Assert.assertEquals(commentData.getText(), commentMessage, "Text comment does not match");
     }
 }
