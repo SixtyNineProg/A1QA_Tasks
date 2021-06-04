@@ -1,5 +1,7 @@
 {
   "pathToUploadFile": "./src/test/resources/image.jpg",
+  "pathToDownloadFile": "./src/test/resources/downloadImage.jpg",
+  "formatDownloadFile": "jpg",
   "vkUrl": "https://vk.com/",
   "vkApiUrl": "https://api.vk.com/",
   "vkApiVersion": "5.131",

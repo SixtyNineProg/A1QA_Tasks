@@ -48,5 +48,11 @@ public enum UrlPath {
         public String toString() {
             return "method/wall.delete";
         }
+    },
+    PHOTOS_GET {
+        @Override
+        public String toString() {
+            return "method/photos.get";
+        }
     }
 }

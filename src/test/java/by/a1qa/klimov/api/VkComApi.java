@@ -23,6 +23,7 @@ import java.util.Map;
 
 public class VkComApi {
     private static final String RESPONSE_OBJECT_KEY = "response";
+    private static final String ITEMS_OBJECT_KEY = "items";
     private static final String POST_ID_ATTRIBUTE = "post_id";
 
     public Integer editPostMessage(
@@ -240,5 +241,31 @@ public class VkComApi {
                 .asJson();
 
         return jsonResponse.getBody().getObject().getInt(RESPONSE_OBJECT_KEY);
+    }
+
+    public Photo getPhoto(Integer ownerId, ServiceAlbum albumId, Integer photoId) throws UnirestException {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("accept", "application/json");
+        headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("owner_id", ownerId);
+        parameters.put("album_id", albumId.toString().toLowerCase());
+        parameters.put("photo_ids", photoId);
+        parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
+
+        HttpResponse<JsonNode> jsonResponse
+                = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
+                UrlPath.PHOTOS_GET)
+                .headers(headers)
+                .queryString(parameters)
+                .asJson();
+
+        JSONObject body = new JSONObject(jsonResponse.getBody().toString());
+        JSONObject response = body.getJSONObject(RESPONSE_OBJECT_KEY);
+        JSONArray items = response.getJSONArray(ITEMS_OBJECT_KEY);
+        List<Photo> photos = JsonUtils.toObjectsList(items, Photo.class);
+        if (photos.size() != 0) return photos.get(0);
+        else throw new NullPointerException("Photo not found");
     }
 }

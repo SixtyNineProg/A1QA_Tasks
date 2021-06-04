@@ -1,5 +1,6 @@
 package by.a1qa.klimov.tests.integration;
 
+import by.a1qa.klimov.api.ServiceAlbum;
 import by.a1qa.klimov.api.TypeObject;
 import by.a1qa.klimov.api.VkComApi;
 import by.a1qa.klimov.forms.FeedPage;
@@ -10,21 +11,31 @@ import by.a1qa.klimov.models.CommentData;
 import by.a1qa.klimov.models.PostData;
 import by.a1qa.klimov.models.User;
 import by.a1qa.klimov.models.wallpost.attachments.Photo;
+import by.a1qa.klimov.models.wallpost.attachments.Size;
 import by.a1qa.klimov.properties.ConfigurationData;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
+import by.a1qa.klimov.utils.FileComparator;
+import by.a1qa.klimov.utils.FileSaver;
 import by.a1qa.klimov.utils.Randomizer;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.Objects;
 
 public class VkComTest extends BaseTest {
     private final VkComApi vkComApi = new VkComApi();
 
     @Test
-    public void testUserAction() throws UnirestException {
+    public void testUserAction() throws UnirestException, IOException {
         User user = vkComApi.getUser(HttpURLConnection.HTTP_OK);
         Integer userId = user.getId();
 
@@ -78,6 +89,33 @@ public class VkComTest extends BaseTest {
                 userPage.isExistPictureOnPost(
                         postId, userId, "/" + picturePath),
                 "Picture is not present");
+
+        Photo uploadedPicture = vkComApi.getPhoto(userId, ServiceAlbum.WALL, picture.getId());
+        List<Size> sizes = uploadedPicture.getSizes();
+        int sizesLength = sizes.size();
+        Assert.assertNotEquals(sizesLength, 0);
+
+        File fileUploadImage = new File(ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"));
+
+        BufferedImage bimg = ImageIO.read(fileUploadImage);
+        int uploadImageHeight = bimg.getHeight();
+        int uploadImageWight = bimg.getWidth();
+
+        String pictureUrl = Objects.requireNonNull(sizes.stream()
+                .filter(size -> (size.getHeight() == uploadImageHeight && size.getWidth() == uploadImageWight))
+                .findAny()
+                .orElse(null))
+                .getUrl();
+
+        Assert.assertTrue(FileSaver.savePicture(
+                ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile"),
+                ConfigurationData.getConfigurationPropertyByKey("formatDownloadFile"),
+                pictureUrl));
+
+        Assert.assertTrue(FileComparator.compareFiles(
+                fileUploadImage,
+                new File(ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile"))
+        ));
 
         String commentMessage = Randomizer.generateRandomText(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
