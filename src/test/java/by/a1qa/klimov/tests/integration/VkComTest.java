@@ -27,7 +27,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,10 +66,12 @@ public class VkComTest extends BaseTest {
         String editedMessage = Randomizer.generateRandomText(
                 Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
 
+        File fileUploadImage = new File(ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"));
+
         Photo picture = vkComApi.uploadPicture(
                 userId,
                 "file1",
-                ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"));
+                fileUploadImage);
 
         String picturePath = "photo" + userId + "_" + picture.getId();
 
@@ -95,8 +96,6 @@ public class VkComTest extends BaseTest {
         int sizesLength = sizes.size();
         Assert.assertNotEquals(sizesLength, 0);
 
-        File fileUploadImage = new File(ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"));
-
         BufferedImage bimg = ImageIO.read(fileUploadImage);
         int uploadImageHeight = bimg.getHeight();
         int uploadImageWight = bimg.getWidth();
@@ -107,14 +106,16 @@ public class VkComTest extends BaseTest {
                 .orElse(null))
                 .getUrl();
 
+        String pathToDownloadFile = ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile");
+
         Assert.assertTrue(FileSaver.savePicture(
-                ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile"),
+                pathToDownloadFile,
                 ConfigurationData.getConfigurationPropertyByKey("formatDownloadFile"),
                 pictureUrl));
 
         Assert.assertTrue(FileComparator.compareFiles(
                 fileUploadImage,
-                new File(ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile"))
+                new File(pathToDownloadFile)
         ));
 
         String commentMessage = Randomizer.generateRandomText(

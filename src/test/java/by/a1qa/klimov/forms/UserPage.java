@@ -130,8 +130,11 @@ public class UserPage extends Form {
 
     public Boolean isPostDeleted(Integer ownerId, Integer postId) {
         AqualityServices.getConditionalWait().waitFor(
-                ExpectedConditions.presenceOfElementLocated(By.xpath(
-                        "//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']")));
+                ExpectedConditions.invisibilityOf(
+                        getElementFactory().getLabel(
+                                By.xpath("//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']"),
+                                "Post with id: " + postId)
+                                .getElement()));
         return true;
     }
 }

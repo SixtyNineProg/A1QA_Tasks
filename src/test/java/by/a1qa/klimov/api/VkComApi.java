@@ -92,10 +92,10 @@ public class VkComApi {
         return JsonUtils.toObject(firstUser, User.class);
     }
 
-    public Photo uploadPicture(Integer userId, String fieldName, String pathToPicture) throws UnirestException {
+    public Photo uploadPicture(Integer userId, String fieldName, File uploadFile) throws UnirestException {
         String uploadUrl = getUploadServer(userId);
 
-        JsonNode jsonNode = uploadPictureToServer(uploadUrl, fieldName, pathToPicture);
+        JsonNode jsonNode = uploadPictureToServer(uploadUrl, fieldName, uploadFile);
         String server = jsonNode.getObject().get("server").toString();
         String photo = jsonNode.getObject().get("photo").toString();
         String hash = jsonNode.getObject().get("hash").toString();
@@ -134,10 +134,10 @@ public class VkComApi {
     }
 
     private JsonNode uploadPictureToServer(
-            String uploadUrl, String fieldName, String pathToPicture) throws UnirestException {
+            String uploadUrl, String fieldName, File uploadFile) throws UnirestException {
         HttpResponse<JsonNode> jsonResponse = Unirest.post(
                 uploadUrl)
-                .field(fieldName, new File(pathToPicture))
+                .field(fieldName, uploadFile)
                 .asJson();
 
         Assert.assertEquals(jsonResponse.getStatus(), HttpURLConnection.HTTP_OK,
