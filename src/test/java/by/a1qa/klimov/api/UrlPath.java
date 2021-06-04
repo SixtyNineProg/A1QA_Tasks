@@ -19,16 +19,16 @@ public enum UrlPath {
             return "method/wall.edit";
         }
     },
-    PHOTOS_GET_UPLOAD_SERVER {
+    PHOTOS_GET_WALL_UPLOAD_SERVER {
         @Override
         public String toString() {
-            return "method/photos.getUploadServer";
+            return "method/photos.getWallUploadServer";
         }
     },
-    PHOTOS_SAVE {
+    PHOTOS_SAVE_WALL_PHOTO {
         @Override
         public String toString() {
-            return "method/photos.save";
+            return "method/photos.saveWallPhoto";
         }
     },
     WALL_CRATE_COMMENT {

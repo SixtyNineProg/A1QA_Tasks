@@ -3,7 +3,6 @@ package by.a1qa.klimov.api;
 import by.a1qa.klimov.api.utils.APIUtils;
 import by.a1qa.klimov.models.RequestResult;
 import by.a1qa.klimov.models.User;
-import by.a1qa.klimov.models.wallpost.Post;
 import by.a1qa.klimov.models.wallpost.attachments.Photo;
 import by.a1qa.klimov.properties.ConfigurationData;
 import by.a1qa.klimov.properties.DataProperties;
@@ -24,7 +23,6 @@ import java.util.Map;
 
 public class VkComApi {
     private static final String RESPONSE_OBJECT_KEY = "response";
-    private static final String WALL_POSTS_ITEMS = "items";
     private static final String POST_ID_ATTRIBUTE = "post_id";
 
     public Integer editPostMessage(
@@ -93,33 +91,34 @@ public class VkComApi {
         return JsonUtils.toObject(firstUser, User.class);
     }
 
-    public Photo uploadPicture(String fieldName, String pathToPicture) throws UnirestException {
-        String uploadUrl = getUploadServer();
+    public Photo uploadPicture(Integer userId, String fieldName, String pathToPicture) throws UnirestException {
+        String uploadUrl = getUploadServer(userId);
 
         JsonNode jsonNode = uploadPictureToServer(uploadUrl, fieldName, pathToPicture);
         String server = jsonNode.getObject().get("server").toString();
-        String photosList = jsonNode.getObject().get("photos_list").toString();
+        String photo = jsonNode.getObject().get("photo").toString();
         String hash = jsonNode.getObject().get("hash").toString();
 
-        List<Photo> photos = savePictures(server, photosList, hash);
+        List<Photo> photos = savePictures(userId, server, photo, hash);
         if (photos.size() != 0) return photos.get(0);
         else throw new NullPointerException();
     }
 
-    private List<Photo> savePictures(String server, String photosList, String hash) throws UnirestException {
+    private List<Photo> savePictures(
+            Integer userId, String server, String photo, String hash) throws UnirestException {
         Map<String, String> headers = new HashMap<>();
         headers.put("accept", "application/json");
         headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("album_id", DataProperties.getDataPropertyByKey("userPhotoAlbumId"));
+        parameters.put("user_id", userId);
         parameters.put("server", server);
-        parameters.put("photos_list", photosList);
+        parameters.put("photo", photo);
         parameters.put("hash", hash);
         parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
 
         HttpResponse<JsonNode> jsonResponse = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
-                UrlPath.PHOTOS_SAVE)
+                UrlPath.PHOTOS_SAVE_WALL_PHOTO)
                 .headers(headers)
                 .queryString(parameters)
                 .asJson();
@@ -147,18 +146,18 @@ public class VkComApi {
         return jsonNode;
     }
 
-    private String getUploadServer() throws UnirestException {
+    private String getUploadServer(Integer userId) throws UnirestException {
         Map<String, String> headers = new HashMap<>();
         headers.put("accept", "application/json");
         headers.put("Authorization", "Bearer " + DataProperties.getDataPropertyByKey("userAccessToken"));
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("album_id", DataProperties.getDataPropertyByKey("userPhotoAlbumId"));
+        parameters.put("user_id", userId);
         parameters.put("v", ConfigurationData.getConfigurationPropertyByKey("vkApiVersion"));
 
         HttpResponse<JsonNode> jsonResponse
                 = Unirest.get(ConfigurationData.getConfigurationPropertyByKey("vkApiUrl") +
-                UrlPath.PHOTOS_GET_UPLOAD_SERVER)
+                UrlPath.PHOTOS_GET_WALL_UPLOAD_SERVER)
                 .headers(headers)
                 .queryString(parameters)
                 .asJson();

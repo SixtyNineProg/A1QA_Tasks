@@ -57,6 +57,7 @@ public class VkComTest extends BaseTest {
                 Integer.parseInt(DataProperties.getDataPropertyByKey("postTextLength")));
 
         Photo picture = vkComApi.uploadPicture(
+                userId,
                 "file1",
                 ConfigurationData.getConfigurationPropertyByKey("pathToUploadFile"));
 
