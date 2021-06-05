@@ -66,7 +66,7 @@ public class UserPage extends Form {
                 "Post is exist");
 
         return labelPost
-                .findChildElement(By.xpath("//*[@data-photo-id='" + ownerId + "_" + pictureId +"']"), ILabel.class)
+                .findChildElement(By.xpath("//*[@data-photo-id='" + ownerId + "_" + pictureId + "']"), ILabel.class)
                 .getAttribute("href");
     }
 
@@ -129,12 +129,16 @@ public class UserPage extends Form {
     }
 
     public Boolean isPostDeleted(Integer ownerId, Integer postId) {
-        AqualityServices.getConditionalWait().waitFor(
-                ExpectedConditions.invisibilityOf(
-                        getElementFactory().getLabel(
-                                By.xpath("//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']"),
-                                "Post with id: " + postId)
-                                .getElement()));
+        By byXpath = By.xpath("//div[@id='page_wall_posts']//div[@id='post" + ownerId + "_" + postId + "']");
+        List<ILabel> posts = getElementFactory().findElements(byXpath, ILabel.class);
+        if (posts.size() > 0) {
+            AqualityServices.getConditionalWait().waitFor(
+                    ExpectedConditions.invisibilityOf(
+                            getElementFactory().getLabel(
+                                    byXpath,
+                                    "Post with id: " + postId)
+                                    .getElement()));
+        }
         return true;
     }
 }

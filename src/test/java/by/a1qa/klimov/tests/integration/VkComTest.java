@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
-import java.util.Objects;
 
 public class VkComTest extends BaseTest {
     private final VkComApi vkComApi = new VkComApi();
@@ -100,18 +99,13 @@ public class VkComTest extends BaseTest {
         int uploadImageHeight = bimg.getHeight();
         int uploadImageWight = bimg.getWidth();
 
-        String pictureUrl = Objects.requireNonNull(sizes.stream()
-                .filter(size -> (size.getHeight() == uploadImageHeight && size.getWidth() == uploadImageWight))
-                .findAny()
-                .orElse(null))
-                .getUrl();
-
+        Size requiredSize = Size.getSizeWithParameter(sizes, uploadImageHeight, uploadImageWight);
         String pathToDownloadFile = ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile");
 
         Assert.assertTrue(FileSaver.savePicture(
                 pathToDownloadFile,
                 ConfigurationData.getConfigurationPropertyByKey("formatDownloadFile"),
-                pictureUrl));
+                requiredSize.getUrl()));
 
         Assert.assertTrue(FileComparator.compareFiles(
                 fileUploadImage,
