@@ -100,6 +100,7 @@ public class VkComTest extends BaseTest {
         int uploadImageWight = bimg.getWidth();
 
         Size requiredSize = Size.getSizeWithParameter(sizes, uploadImageHeight, uploadImageWight);
+        Assert.assertNotNull(requiredSize, "Required size not found");
         String pathToDownloadFile = ConfigurationData.getConfigurationPropertyByKey("pathToDownloadFile");
 
         Assert.assertTrue(FileSaver.savePicture(
