@@ -6,7 +6,6 @@ import by.a1qa.klimov.api.VkComApi;
 import by.a1qa.klimov.forms.FeedPage;
 import by.a1qa.klimov.forms.LoginPage;
 import by.a1qa.klimov.forms.UserPage;
-import by.a1qa.klimov.forms.VkNavigationBar;
 import by.a1qa.klimov.models.CommentData;
 import by.a1qa.klimov.models.PostData;
 import by.a1qa.klimov.models.User;
@@ -48,8 +47,7 @@ public class VkComTest extends BaseTest {
         FeedPage feedPage = new FeedPage();
         Assert.assertTrue(feedPage.state().waitForDisplayed(), "Feed page not open.");
 
-        VkNavigationBar vkNavigationBar = new VkNavigationBar();
-        vkNavigationBar.clickMyPageButton();
+        feedPage.getVkNavigationBar().clickMyPageButton();
 
         UserPage userPage = new UserPage();
         Assert.assertTrue(userPage.state().waitForDisplayed(), "User page not open.");

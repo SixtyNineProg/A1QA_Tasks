@@ -1,4 +1,4 @@
-package by.a1qa.klimov.forms;
+package by.a1qa.klimov.forms.navigation;
 
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.forms.Form;
