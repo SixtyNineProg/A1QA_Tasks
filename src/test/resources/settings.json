@@ -1,6 +1,6 @@
 {
   "dataBase": {
-    "connectionUrl": "jdbc:mysql://localhost:3306/union_reporting?serverTimezone=UTC",
+    "connectionUrl": "jdbc:mysql://localhost:3306/union_reporting",
     "userName": "root",
     "password": "123456789"
   },

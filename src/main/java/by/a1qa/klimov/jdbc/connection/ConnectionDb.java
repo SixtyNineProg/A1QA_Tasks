@@ -1,7 +1,6 @@
 package by.a1qa.klimov.jdbc.connection;
 
 import aquality.selenium.core.utilities.JsonSettingsFile;
-import by.a1qa.klimov.jdbc.connection.exception.ConnectException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
