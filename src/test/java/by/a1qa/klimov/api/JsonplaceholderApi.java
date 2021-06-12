@@ -2,9 +2,9 @@ package by.a1qa.klimov.api;
 
 import aquality.selenium.core.logging.Logger;
 import aquality.selenium.core.utilities.JsonSettingsFile;
-import by.a1qa.klimov.models.Post;
-import by.a1qa.klimov.models.RequestResult;
-import by.a1qa.klimov.models.User;
+import by.a1qa.klimov.api.models.Post;
+import by.a1qa.klimov.api.models.RequestResult;
+import by.a1qa.klimov.api.models.User;
 import by.a1qa.klimov.api.utils.APIUtils;
 import by.a1qa.klimov.utils.JsonUtils;
 import org.testng.Assert;

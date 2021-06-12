@@ -1,9 +1,8 @@
 package by.a1qa.klimov.api.utils;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.exception.RequestException;
-import by.a1qa.klimov.models.RequestResult;
-import by.a1qa.klimov.models.User;
+import by.a1qa.klimov.api.exception.RequestException;
+import by.a1qa.klimov.api.models.RequestResult;
 import org.json.JSONException;
 
 import java.io.BufferedReader;
@@ -14,7 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 public class APIUtils {
     public static RequestResult doGetRequest(String url) {

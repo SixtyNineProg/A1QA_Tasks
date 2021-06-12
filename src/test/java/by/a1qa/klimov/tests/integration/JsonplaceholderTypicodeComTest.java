@@ -1,8 +1,8 @@
 package by.a1qa.klimov.tests.integration;
 
 import by.a1qa.klimov.api.JsonplaceholderApi;
-import by.a1qa.klimov.models.Post;
-import by.a1qa.klimov.models.User;
+import by.a1qa.klimov.api.models.Post;
+import by.a1qa.klimov.api.models.User;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
 import by.a1qa.klimov.utils.JsonUtils;

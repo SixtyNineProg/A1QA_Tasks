@@ -1,4 +1,4 @@
-package by.a1qa.klimov.models;
+package by.a1qa.klimov.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
