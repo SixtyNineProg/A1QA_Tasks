@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.sql.Timestamp;
 
@@ -43,4 +42,8 @@ public class Test {
     String browser;
     @JsonProperty("author_id")
     Integer authorId;
+
+    public static final int TEST_STATUS_PASSED = 1;
+    public static final int TEST_STATUS_FAILED = 2;
+    public static final int TEST_STATUS_SKIPPED = 3;
 }

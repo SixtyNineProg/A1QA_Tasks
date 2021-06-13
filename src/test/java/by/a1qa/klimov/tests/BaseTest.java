@@ -16,28 +16,27 @@ public abstract class BaseTest {
     @BeforeSuite
     protected void beforeSuite() {
         BasicConfigurator.configure();
-
-        Test test = new Test(
-                null,
-                "KS-5437 PSS0202",
-                1,
-                "com.nexage.tests",
-                1,
-                3,
-                new Timestamp(System.currentTimeMillis()),
-                new Timestamp(System.currentTimeMillis()),
-                "GRIGORYEVS",
-                "chrome",
-                1
-        );
-        TestDao testDao = new TestDao();
-        Long id = testDao.create(test);
-        System.out.println(id);
     }
 
     @AfterMethod
     protected void writeResultTest() {
-
+//        Test test = new Test(
+//                null,
+//                "KS-5437 PSS0202",
+//                1,
+//                "com.nexage.tests",
+//                1,
+//                3,
+//                new Timestamp(System.currentTimeMillis()),
+//                new Timestamp(System.currentTimeMillis()),
+//                "GRIGORYEVS",
+//                "chrome",
+//                1
+//        );
+//
+//        TestDao testDao = new TestDao();
+//        Long id = testDao.create(test);
+//        System.out.println(id);
     }
 
     @AfterSuite

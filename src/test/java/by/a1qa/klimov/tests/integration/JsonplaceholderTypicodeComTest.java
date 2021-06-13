@@ -1,5 +1,6 @@
 package by.a1qa.klimov.tests.integration;
 
+import by.a1qa.klimov.TestListener;
 import by.a1qa.klimov.api.JsonplaceholderApi;
 import by.a1qa.klimov.api.models.Post;
 import by.a1qa.klimov.api.models.User;
@@ -9,12 +10,14 @@ import by.a1qa.klimov.utils.JsonUtils;
 import by.a1qa.klimov.utils.ListUtils;
 import by.a1qa.klimov.utils.Randomizer;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Listeners(TestListener.class)
 public class JsonplaceholderTypicodeComTest extends BaseTest {
     private final JsonplaceholderApi jsonplaceholderApi = new JsonplaceholderApi();
 
@@ -24,7 +27,6 @@ public class JsonplaceholderTypicodeComTest extends BaseTest {
         List<Integer> ids = posts.stream().map(Post::getId).collect(Collectors.toList());
         Assert.assertTrue(ListUtils.listIsSortedByASC(ids), "IDs are not sorted.");
     }
-
 
     @Test
     public void testGetExistPost() {

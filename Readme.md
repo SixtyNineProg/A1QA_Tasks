@@ -1,13 +1,25 @@
 # Test API https://jsonplaceholder.typicode.com/
 
-##Build tool
+## Build tool
 This project uses such build tool as maven.
 Use "mvn clean package" to build project.
 
-##Run tests
+## Run tests
 This project uses such test tool as TestNG.
 Use "testng.xml" file to run tests.
 
-##Configuration files
+## Configuration files
 Path to config file: ./src/test/resources/config.properties.
 Path to test data file: ./src/test/resources/testData.properties.
+
+## Database
+Restore database from dump: dump.sql
+
+## Result test
+Test results are recorded in a table Test.
+
+Add author use script:
+INSERT author(name, login, email)
+VALUES ('Dmitry', 'SixtyNineProg', 'd@mail.ru');
+
+

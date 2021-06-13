@@ -16,6 +16,7 @@ public class JsonplaceholderApi {
             new JsonSettingsFile("settings.json").getValue("/url").toString();
 
     public List<Post> readAllPosts(int expectedRequestCode) {
+        Logger.getInstance().info("Read all posts");
         RequestResult requestResult = APIUtils
                 .doGetRequest(BASE_URL + UrlPath.POSTS);
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
@@ -26,6 +27,7 @@ public class JsonplaceholderApi {
     }
 
     public Post readPost(int id, int expectedRequestCode) {
+        Logger.getInstance().info("Read post with id: " + id);
         RequestResult requestResult = APIUtils
                 .doGetRequest(BASE_URL + UrlPath.POSTS_ID + id);
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
@@ -39,6 +41,7 @@ public class JsonplaceholderApi {
     }
 
     public Post createPost(Post post, int expectedRequestCode) {
+        Logger.getInstance().info("Create post with value " + post.toString());
         RequestResult requestResult = APIUtils.doPostRequest(
                 BASE_URL + UrlPath.POSTS,
                 JsonUtils.toJson(post),
@@ -55,6 +58,7 @@ public class JsonplaceholderApi {
     }
 
     public List<User> readAllUsers(int expectedRequestCode) {
+        Logger.getInstance().info("Read all users");
         RequestResult requestResult = APIUtils
                 .doGetRequest(BASE_URL + UrlPath.USERS);
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
@@ -65,6 +69,7 @@ public class JsonplaceholderApi {
     }
 
     public User readUser(int id, int expectedRequestCode) {
+        Logger.getInstance().info("Read user with id: " + id);
         RequestResult requestResult = APIUtils
                 .doGetRequest(BASE_URL + UrlPath.USERS_ID + id);
         Assert.assertEquals(requestResult.getCode(), expectedRequestCode,
