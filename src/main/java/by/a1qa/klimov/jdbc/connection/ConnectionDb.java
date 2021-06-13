@@ -13,12 +13,10 @@ public class ConnectionDb {
             new JsonSettingsFile("settings.json").getMap("/dataBase");
 
     public static Connection getConnection() throws SQLException {
-        if (connection == null) {
-            connection = DriverManager.getConnection(
-                    dataBaseInfo.get("connectionUrl").toString(),
-                    dataBaseInfo.get("userName").toString(),
-                    dataBaseInfo.get("password").toString());
-        }
+        connection = DriverManager.getConnection(
+                dataBaseInfo.get("connectionUrl").toString(),
+                dataBaseInfo.get("userName").toString(),
+                dataBaseInfo.get("password").toString());
         return connection;
     }
 }

@@ -8,20 +8,22 @@ import by.a1qa.klimov.jdbc.model.Test;
 import java.sql.*;
 
 public class TestDao implements ICrud<Test> {
+    private static final String TABLE_NAME = "TEST";
+
     @Override
     public long create(Test test) {
         final String sqlRequest =
-                "INSERT test(" +
-                        "name," +
-                        " status_id," +
-                        " method_name," +
-                        " project_id," +
-                        " session_id," +
-                        " start_time," +
-                        " end_time," +
-                        " env," +
-                        " browser," +
-                        " author_id)"
+                "INSERT " + TABLE_NAME + "(" +
+                        "name, " +
+                        "status_id, " +
+                        "method_name, " +
+                        "project_id, " +
+                        "session_id, " +
+                        "start_time, " +
+                        "end_time, " +
+                        "env," +
+                        "browser, " +
+                        "author_id) "
                         + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         long id = 0;
@@ -47,7 +49,7 @@ public class TestDao implements ICrud<Test> {
 
     @Override
     public Test read(long id) {
-        final String sqlRequest = "SELECT * FROM test WHERE id = ?";
+        final String sqlRequest = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
 
         try (Connection connection = ConnectionDb.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
@@ -76,9 +78,9 @@ public class TestDao implements ICrud<Test> {
     }
 
     @Override
-    public long update(Test test) {
+    public int update(Test test) {
         final String sqlRequest =
-                "UPDATE test SET " +
+                "UPDATE " + TABLE_NAME + " SET " +
                         "name=?, " +
                         "status_id=?, " +
                         "method_name=?, " +
@@ -96,17 +98,26 @@ public class TestDao implements ICrud<Test> {
 
             setPrepareStatement(test, statement);
             statement.setLong(11, test.getId());
-            statement.executeUpdate();
+            return statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new ConnectException("SQL exception.");
         }
-        return test.getId();
     }
 
     @Override
-    public long delete(long id) {
-        return 0;
+    public int delete(long id) {
+        final String sqlRequest = "DELETE FROM " + TABLE_NAME + " WHERE id=?";
+
+        try (Connection connection = ConnectionDb.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
+
+            statement.setLong(1, id);
+            return statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new ConnectException("SQL exception.");
+        }
     }
 
     private void setPrepareStatement(Test test, PreparedStatement statement) throws SQLException {
