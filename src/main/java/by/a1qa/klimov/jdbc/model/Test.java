@@ -24,26 +24,22 @@ import java.sql.Timestamp;
         "browser",
         "author_id",})
 public class Test {
-    Long id;
-    String name;
+    private Long id;
+    private String name;
     @JsonProperty("status_id")
-    Integer statusId;
+    private Integer statusId;
     @JsonProperty("method_name")
-    String methodName;
+    private String methodName;
     @JsonProperty("project_id")
-    Integer projectId;
+    private Integer projectId;
     @JsonProperty("session_id")
-    Integer sessionId;
+    private Integer sessionId;
     @JsonProperty("start_time")
-    Timestamp startTime;
+    private Timestamp startTime;
     @JsonProperty("end_time")
-    Timestamp endTime;
-    String env;
-    String browser;
+    private Timestamp endTime;
+    private String env;
+    private String browser;
     @JsonProperty("author_id")
-    Integer authorId;
-
-    public static final int TEST_STATUS_PASSED = 1;
-    public static final int TEST_STATUS_FAILED = 2;
-    public static final int TEST_STATUS_SKIPPED = 3;
+    private Integer authorId;
 }

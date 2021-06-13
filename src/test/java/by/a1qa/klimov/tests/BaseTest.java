@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeSuite;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public abstract class BaseTest {
     @BeforeSuite
@@ -20,23 +19,9 @@ public abstract class BaseTest {
 
     @AfterMethod
     protected void writeResultTest() {
-//        Test test = new Test(
-//                null,
-//                "KS-5437 PSS0202",
-//                1,
-//                "com.nexage.tests",
-//                1,
-//                3,
-//                new Timestamp(System.currentTimeMillis()),
-//                new Timestamp(System.currentTimeMillis()),
-//                "GRIGORYEVS",
-//                "chrome",
-//                1
-//        );
-//
-//        TestDao testDao = new TestDao();
-//        Long id = testDao.create(test);
-//        System.out.println(id);
+        TestDao testDao = new TestDao();
+        Test test = testDao.read(300);
+        System.out.println("hello");
     }
 
     @AfterSuite

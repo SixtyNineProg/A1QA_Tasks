@@ -21,7 +21,6 @@ public class TestListener extends TestListenerAdapter {
     public void onTestSuccess(ITestResult tr) {
         Logger.getInstance().info(tr.getTestName());
         Logger.getInstance().info(tr.getName());
-        Logger.getInstance().info(String.valueOf(Test.TEST_STATUS_PASSED));
         Logger.getInstance().info(tr.getMethod().getMethodName());
         log(".Success");
     }
