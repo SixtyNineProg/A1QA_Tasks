@@ -30,16 +30,7 @@ public class TestDao implements ICrud<Test> {
              PreparedStatement statement = connection.prepareStatement(sqlRequest,
                      Statement.RETURN_GENERATED_KEYS)) {
 
-            statement.setString(1, test.getName());
-            statement.setInt(2, test.getStatusId());
-            statement.setString(3, test.getMethodName());
-            statement.setInt(4, test.getProjectId());
-            statement.setInt(5, test.getSessionId());
-            statement.setTimestamp(6, test.getStartTime());
-            statement.setTimestamp(7, test.getEndTime());
-            statement.setString(8, test.getEnv());
-            statement.setString(9, test.getBrowser());
-            statement.setInt(10, test.getAuthorId());
+            setPrepareStatement(test, statement);
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows > 0) {
@@ -85,13 +76,50 @@ public class TestDao implements ICrud<Test> {
     }
 
     @Override
-    public long update(Test object) {
-        return 0;
+    public long update(Test test) {
+        final String sqlRequest =
+                "UPDATE test SET " +
+                        "name=?, " +
+                        "status_id=?, " +
+                        "method_name=?, " +
+                        "project_id=?, " +
+                        "session_id=?, " +
+                        "start_time=?, " +
+                        "end_time=?, " +
+                        "env=?, " +
+                        "browser=?, " +
+                        "author_id=? " +
+                        "WHERE id=?";
+
+        try (Connection connection = ConnectionDb.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
+
+            setPrepareStatement(test, statement);
+            statement.setLong(11, test.getId());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new ConnectException("SQL exception.");
+        }
+        return test.getId();
     }
 
     @Override
     public long delete(long id) {
         return 0;
+    }
+
+    private void setPrepareStatement(Test test, PreparedStatement statement) throws SQLException {
+        statement.setString(1, test.getName());
+        statement.setInt(2, test.getStatusId());
+        statement.setString(3, test.getMethodName());
+        statement.setInt(4, test.getProjectId());
+        statement.setInt(5, test.getSessionId());
+        statement.setTimestamp(6, test.getStartTime());
+        statement.setTimestamp(7, test.getEndTime());
+        statement.setString(8, test.getEnv());
+        statement.setString(9, test.getBrowser());
+        statement.setInt(10, test.getAuthorId());
     }
 }
 
