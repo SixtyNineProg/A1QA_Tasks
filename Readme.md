@@ -18,8 +18,4 @@ Restore database from dump: dump.sql
 ## Result test
 Test results are recorded in a table Test.
 
-Add author use script:
-INSERT author(name, login, email)
-VALUES ('Dmitry', 'SixtyNineProg', 'd@mail.ru');
-
 
