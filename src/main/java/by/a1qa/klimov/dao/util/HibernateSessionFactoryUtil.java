@@ -1,7 +1,7 @@
-package by.a1qa.klimov.jdbc.dao.util;
+package by.a1qa.klimov.dao.util;
 
-import by.a1qa.klimov.jdbc.entity.Author;
-import by.a1qa.klimov.jdbc.entity.Test;
+import by.a1qa.klimov.dao.entity.Author;
+import by.a1qa.klimov.dao.entity.Test;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

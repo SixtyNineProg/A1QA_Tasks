@@ -1,4 +1,4 @@
-package by.a1qa.klimov;
+package by.a1qa.klimov.tests.listener;
 
 import aquality.selenium.core.logging.Logger;
 import org.testng.ITestResult;
@@ -7,8 +7,7 @@ import org.testng.TestListenerAdapter;
 import java.sql.Timestamp;
 import java.util.Map;
 
-public class TestListener extends TestListenerAdapter {
-    private int m_count = 0;
+public class JsonplaceholderTestListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult tr) {
         log("F");

@@ -1,9 +1,9 @@
-package by.a1qa.klimov.jdbc.dao.impl;
+package by.a1qa.klimov.dao.impl;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.jdbc.dao.interfaces.Dao;
-import by.a1qa.klimov.jdbc.dao.util.HibernateSessionFactoryUtil;
-import by.a1qa.klimov.jdbc.entity.Author;
+import by.a1qa.klimov.dao.entity.Author;
+import by.a1qa.klimov.dao.interfaces.Dao;
+import by.a1qa.klimov.dao.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 
 public class AuthorDao implements Dao<Author> {

@@ -1,6 +1,6 @@
-package by.a1qa.klimov.jdbc.dao.impl;
+package by.a1qa.klimov.dao.impl;
 
-import by.a1qa.klimov.jdbc.entity.Author;
+import by.a1qa.klimov.dao.entity.Author;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

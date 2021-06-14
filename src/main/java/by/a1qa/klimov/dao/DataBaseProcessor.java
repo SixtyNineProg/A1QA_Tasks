@@ -1,7 +1,7 @@
-package by.a1qa.klimov.jdbc;
+package by.a1qa.klimov.dao;
 
-import by.a1qa.klimov.jdbc.dao.impl.TestDao;
-import by.a1qa.klimov.jdbc.entity.Test;
+import by.a1qa.klimov.dao.entity.Test;
+import by.a1qa.klimov.dao.impl.TestDao;
 
 public class DataBaseProcessor {
     private TestDao testDao = new TestDao();

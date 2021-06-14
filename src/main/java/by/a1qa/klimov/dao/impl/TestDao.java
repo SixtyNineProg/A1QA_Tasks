@@ -1,8 +1,8 @@
-package by.a1qa.klimov.jdbc.dao.impl;
+package by.a1qa.klimov.dao.impl;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.jdbc.dao.interfaces.Dao;
-import by.a1qa.klimov.jdbc.entity.Test;
+import by.a1qa.klimov.dao.entity.Test;
+import by.a1qa.klimov.dao.interfaces.Dao;
 
 public class TestDao implements Dao<Test> {
 

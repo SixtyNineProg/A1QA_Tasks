@@ -1,4 +1,4 @@
-package by.a1qa.klimov.jdbc.dao.interfaces;
+package by.a1qa.klimov.dao.interfaces;
 
 public interface Dao<T> {
     long create(T object);

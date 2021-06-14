@@ -1,11 +1,11 @@
 package by.a1qa.klimov.tests.integration;
 
-import by.a1qa.klimov.TestListener;
 import by.a1qa.klimov.api.JsonplaceholderApi;
 import by.a1qa.klimov.api.models.Post;
 import by.a1qa.klimov.api.models.User;
 import by.a1qa.klimov.properties.DataProperties;
 import by.a1qa.klimov.tests.BaseTest;
+import by.a1qa.klimov.tests.listener.JsonplaceholderTestListener;
 import by.a1qa.klimov.utils.JsonUtils;
 import by.a1qa.klimov.utils.ListUtils;
 import by.a1qa.klimov.utils.Randomizer;
@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Listeners(TestListener.class)
+@Listeners(JsonplaceholderTestListener.class)
 public class JsonplaceholderTypicodeComTest extends BaseTest {
     private final JsonplaceholderApi jsonplaceholderApi = new JsonplaceholderApi();
 

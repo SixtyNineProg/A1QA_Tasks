@@ -1,4 +1,4 @@
-package by.a1qa.klimov.jdbc.entity;
+package by.a1qa.klimov.dao.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
