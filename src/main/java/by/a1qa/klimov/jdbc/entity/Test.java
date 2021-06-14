@@ -1,4 +1,4 @@
-package by.a1qa.klimov.jdbc.model;
+package by.a1qa.klimov.jdbc.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

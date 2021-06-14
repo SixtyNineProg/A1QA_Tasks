@@ -1,11 +1,11 @@
 package by.a1qa.klimov;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.jdbc.model.Test;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import java.sql.Timestamp;
+import java.util.Map;
 
 public class TestListener extends TestListenerAdapter {
     private int m_count = 0;
@@ -26,6 +26,7 @@ public class TestListener extends TestListenerAdapter {
         Logger.getInstance().info(tr.getMethod().getMethodName());
         Timestamp start = new Timestamp(tr.getStartMillis());
         Timestamp end = new Timestamp(tr.getEndMillis());
+        Map<String, String> map = System.getenv();
         log(".Success");
     }
 

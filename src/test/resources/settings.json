@@ -1,9 +1,4 @@
 {
-  "dataBase": {
-    "connectionUrl": "jdbc:mysql://localhost:3306/union_reporting?serverTimezone=UTC",
-    "userName": "root",
-    "password": "123456789"
-  },
   "url": "https://jsonplaceholder.typicode.com/",
   "browserName": "chrome",
   "isRemote": false,
