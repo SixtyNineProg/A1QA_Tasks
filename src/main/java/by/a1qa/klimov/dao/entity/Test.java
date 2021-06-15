@@ -1,45 +1,36 @@
 package by.a1qa.klimov.dao.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder({
-        "id",
-        "name",
-        "status_id",
-        "method_name",
-        "project_id",
-        "session_id",
-        "start_time",
-        "end_time",
-        "env",
-        "browser",
-        "author_id",})
+@Entity
+@Table(name = "test")
 public class Test {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @JsonProperty("status_id")
+    @Column(name = "status_id")
     private Integer statusId;
-    @JsonProperty("method_name")
+    @Column(name = "method_name")
     private String methodName;
-    @JsonProperty("project_id")
+    @Column(name = "project_id")
     private Integer projectId;
-    @JsonProperty("session_id")
+    @Column(name = "session_id")
     private Integer sessionId;
-    @JsonProperty("start_time")
+    @Column(name = "start_time")
     private Timestamp startTime;
-    @JsonProperty("end_time")
+    @Column(name = "end_time")
     private Timestamp endTime;
     private String env;
     private String browser;
-    @JsonProperty("author_id")
+    @Column(name = "author_id")
     private Integer authorId;
 }
