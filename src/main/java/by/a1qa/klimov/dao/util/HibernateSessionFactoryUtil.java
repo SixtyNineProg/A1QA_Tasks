@@ -1,8 +1,6 @@
 package by.a1qa.klimov.dao.util;
 
-import by.a1qa.klimov.dao.entity.Author;
-import by.a1qa.klimov.dao.entity.Project;
-import by.a1qa.klimov.dao.entity.Test;
+import by.a1qa.klimov.dao.entity.*;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -18,6 +16,8 @@ public class HibernateSessionFactoryUtil {
             configuration.addAnnotatedClass(Author.class);
             configuration.addAnnotatedClass(Test.class);
             configuration.addAnnotatedClass(Project.class);
+            configuration.addAnnotatedClass(Session.class);
+            configuration.addAnnotatedClass(Status.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
