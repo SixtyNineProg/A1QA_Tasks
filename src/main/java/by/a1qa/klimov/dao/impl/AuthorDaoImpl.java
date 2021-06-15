@@ -1,8 +1,8 @@
 package by.a1qa.klimov.dao.impl;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.dao.entity.Status;
-import by.a1qa.klimov.dao.interfaces.StatusDao;
+import by.a1qa.klimov.dao.entity.Author;
+import by.a1qa.klimov.dao.interfaces.AuthorDao;
 import by.a1qa.klimov.dao.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 
@@ -13,75 +13,81 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class StatusDaoImpl implements StatusDao {
+public class AuthorDaoImpl implements AuthorDao {
+
     @Override
-    public long create(Status status) {
-        Logger.getInstance().info("Create Status: " + status.toString());
+    public long create(Author author) {
+        Logger.getInstance().info("Create Author: " + author.toString());
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            long id = (long) session.save(status);
+            long id = (long) session.save(author);
             session.getTransaction().commit();
             return id;
         }
     }
 
     @Override
-    public Status read(long id) {
-        Logger.getInstance().info("Read Status with id: " + id);
+    public Author read(long id) {
+        Logger.getInstance().info("Read Author with id: " + id);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return session.get(Status.class, id);
+            return session.get(Author.class, id);
         }
     }
 
     @Override
-    public List<Status> find(Status status) {
-        Logger.getInstance().info("Find Status: " + status.toString());
+    public List<Author> find(Author author) {
+        Logger.getInstance().info("Find Author: " + author.toString());
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Status> criteria = builder.createQuery(Status.class);
-            Root<Status> myObjectRoot = criteria.from(Status.class);
+            CriteriaQuery<Author> criteria = builder.createQuery(Author.class);
+            Root<Author> myObjectRoot = criteria.from(Author.class);
 
-            Predicate predicate = builder.equal(myObjectRoot.get("name"), status.getName());
+            Predicate predicate = builder.and(
+                    builder.equal(myObjectRoot.get("name"), author.getName()),
+                    builder.equal(myObjectRoot.get("login"), author.getLogin()),
+                    builder.equal(myObjectRoot.get("email"), author.getEmail())
+            );
 
             criteria.select(myObjectRoot).where(predicate);
 
-            TypedQuery<Status> query = session.createQuery(criteria);
+            TypedQuery<Author> query = session.createQuery(criteria);
             return query.getResultList();
         }
     }
 
     @Override
-    public List<Status> findByName(String name) {
-        Logger.getInstance().info("Read Status with name: " + name);
+    public List<Author> findByLogin(String login) {
+        Logger.getInstance().info("Find Author with login: " + login);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Status> criteria = builder.createQuery(Status.class);
-            Root<Status> myObjectRoot = criteria.from(Status.class);
+            CriteriaQuery<Author> criteria = builder.createQuery(Author.class);
+            Root<Author> myObjectRoot = criteria.from(Author.class);
 
-            Predicate predicate = builder.equal(myObjectRoot.get("name"), name);
+            Predicate predicate = builder.equal(myObjectRoot.get("login"), login);
+
             criteria.select(myObjectRoot).where(predicate);
 
-            TypedQuery<Status> query = session.createQuery(criteria);
+            TypedQuery<Author> query = session.createQuery(criteria);
             return query.getResultList();
         }
     }
 
     @Override
-    public void update(Status status) {
-        Logger.getInstance().info("Update Status: " + status.toString());
+    public void update(Author author) {
+        Logger.getInstance().info("Update Author: " + author.toString());
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.update(status);
+            session.update(author);
             session.getTransaction().commit();
         }
     }
 
     @Override
     public void delete(long id) {
-        Logger.getInstance().info("Delete Status with id: " + id);
+        Logger.getInstance().info("Delete Author with id: " + id);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.delete(session.load(Status.class, id));
+            session.delete(session.load(Author.class, id));
             session.getTransaction().commit();
         }
     }

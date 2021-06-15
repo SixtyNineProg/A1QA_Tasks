@@ -1,13 +1,14 @@
 package by.a1qa.klimov.dao.impl;
 
 import by.a1qa.klimov.dao.entity.Session;
+import by.a1qa.klimov.dao.interfaces.SessionDao;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.sql.Timestamp;
 
-public class SessionDaoTest {
-    private final SessionDao sessionDao = new SessionDao();
+public class SessionDaoImplTest {
+    private final SessionDao sessionDao = new SessionDaoImpl();
 
     @Test
     public void crudTest() {

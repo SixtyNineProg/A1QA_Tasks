@@ -2,9 +2,9 @@ package by.a1qa.klimov.dao.impl;
 
 import aquality.selenium.core.logging.Logger;
 import by.a1qa.klimov.dao.entity.Test;
-import by.a1qa.klimov.dao.interfaces.Dao;
+import by.a1qa.klimov.dao.interfaces.TestDao;
 
-public class TestDao implements Dao<Test> {
+public class TestDaoImpl implements TestDao {
 
     @Override
     public long create(Test test) {

@@ -1,13 +1,14 @@
 package by.a1qa.klimov.dao.impl;
 
+import by.a1qa.klimov.dao.interfaces.TestDao;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.sql.Timestamp;
 
-public class TestDaoTest {
+public class TestDaoTestImpl {
     @Test
-    public void CrudTest() {
+    public void crudTest() {
         final by.a1qa.klimov.dao.entity.Test test = new by.a1qa.klimov.dao.entity.Test(
                 2L,
                 "aaa",
@@ -21,7 +22,7 @@ public class TestDaoTest {
                 "chrome",
                 1
         );
-        TestDao testDao = new TestDao();
+        TestDao testDao = new TestDaoImpl();
         long id = testDao.create(test);
         Assert.assertNotEquals(id, 0, "Record Test not created.");
 

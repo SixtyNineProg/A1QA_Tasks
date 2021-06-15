@@ -1,11 +1,12 @@
 package by.a1qa.klimov.dao.impl;
 
 import by.a1qa.klimov.dao.entity.Author;
+import by.a1qa.klimov.dao.interfaces.AuthorDao;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class AuthorDaoTest {
-    private final AuthorDao authorDao = new AuthorDao();
+public class AuthorDaoImplTest {
+    private final AuthorDao authorDao = new AuthorDaoImpl();
 
     @Test
     public void crudTest() {

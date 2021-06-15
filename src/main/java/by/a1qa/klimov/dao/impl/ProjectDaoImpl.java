@@ -1,8 +1,8 @@
 package by.a1qa.klimov.dao.impl;
 
 import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.dao.entity.Status;
-import by.a1qa.klimov.dao.interfaces.StatusDao;
+import by.a1qa.klimov.dao.entity.Project;
+import by.a1qa.klimov.dao.interfaces.ProjectDao;
 import by.a1qa.klimov.dao.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 
@@ -13,75 +13,76 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class StatusDaoImpl implements StatusDao {
+public class ProjectDaoImpl implements ProjectDao {
     @Override
-    public long create(Status status) {
-        Logger.getInstance().info("Create Status: " + status.toString());
+    public long create(Project project) {
+        Logger.getInstance().info("Create Project: " + project.toString());
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            long id = (long) session.save(status);
+            long id = (long) session.save(project);
             session.getTransaction().commit();
             return id;
         }
     }
 
     @Override
-    public Status read(long id) {
-        Logger.getInstance().info("Read Status with id: " + id);
+    public Project read(long id) {
+        Logger.getInstance().info("Read Project with id: " + id);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return session.get(Status.class, id);
+            return session.get(Project.class, id);
         }
     }
 
     @Override
-    public List<Status> find(Status status) {
-        Logger.getInstance().info("Find Status: " + status.toString());
+    public List<Project> find(Project project) {
+        Logger.getInstance().info("Find Project: " + project.toString());
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Status> criteria = builder.createQuery(Status.class);
-            Root<Status> myObjectRoot = criteria.from(Status.class);
+            CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
+            Root<Project> myObjectRoot = criteria.from(Project.class);
 
-            Predicate predicate = builder.equal(myObjectRoot.get("name"), status.getName());
+            Predicate predicate = builder.equal(myObjectRoot.get("name"), project.getName());
 
             criteria.select(myObjectRoot).where(predicate);
 
-            TypedQuery<Status> query = session.createQuery(criteria);
+            TypedQuery<Project> query = session.createQuery(criteria);
             return query.getResultList();
         }
     }
 
     @Override
-    public List<Status> findByName(String name) {
-        Logger.getInstance().info("Read Status with name: " + name);
+    public List<Project> findByName(String name) {
+        Logger.getInstance().info("Find Project by name: " + name);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Status> criteria = builder.createQuery(Status.class);
-            Root<Status> myObjectRoot = criteria.from(Status.class);
+            CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
+            Root<Project> myObjectRoot = criteria.from(Project.class);
 
             Predicate predicate = builder.equal(myObjectRoot.get("name"), name);
+
             criteria.select(myObjectRoot).where(predicate);
 
-            TypedQuery<Status> query = session.createQuery(criteria);
+            TypedQuery<Project> query = session.createQuery(criteria);
             return query.getResultList();
         }
     }
 
     @Override
-    public void update(Status status) {
-        Logger.getInstance().info("Update Status: " + status.toString());
+    public void update(Project project) {
+        Logger.getInstance().info("Update Project: " + project.toString());
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.update(status);
+            session.update(project);
             session.getTransaction().commit();
         }
     }
 
     @Override
     public void delete(long id) {
-        Logger.getInstance().info("Delete Status with id: " + id);
+        Logger.getInstance().info("Delete Project with id: " + id);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            session.delete(session.load(Status.class, id));
+            session.delete(session.load(Project.class, id));
             session.getTransaction().commit();
         }
     }

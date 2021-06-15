@@ -1,11 +1,12 @@
 package by.a1qa.klimov.dao.impl;
 
 import by.a1qa.klimov.dao.entity.Project;
+import by.a1qa.klimov.dao.interfaces.ProjectDao;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ProjectDaoTest {
-    private final ProjectDao projectDao = new ProjectDao();
+public class ProjectDaoImplTest {
+    private final ProjectDao projectDao = new ProjectDaoImpl();
 
     @Test
     public void crudTest() {
