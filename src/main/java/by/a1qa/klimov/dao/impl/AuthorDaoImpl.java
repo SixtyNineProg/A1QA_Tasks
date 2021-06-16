@@ -17,7 +17,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public long create(Author author) {
-        Logger.getInstance().info("Create Author: " + author.toString());
+        Logger.getInstance().info("Create " + author);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             long id = (long) session.save(author);
@@ -36,7 +36,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public List<Author> find(Author author) {
-        Logger.getInstance().info("Find Author: " + author.toString());
+        Logger.getInstance().info("Find " + author);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Author> criteria = builder.createQuery(Author.class);
@@ -74,7 +74,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void update(Author author) {
-        Logger.getInstance().info("Update Author: " + author.toString());
+        Logger.getInstance().info("Update " + author);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.update(author);

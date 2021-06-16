@@ -12,15 +12,15 @@ public class TestDaoTestImpl {
         final by.a1qa.klimov.dao.entity.Test test = new by.a1qa.klimov.dao.entity.Test(
                 2L,
                 "aaa",
-                1,
+                1L,
                 "com",
-                4,
-                12,
+                4L,
+                12L,
                 new Timestamp(System.currentTimeMillis()),
                 new Timestamp(System.currentTimeMillis()),
                 "DESKTOP",
                 "chrome",
-                1
+                1L
         );
         TestDao testDao = new TestDaoImpl();
         long id = testDao.create(test);

@@ -1,70 +1,110 @@
 package by.a1qa.klimov.tests.listener;
 
-import aquality.selenium.core.logging.Logger;
-import by.a1qa.klimov.dao.entity.Author;
-import by.a1qa.klimov.dao.entity.Project;
-import by.a1qa.klimov.dao.entity.Session;
-import by.a1qa.klimov.dao.entity.Status;
-import by.a1qa.klimov.dao.service.AuthorService;
-import by.a1qa.klimov.dao.service.ProjectService;
-import by.a1qa.klimov.dao.service.SessionService;
-import by.a1qa.klimov.dao.service.StatusService;
+import aquality.selenium.core.utilities.JsonSettingsFile;
+import by.a1qa.klimov.dao.entity.*;
+import by.a1qa.klimov.dao.service.*;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import java.sql.Timestamp;
-import java.util.Map;
 
 public class JsonplaceholderTestListener extends TestListenerAdapter {
-    private StatusService statusService = new StatusService();
-    private SessionService sessionService = new SessionService();
-    private ProjectService projectService = new ProjectService();
-    private AuthorService authorService = new AuthorService();
+    private final JsonSettingsFile jsonSettingsFile = new JsonSettingsFile("settings.json");
 
-    private long statusPassedId;
-    private long statusFailedId;
-    private long statusSkippedId;
-    private long sessionId;
-    private long projectId;
-    private long authorId;
+    private final StatusService statusService = new StatusService();
+    private final SessionService sessionService = new SessionService();
+    private final ProjectService projectService = new ProjectService();
+    private final AuthorService authorService = new AuthorService();
+    private final TestService testService = new TestService();
+
+    public static final String STATUS_PASSED_NAME = "PASSED";
+    public static final String STATUS_FAILED_NAME = "FAILED";
+    public static final String STATUS_SKIPPED_NAME = "SKIPPED";
+
+    private long statusPassedId = 0;
+    private long statusFailedId = 0;
+    private long statusSkippedId = 0;
+    private long sessionId = 0;
+    private long projectId = 0;
+    private long authorId = 0;
 
     @Override
     public void onTestFailure(ITestResult tr) {
-        log("F");
+        createRecordTest(statusFailedId, tr);
     }
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-        log("S");
+        createRecordTest(statusSkippedId, tr);
     }
 
     @Override
     public void onTestSuccess(ITestResult tr) {
-        Logger.getInstance().info(tr.getTestName());
-        Logger.getInstance().info(tr.getName());
-        Logger.getInstance().info(tr.getMethod().getMethodName());
-        Timestamp start = new Timestamp(tr.getStartMillis());
-        Timestamp end = new Timestamp(tr.getEndMillis());
-        Map<String, String> map = System.getenv();
-        log(".Success");
-    }
-
-    private void log(String string) {
-        System.out.print(string);
+        createRecordTest(statusPassedId, tr);
     }
 
     @Override
     public void beforeConfiguration(ITestResult tr, ITestNGMethod tm) {
         super.beforeConfiguration(tr, tm);
-        statusPassedId = statusService.addStatus(new Status(null, "PASSED"));
-        statusFailedId = statusService.addStatus(new Status(null, "FAILED"));
-        statusSkippedId = statusService.addStatus(new Status(null, "SKIPPED"));
-        sessionId = sessionService.addSession(new Session(null,
-                "1476293769538",
-                java.sql.Timestamp.valueOf("2016-10-12 20:36:26"),
-                1L));
-        projectId = projectService.addProject(new Project(null, "MyProject"));
-        authorId = authorService.addAuthor(new Author(null, "Dmitry", "SixtyN", "@mail"));
+        statusPassedId = createStatus(STATUS_PASSED_NAME);
+        statusFailedId = createStatus(STATUS_FAILED_NAME);
+        statusSkippedId = createStatus(STATUS_SKIPPED_NAME);
+
+        sessionId = createSession();
+        projectId = createProject();
+        authorId = createAuthor();
+    }
+
+    private long createStatus(String name) {
+        long statusId = statusService.addStatus(new Status(null, name));
+        if (statusId == 0) throw new NullPointerException("Status " + name + "not created.");
+        return statusId;
+    }
+
+    private long createSession() {
+        Session session = new Session(null,
+                jsonSettingsFile.getValue("/sessionKey").toString(),
+                new Timestamp(System.currentTimeMillis()),
+                Long.valueOf(jsonSettingsFile.getValue("/buildNumber").toString()));
+        long sessionId = sessionService.addSession(session);
+        if (sessionId == 0) throw new NullPointerException(session + " not created.");
+        return sessionId;
+    }
+
+    private long createProject() {
+        Project project = new Project(null, jsonSettingsFile.getValue("/projectName").toString());
+        long projectId = projectService.addProject(project);
+        if (projectId == 0) throw new NullPointerException(project + " not created.");
+        return projectId;
+    }
+
+    private long createAuthor() {
+        Author author = new Author(
+                null,
+                jsonSettingsFile.getValue("/authorName").toString(),
+                jsonSettingsFile.getValue("/authorLogin").toString(),
+                jsonSettingsFile.getValue("/authorEmail").toString());
+        long authorId = authorService.addAuthor(author);
+        if (authorId == 0) throw new NullPointerException(author + " not created.");
+        return authorId;
+    }
+
+    private void createRecordTest(long statusId, ITestResult tr) {
+        Test test = new Test(
+                null,
+                tr.getName(),
+                statusId,
+                tr.getMethod().getMethodName(),
+                projectId,
+                sessionId,
+                new Timestamp(tr.getStartMillis()),
+                new Timestamp(tr.getEndMillis()),
+                System.getenv().get("OS"),
+                jsonSettingsFile.getValue("/browserName").toString(),
+                authorId
+        );
+        long testId = testService.addTest(test);
+        if (testId == 0) throw new NullPointerException(test + " not created.");
     }
 }

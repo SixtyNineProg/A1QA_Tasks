@@ -16,7 +16,7 @@ import java.util.List;
 public class StatusDaoImpl implements StatusDao {
     @Override
     public long create(Status status) {
-        Logger.getInstance().info("Create Status: " + status.toString());
+        Logger.getInstance().info("Create " + status);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             long id = (long) session.save(status);
@@ -35,7 +35,7 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     public List<Status> find(Status status) {
-        Logger.getInstance().info("Find Status: " + status.toString());
+        Logger.getInstance().info("Find " + status);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Status> criteria = builder.createQuery(Status.class);
@@ -68,7 +68,7 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     public void update(Status status) {
-        Logger.getInstance().info("Update Status: " + status.toString());
+        Logger.getInstance().info("Update " + status);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.update(status);

@@ -16,7 +16,7 @@ import java.util.List;
 public class ProjectDaoImpl implements ProjectDao {
     @Override
     public long create(Project project) {
-        Logger.getInstance().info("Create Project: " + project.toString());
+        Logger.getInstance().info("Create " + project);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             long id = (long) session.save(project);
@@ -35,7 +35,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
     @Override
     public List<Project> find(Project project) {
-        Logger.getInstance().info("Find Project: " + project.toString());
+        Logger.getInstance().info("Find " + project);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Project> criteria = builder.createQuery(Project.class);
@@ -69,7 +69,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
     @Override
     public void update(Project project) {
-        Logger.getInstance().info("Update Project: " + project.toString());
+        Logger.getInstance().info("Update " + project);
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.update(project);

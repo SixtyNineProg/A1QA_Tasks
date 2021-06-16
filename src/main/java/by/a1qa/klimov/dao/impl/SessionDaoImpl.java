@@ -15,7 +15,7 @@ import java.util.List;
 public class SessionDaoImpl implements SessionDao {
     @Override
     public long create(Session session) {
-        Logger.getInstance().info("Create Session: " + session.toString());
+        Logger.getInstance().info("Create " + session);
         try (org.hibernate.Session hibernateSession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             hibernateSession.beginTransaction();
             long id = (long) hibernateSession.save(session);
@@ -34,7 +34,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public List<Session> find(Session session) {
-        Logger.getInstance().info("Find Session: " + session.toString());
+        Logger.getInstance().info("Find " + session);
         try (org.hibernate.Session hibernateSession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = hibernateSession.getCriteriaBuilder();
             CriteriaQuery<Session> criteria = builder.createQuery(Session.class);
@@ -55,7 +55,7 @@ public class SessionDaoImpl implements SessionDao {
 
     @Override
     public void update(Session session) {
-        Logger.getInstance().info("Update Session: " + session.toString());
+        Logger.getInstance().info("Update " + session);
         try (org.hibernate.Session hibernateSession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             hibernateSession.beginTransaction();
             hibernateSession.update(session);

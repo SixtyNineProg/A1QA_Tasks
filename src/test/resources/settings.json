@@ -1,4 +1,10 @@
 {
+  "sessionKey": 100000000007,
+  "buildNumber": 1007,
+  "projectName": "jsonplaceholderTest",
+  "authorName": "Dmitry",
+  "authorLogin": "SixtyNineProg",
+  "authorEmail": "dima@mail",
   "url": "https://jsonplaceholder.typicode.com/",
   "browserName": "chrome",
   "isRemote": false,

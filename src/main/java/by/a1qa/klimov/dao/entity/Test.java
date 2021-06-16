@@ -18,13 +18,13 @@ public class Test {
     private Long id;
     private String name;
     @Column(name = "status_id")
-    private Integer statusId;
+    private Long statusId;
     @Column(name = "method_name")
     private String methodName;
     @Column(name = "project_id")
-    private Integer projectId;
+    private Long projectId;
     @Column(name = "session_id")
-    private Integer sessionId;
+    private Long sessionId;
     @Column(name = "start_time")
     private Timestamp startTime;
     @Column(name = "end_time")
@@ -32,5 +32,5 @@ public class Test {
     private String env;
     private String browser;
     @Column(name = "author_id")
-    private Integer authorId;
+    private Long authorId;
 }
