@@ -3,7 +3,8 @@ package by.a1qa.klimov.dao.impl;
 import aquality.selenium.core.logging.Logger;
 import by.a1qa.klimov.dao.entity.Test;
 import by.a1qa.klimov.dao.interfaces.TestDao;
-import by.a1qa.klimov.dao.util.HibernateSessionFactoryUtil;
+import by.a1qa.klimov.dao.utils.HibernateSessionFactoryUtil;
+import by.a1qa.klimov.properties.DataProperties;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -79,6 +80,24 @@ public class TestDaoImpl implements TestDao {
             session.beginTransaction();
             session.delete(session.load(Test.class, id));
             session.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public List<Test> readByIdPattern(String pattern) {
+        Logger.getInstance().info("Read by id with pattern " + pattern);
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Test> criteria = builder.createQuery(Test.class);
+            Root<Test> myObjectRoot = criteria.from(Test.class);
+
+            Predicate predicate = builder.like(myObjectRoot.get("id").as(String.class), pattern);
+
+            criteria.select(myObjectRoot).where(predicate);
+
+            TypedQuery<Test> query = session.createQuery(criteria).setMaxResults(
+                    Integer.parseInt(DataProperties.getDataPropertyByKey("maxNumRecordsInTestTable")));
+            return query.getResultList();
         }
     }
 }

@@ -7,7 +7,7 @@ import org.testng.ITestResult;
 
 import java.sql.Timestamp;
 
-public class BaseTestDao {
+public class ServiceTestDao {
     private final JsonSettingsFile jsonSettingsFile = new JsonSettingsFile("settings.json");
 
     private final StatusService statusService = new StatusService();

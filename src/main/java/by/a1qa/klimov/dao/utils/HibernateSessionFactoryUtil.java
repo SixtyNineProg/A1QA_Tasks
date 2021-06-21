@@ -1,4 +1,4 @@
-package by.a1qa.klimov.dao.util;
+package by.a1qa.klimov.dao.utils;
 
 import by.a1qa.klimov.dao.entity.*;
 import lombok.NoArgsConstructor;

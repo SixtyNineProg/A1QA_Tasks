@@ -24,4 +24,12 @@ public class TestService {
             return testList.get(0).getId();
         } else return 0;
     }
+
+    public List<Test> readByIdWithPattern(String pattern) {
+        return testDao.readByIdPattern(pattern);
+    }
+
+    public void save(List<Test> tests) {
+        tests.forEach(test -> testDao.create(test));
+    }
 }

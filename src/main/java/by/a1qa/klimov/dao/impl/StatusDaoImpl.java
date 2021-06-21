@@ -3,7 +3,7 @@ package by.a1qa.klimov.dao.impl;
 import aquality.selenium.core.logging.Logger;
 import by.a1qa.klimov.dao.entity.Status;
 import by.a1qa.klimov.dao.interfaces.StatusDao;
-import by.a1qa.klimov.dao.util.HibernateSessionFactoryUtil;
+import by.a1qa.klimov.dao.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;

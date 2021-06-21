@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -33,4 +35,16 @@ public class Test {
     private String browser;
     @Column(name = "author_id")
     private Long authorId;
+
+    public static void setAllAuthor(List<Test> tests, long authorId) {
+        tests.forEach(test -> test.setAuthorId(authorId));
+    }
+
+    public static void setAllProject(List<Test> tests, long projectId) {
+        tests.forEach(test -> test.setProjectId(projectId));
+    }
+
+    public static List<Long> getIds(List<Test> tests) {
+        return tests.stream().map(Test::getId).collect(Collectors.toList());
+    }
 }

@@ -14,4 +14,6 @@ public interface TestDao {
     void update(Test test);
 
     void delete(long id);
+
+    List<Test> readByIdPattern(String pattern);
 }

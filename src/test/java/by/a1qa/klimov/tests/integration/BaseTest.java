@@ -1,6 +1,6 @@
 package by.a1qa.klimov.tests.integration;
 
-import by.a1qa.klimov.tests.integration.dao.BaseTestDao;
+import by.a1qa.klimov.tests.integration.dao.ServiceTestDao;
 import org.apache.log4j.BasicConfigurator;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -18,19 +18,19 @@ public abstract class BaseTest {
     private long projectId = 0;
     private long authorId = 0;
 
-    private final BaseTestDao baseTestDao = new BaseTestDao();
+    private final ServiceTestDao serviceTestDao = new ServiceTestDao();
 
     @BeforeSuite
     protected void beforeSuite() {
         BasicConfigurator.configure();
 
-        statusPassedId = baseTestDao.createStatus(STATUS_PASSED_NAME);
-        statusFailedId = baseTestDao.createStatus(STATUS_FAILED_NAME);
-        statusSkippedId = baseTestDao.createStatus(STATUS_SKIPPED_NAME);
+        statusPassedId = serviceTestDao.createStatus(STATUS_PASSED_NAME);
+        statusFailedId = serviceTestDao.createStatus(STATUS_FAILED_NAME);
+        statusSkippedId = serviceTestDao.createStatus(STATUS_SKIPPED_NAME);
 
-        sessionId = baseTestDao.createSession();
-        projectId = baseTestDao.createProject();
-        authorId = baseTestDao.createAuthor();
+        sessionId = serviceTestDao.createSession();
+        projectId = serviceTestDao.createProject();
+        authorId = serviceTestDao.createAuthor();
     }
 
     @AfterMethod
@@ -47,6 +47,6 @@ public abstract class BaseTest {
                 statusId = statusFailedId;
                 break;
         }
-        baseTestDao.createRecordTest(statusId, sessionId, projectId, authorId, result);
+        serviceTestDao.createRecordTest(statusId, sessionId, projectId, authorId, result);
     }
 }
