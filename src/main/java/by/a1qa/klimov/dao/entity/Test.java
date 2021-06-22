@@ -47,4 +47,36 @@ public class Test {
     public static List<Long> getIds(List<Test> tests) {
         return tests.stream().map(Test::getId).collect(Collectors.toList());
     }
+
+    public static Test searchTestWithMaxDuration(List<Test> tests) {
+        int index = 0;
+        Test initTest = tests.get(index);
+        long maxDuration = initTest.getEndTime().getTime() - initTest.getStartTime().getTime();
+
+        for (int i = 0; i < tests.size(); i++) {
+            Test test = tests.get(i);
+            long time = test.getEndTime().getTime() - test.getStartTime().getTime();
+            if (time > maxDuration) {
+                maxDuration = time;
+                index = i;
+            }
+        }
+        return tests.get(index);
+    }
+
+    public static Test searchTestWithMinDuration(List<Test> tests) {
+        int index = 0;
+        Test initTest = tests.get(index);
+        long minDuration = initTest.getEndTime().getTime() - initTest.getStartTime().getTime();
+
+        for (int i = 0; i < tests.size(); i++) {
+            Test test = tests.get(i);
+            long time = test.getEndTime().getTime() - test.getStartTime().getTime();
+            if (time < minDuration) {
+                minDuration = time;
+                index = i;
+            }
+        }
+        return tests.get(index);
+    }
 }
