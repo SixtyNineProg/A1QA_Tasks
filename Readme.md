@@ -1,4 +1,4 @@
-# Test API https://jsonplaceholder.typicode.com/
+# Test API https://vk.com/
 
 ## Build tool
 This project uses such build tool as maven.
